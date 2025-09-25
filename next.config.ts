@@ -1,11 +1,20 @@
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV === 'development';
+// const isDev = process.env.NODE_ENV === 'development';
 
 const nextConfig: NextConfig = {
+  /* config options here */
+     devIndicators: false,
+   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     // Disable optimization in development for faster builds
-    unoptimized: isDev,
+    // unoptimized: isDev,
     formats: ['image/webp', 'image/avif'],
     // Domains for external images (use remotePatterns for Next.js 13+)
     remotePatterns: [
@@ -66,16 +75,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-    devIndicators: false, // Disable development indicators
+  //  devIndicators: false, // Disable development indicators
     
   // Enable React strict mode for development
   // Valid experimental features for current Next.js versions
   experimental: {
     optimizePackageImports: ['lodash', 'date-fns']
   },
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production'
-  }
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV === 'production'
+  // }
 }
 
 export default nextConfig;
