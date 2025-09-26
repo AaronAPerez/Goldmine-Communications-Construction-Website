@@ -9,6 +9,8 @@
 
 A comprehensive digital platform for Goldmine Communications & Construction, featuring a professional website with automated social media management, project showcases, and lead generation capabilities.
 
+(/public/images/Goldmine-Hero.jpg)
+
 ## 🌟 Features
 
 ### **Professional Website**
