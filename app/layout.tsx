@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
@@ -7,6 +8,11 @@ import FloatingNavigation from '../components/Navigation/FloatingNavigation';
 import Footer from '../components/Footer/Footer';
 import { Analytics } from "@vercel/analytics/react";
 import { ScrollToTop } from '../components/Navigation/ScrollToTop';
+import { auth } from '@/lib/auth';
+import SessionProvider from '@/components/providers/SessionProvider';
+
+
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -41,11 +47,13 @@ export const viewport = {
 };
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+   const session = await auth();
+
   return (
     <html lang="en" className="scroll-smooth">
       <meta
@@ -69,6 +77,7 @@ export default function RootLayout({
         /> */}
       </head>
       <body className={`${inter.className} overflow-x-hidden`}>
+      <SessionProvider session={session}>
         {/* Skip link for accessibility */}
         <a
           href="#main-content"
@@ -110,6 +119,7 @@ export default function RootLayout({
           {/* Scroll to top button */}
           <ScrollToTop />
         </div>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -91,7 +91,7 @@ export default function FloatingNavigation() {
                         group flex items-center gap-2
                         text-shadow hover:text-shadow-lg
                         ${isActive 
-                          ? 'text-[#B3995D] font-semibold' 
+                          ? 'text-[#B3995D] font-semibold round' 
                           : 'text-white hover:text-[#B3995D]'
                         }
                       `}
