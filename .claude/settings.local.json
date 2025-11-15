@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(openssl rand:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs:*)",
+      "Bash(npx prisma format:*)",
+      "Bash(npx prisma migrate:*)",
+      "Bash(set PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION=yes, proceed with this database operation.)",
+      "Bash(npx prisma db push:*)",
+      "Bash(npx prisma generate)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

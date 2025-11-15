@@ -1,5 +1,4 @@
 import SocialMediaDashboard from '@/components/admin/SocialMediaDashboard';
-import UpdatedSocialMediaTestRunner from '@/components/admin/UpdatedSocialMediaTestRunner';
 import { Metadata } from 'next';
 
 

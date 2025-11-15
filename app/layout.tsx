@@ -17,6 +17,7 @@ import SessionProvider from '@/components/providers/SessionProvider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://goldminecomm.net'),
   title: 'Goldmine Communications & Construction',
   description: 'Leading provider of communications and construction solutions in Northern California',
   keywords: 'communications, construction, fiber optics, network infrastructure, commercial construction',
@@ -52,7 +53,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-   const session = await auth();
+  const session = await auth();
 
   return (
     <html lang="en" className="scroll-smooth">
@@ -77,7 +78,7 @@ export default async function RootLayout({
         /> */}
       </head>
       <body className={`${inter.className} overflow-x-hidden`}>
-      <SessionProvider session={session}>
+
         {/* Skip link for accessibility */}
         <a
           href="#main-content"
@@ -105,7 +106,9 @@ export default async function RootLayout({
             className="flex-grow w-full max-w-full overflow-x-hidden md:mt-4"
           >
             <div className="w-full max-w-full">
-              {children}
+              <SessionProvider session={session}>
+                {children}
+              </SessionProvider>
             </div>
             <Analytics />
             <SpeedInsights />
@@ -119,7 +122,7 @@ export default async function RootLayout({
           {/* Scroll to top button */}
           <ScrollToTop />
         </div>
-        </SessionProvider>
+
       </body>
     </html>
   );

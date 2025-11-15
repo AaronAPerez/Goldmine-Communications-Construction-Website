@@ -137,6 +137,227 @@ export type Database = {
           },
         ]
       }
+      analytics: {
+        Row: {
+          createdAt: string
+          id: string
+          metadata: Json | null
+          metric: string
+          timestamp: string
+          type: Database["public"]["Enums"]["AnalyticsType"]
+          value: number
+        }
+        Insert: {
+          createdAt?: string
+          id: string
+          metadata?: Json | null
+          metric: string
+          timestamp: string
+          type: Database["public"]["Enums"]["AnalyticsType"]
+          value: number
+        }
+        Update: {
+          createdAt?: string
+          id?: string
+          metadata?: Json | null
+          metric?: string
+          timestamp?: string
+          type?: Database["public"]["Enums"]["AnalyticsType"]
+          value?: number
+        }
+        Relationships: []
+      }
+      blog_categories: {
+        Row: {
+          createdAt: string
+          id: string
+          name: string
+          postId: string
+          slug: string
+        }
+        Insert: {
+          createdAt?: string
+          id: string
+          name: string
+          postId: string
+          slug: string
+        }
+        Update: {
+          createdAt?: string
+          id?: string
+          name?: string
+          postId?: string
+          slug?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_categories_postId_fkey"
+            columns: ["postId"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      blog_posts: {
+        Row: {
+          authorId: string
+          content: string
+          createdAt: string
+          excerpt: string | null
+          featuredImage: string | null
+          id: string
+          publishedAt: string | null
+          seoDescription: string | null
+          seoTitle: string | null
+          slug: string
+          status: Database["public"]["Enums"]["ContentStatus"]
+          title: string
+          updatedAt: string
+          views: number
+        }
+        Insert: {
+          authorId: string
+          content: string
+          createdAt?: string
+          excerpt?: string | null
+          featuredImage?: string | null
+          id: string
+          publishedAt?: string | null
+          seoDescription?: string | null
+          seoTitle?: string | null
+          slug: string
+          status?: Database["public"]["Enums"]["ContentStatus"]
+          title: string
+          updatedAt: string
+          views?: number
+        }
+        Update: {
+          authorId?: string
+          content?: string
+          createdAt?: string
+          excerpt?: string | null
+          featuredImage?: string | null
+          id?: string
+          publishedAt?: string | null
+          seoDescription?: string | null
+          seoTitle?: string | null
+          slug?: string
+          status?: Database["public"]["Enums"]["ContentStatus"]
+          title?: string
+          updatedAt?: string
+          views?: number
+        }
+        Relationships: []
+      }
+      blog_tags: {
+        Row: {
+          createdAt: string
+          id: string
+          name: string
+          postId: string
+          slug: string
+        }
+        Insert: {
+          createdAt?: string
+          id: string
+          name: string
+          postId: string
+          slug: string
+        }
+        Update: {
+          createdAt?: string
+          id?: string
+          name?: string
+          postId?: string
+          slug?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_tags_postId_fkey"
+            columns: ["postId"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      budget_allocations: {
+        Row: {
+          allocated: number
+          budgetId: string
+          category: Database["public"]["Enums"]["ExpenseCategory"]
+          createdAt: string
+          id: string
+          remaining: number
+          spent: number
+          updatedAt: string
+        }
+        Insert: {
+          allocated: number
+          budgetId: string
+          category: Database["public"]["Enums"]["ExpenseCategory"]
+          createdAt?: string
+          id: string
+          remaining: number
+          spent?: number
+          updatedAt: string
+        }
+        Update: {
+          allocated?: number
+          budgetId?: string
+          category?: Database["public"]["Enums"]["ExpenseCategory"]
+          createdAt?: string
+          id?: string
+          remaining?: number
+          spent?: number
+          updatedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budget_allocations_budgetId_fkey"
+            columns: ["budgetId"]
+            isOneToOne: false
+            referencedRelation: "budgets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      budgets: {
+        Row: {
+          createdAt: string
+          id: string
+          profitMargin: number | null
+          projectId: string
+          totalBudget: number
+          updatedAt: string
+        }
+        Insert: {
+          createdAt?: string
+          id: string
+          profitMargin?: number | null
+          projectId: string
+          totalBudget: number
+          updatedAt: string
+        }
+        Update: {
+          createdAt?: string
+          id?: string
+          profitMargin?: number | null
+          projectId?: string
+          totalBudget?: number
+          updatedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budgets_projectId_fkey"
+            columns: ["projectId"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       certifications: {
         Row: {
           category: Database["public"]["Enums"]["ProjectCategory"] | null
@@ -263,6 +484,98 @@ export type Database = {
           },
         ]
       }
+      communications: {
+        Row: {
+          content: string
+          id: string
+          leadId: string
+          sentAt: string
+          sentBy: string
+          subject: string | null
+          type: Database["public"]["Enums"]["CommunicationType"]
+        }
+        Insert: {
+          content: string
+          id: string
+          leadId: string
+          sentAt?: string
+          sentBy: string
+          subject?: string | null
+          type: Database["public"]["Enums"]["CommunicationType"]
+        }
+        Update: {
+          content?: string
+          id?: string
+          leadId?: string
+          sentAt?: string
+          sentBy?: string
+          subject?: string | null
+          type?: Database["public"]["Enums"]["CommunicationType"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "communications_leadId_fkey"
+            columns: ["leadId"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_pages: {
+        Row: {
+          active: boolean
+          category: Database["public"]["Enums"]["ProjectCategory"]
+          content: string
+          createdAt: string
+          description: string | null
+          features: string[] | null
+          icon: string | null
+          id: string
+          image: string | null
+          order: number
+          seoDescription: string | null
+          seoTitle: string | null
+          slug: string
+          title: string
+          updatedAt: string
+        }
+        Insert: {
+          active?: boolean
+          category: Database["public"]["Enums"]["ProjectCategory"]
+          content: string
+          createdAt?: string
+          description?: string | null
+          features?: string[] | null
+          icon?: string | null
+          id: string
+          image?: string | null
+          order?: number
+          seoDescription?: string | null
+          seoTitle?: string | null
+          slug: string
+          title: string
+          updatedAt: string
+        }
+        Update: {
+          active?: boolean
+          category?: Database["public"]["Enums"]["ProjectCategory"]
+          content?: string
+          createdAt?: string
+          description?: string | null
+          features?: string[] | null
+          icon?: string | null
+          id?: string
+          image?: string | null
+          order?: number
+          seoDescription?: string | null
+          seoTitle?: string | null
+          slug?: string
+          title?: string
+          updatedAt?: string
+        }
+        Relationships: []
+      }
       equipment: {
         Row: {
           category: string | null
@@ -298,6 +611,252 @@ export type Database = {
           updatedAt?: string
         }
         Relationships: []
+      }
+      equipment_usage: {
+        Row: {
+          createdAt: string
+          endDate: string | null
+          equipmentId: string
+          hours: number | null
+          id: string
+          notes: string | null
+          operatorId: string | null
+          projectId: string
+          startDate: string
+        }
+        Insert: {
+          createdAt?: string
+          endDate?: string | null
+          equipmentId: string
+          hours?: number | null
+          id: string
+          notes?: string | null
+          operatorId?: string | null
+          projectId: string
+          startDate: string
+        }
+        Update: {
+          createdAt?: string
+          endDate?: string | null
+          equipmentId?: string
+          hours?: number | null
+          id?: string
+          notes?: string | null
+          operatorId?: string | null
+          projectId?: string
+          startDate?: string
+        }
+        Relationships: []
+      }
+      expenses: {
+        Row: {
+          amount: number
+          approved: boolean
+          approvedAt: string | null
+          approvedBy: string | null
+          budgetId: string
+          category: Database["public"]["Enums"]["ExpenseCategory"]
+          createdAt: string
+          date: string
+          description: string
+          id: string
+          receipt: string | null
+          updatedAt: string
+          vendor: string | null
+        }
+        Insert: {
+          amount: number
+          approved?: boolean
+          approvedAt?: string | null
+          approvedBy?: string | null
+          budgetId: string
+          category: Database["public"]["Enums"]["ExpenseCategory"]
+          createdAt?: string
+          date: string
+          description: string
+          id: string
+          receipt?: string | null
+          updatedAt: string
+          vendor?: string | null
+        }
+        Update: {
+          amount?: number
+          approved?: boolean
+          approvedAt?: string | null
+          approvedBy?: string | null
+          budgetId?: string
+          category?: Database["public"]["Enums"]["ExpenseCategory"]
+          createdAt?: string
+          date?: string
+          description?: string
+          id?: string
+          receipt?: string | null
+          updatedAt?: string
+          vendor?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expenses_budgetId_fkey"
+            columns: ["budgetId"]
+            isOneToOne: false
+            referencedRelation: "budgets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoices: {
+        Row: {
+          amount: number
+          budgetId: string
+          createdAt: string
+          dueDate: string | null
+          id: string
+          invoiceNumber: string
+          issuedDate: string | null
+          notes: string | null
+          paidDate: string | null
+          pdfUrl: string | null
+          status: Database["public"]["Enums"]["InvoiceStatus"]
+          updatedAt: string
+        }
+        Insert: {
+          amount: number
+          budgetId: string
+          createdAt?: string
+          dueDate?: string | null
+          id: string
+          invoiceNumber: string
+          issuedDate?: string | null
+          notes?: string | null
+          paidDate?: string | null
+          pdfUrl?: string | null
+          status?: Database["public"]["Enums"]["InvoiceStatus"]
+          updatedAt: string
+        }
+        Update: {
+          amount?: number
+          budgetId?: string
+          createdAt?: string
+          dueDate?: string | null
+          id?: string
+          invoiceNumber?: string
+          issuedDate?: string | null
+          notes?: string | null
+          paidDate?: string | null
+          pdfUrl?: string | null
+          status?: Database["public"]["Enums"]["InvoiceStatus"]
+          updatedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_budgetId_fkey"
+            columns: ["budgetId"]
+            isOneToOne: false
+            referencedRelation: "budgets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leads: {
+        Row: {
+          address: Json | null
+          assignedTo: string | null
+          companyName: string | null
+          createdAt: string
+          email: string
+          firstName: string
+          id: string
+          lastName: string
+          lifetimeValue: number
+          phone: string
+          source: Database["public"]["Enums"]["LeadSource"]
+          status: Database["public"]["Enums"]["LeadStatus"]
+          type: Database["public"]["Enums"]["ClientType"]
+          updatedAt: string
+        }
+        Insert: {
+          address?: Json | null
+          assignedTo?: string | null
+          companyName?: string | null
+          createdAt?: string
+          email: string
+          firstName: string
+          id: string
+          lastName: string
+          lifetimeValue?: number
+          phone: string
+          source?: Database["public"]["Enums"]["LeadSource"]
+          status?: Database["public"]["Enums"]["LeadStatus"]
+          type?: Database["public"]["Enums"]["ClientType"]
+          updatedAt: string
+        }
+        Update: {
+          address?: Json | null
+          assignedTo?: string | null
+          companyName?: string | null
+          createdAt?: string
+          email?: string
+          firstName?: string
+          id?: string
+          lastName?: string
+          lifetimeValue?: number
+          phone?: string
+          source?: Database["public"]["Enums"]["LeadSource"]
+          status?: Database["public"]["Enums"]["LeadStatus"]
+          type?: Database["public"]["Enums"]["ClientType"]
+          updatedAt?: string
+        }
+        Relationships: []
+      }
+      maintenance_records: {
+        Row: {
+          cost: number | null
+          createdAt: string
+          description: string
+          documentUrl: string | null
+          equipmentId: string
+          id: string
+          nextDueDate: string | null
+          performedAt: string
+          performedBy: string | null
+          type: Database["public"]["Enums"]["MaintenanceType"]
+          updatedAt: string
+        }
+        Insert: {
+          cost?: number | null
+          createdAt?: string
+          description: string
+          documentUrl?: string | null
+          equipmentId: string
+          id: string
+          nextDueDate?: string | null
+          performedAt: string
+          performedBy?: string | null
+          type: Database["public"]["Enums"]["MaintenanceType"]
+          updatedAt: string
+        }
+        Update: {
+          cost?: number | null
+          createdAt?: string
+          description?: string
+          documentUrl?: string | null
+          equipmentId?: string
+          id?: string
+          nextDueDate?: string | null
+          performedAt?: string
+          performedBy?: string | null
+          type?: Database["public"]["Enums"]["MaintenanceType"]
+          updatedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "maintenance_records_equipmentId_fkey"
+            columns: ["equipmentId"]
+            isOneToOne: false
+            referencedRelation: "equipment"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       milestones: {
         Row: {
@@ -352,6 +911,41 @@ export type Database = {
             columns: ["projectId"]
             isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notes: {
+        Row: {
+          content: string
+          createdAt: string
+          createdBy: string
+          id: string
+          leadId: string
+          updatedAt: string
+        }
+        Insert: {
+          content: string
+          createdAt?: string
+          createdBy: string
+          id: string
+          leadId: string
+          updatedAt: string
+        }
+        Update: {
+          content?: string
+          createdAt?: string
+          createdBy?: string
+          id?: string
+          leadId?: string
+          updatedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notes_leadId_fkey"
+            columns: ["leadId"]
+            isOneToOne: false
+            referencedRelation: "leads"
             referencedColumns: ["id"]
           },
         ]
@@ -800,6 +1394,148 @@ export type Database = {
           },
         ]
       }
+      quote_line_items: {
+        Row: {
+          description: string
+          id: string
+          order: number
+          quantity: number
+          quoteId: string
+          total: number
+          unitPrice: number
+        }
+        Insert: {
+          description: string
+          id: string
+          order?: number
+          quantity: number
+          quoteId: string
+          total: number
+          unitPrice: number
+        }
+        Update: {
+          description?: string
+          id?: string
+          order?: number
+          quantity?: number
+          quoteId?: string
+          total?: number
+          unitPrice?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_line_items_quoteId_fkey"
+            columns: ["quoteId"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quotes: {
+        Row: {
+          createdAt: string
+          createdBy: string
+          description: string
+          id: string
+          leadId: string
+          pdfUrl: string | null
+          signedAt: string | null
+          status: Database["public"]["Enums"]["QuoteStatus"]
+          subtotal: number
+          tax: number
+          title: string
+          total: number
+          updatedAt: string
+          validUntil: string
+        }
+        Insert: {
+          createdAt?: string
+          createdBy: string
+          description: string
+          id: string
+          leadId: string
+          pdfUrl?: string | null
+          signedAt?: string | null
+          status?: Database["public"]["Enums"]["QuoteStatus"]
+          subtotal: number
+          tax: number
+          title: string
+          total: number
+          updatedAt: string
+          validUntil: string
+        }
+        Update: {
+          createdAt?: string
+          createdBy?: string
+          description?: string
+          id?: string
+          leadId?: string
+          pdfUrl?: string | null
+          signedAt?: string | null
+          status?: Database["public"]["Enums"]["QuoteStatus"]
+          subtotal?: number
+          tax?: number
+          title?: string
+          total?: number
+          updatedAt?: string
+          validUntil?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quotes_leadId_fkey"
+            columns: ["leadId"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reports: {
+        Row: {
+          active: boolean
+          config: Json
+          createdAt: string
+          createdBy: string
+          id: string
+          lastRun: string | null
+          name: string
+          nextRun: string | null
+          recipients: string[] | null
+          schedule: string | null
+          type: Database["public"]["Enums"]["ReportType"]
+          updatedAt: string
+        }
+        Insert: {
+          active?: boolean
+          config: Json
+          createdAt?: string
+          createdBy: string
+          id: string
+          lastRun?: string | null
+          name: string
+          nextRun?: string | null
+          recipients?: string[] | null
+          schedule?: string | null
+          type: Database["public"]["Enums"]["ReportType"]
+          updatedAt: string
+        }
+        Update: {
+          active?: boolean
+          config?: Json
+          createdAt?: string
+          createdBy?: string
+          id?: string
+          lastRun?: string | null
+          name?: string
+          nextRun?: string | null
+          recipients?: string[] | null
+          schedule?: string | null
+          type?: Database["public"]["Enums"]["ReportType"]
+          updatedAt?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           category: Database["public"]["Enums"]["ProjectCategory"]
@@ -861,6 +1597,145 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      social_analytics: {
+        Row: {
+          clicks: number
+          comments: number
+          engagement: number
+          id: string
+          impressions: number
+          likes: number
+          postId: string
+          reach: number
+          shares: number
+          updatedAt: string
+        }
+        Insert: {
+          clicks?: number
+          comments?: number
+          engagement?: number
+          id: string
+          impressions?: number
+          likes?: number
+          postId: string
+          reach?: number
+          shares?: number
+          updatedAt: string
+        }
+        Update: {
+          clicks?: number
+          comments?: number
+          engagement?: number
+          id?: string
+          impressions?: number
+          likes?: number
+          postId?: string
+          reach?: number
+          shares?: number
+          updatedAt?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_analytics_postId_fkey"
+            columns: ["postId"]
+            isOneToOne: false
+            referencedRelation: "social_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_media: {
+        Row: {
+          altText: string | null
+          createdAt: string
+          id: string
+          order: number
+          postId: string
+          type: Database["public"]["Enums"]["MediaType"]
+          url: string
+        }
+        Insert: {
+          altText?: string | null
+          createdAt?: string
+          id: string
+          order?: number
+          postId: string
+          type: Database["public"]["Enums"]["MediaType"]
+          url: string
+        }
+        Update: {
+          altText?: string | null
+          createdAt?: string
+          id?: string
+          order?: number
+          postId?: string
+          type?: Database["public"]["Enums"]["MediaType"]
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_media_postId_fkey"
+            columns: ["postId"]
+            isOneToOne: false
+            referencedRelation: "social_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_posts: {
+        Row: {
+          content: string
+          createdAt: string
+          createdBy: string
+          facebookPostId: string | null
+          hashtags: string[] | null
+          id: string
+          instagramPostId: string | null
+          linkedinPostId: string | null
+          platforms: Database["public"]["Enums"]["Platform"][] | null
+          projectId: string | null
+          publishedAt: string | null
+          scheduledFor: string | null
+          status: Database["public"]["Enums"]["PostStatus"]
+          twitterPostId: string | null
+          updatedAt: string
+        }
+        Insert: {
+          content: string
+          createdAt?: string
+          createdBy: string
+          facebookPostId?: string | null
+          hashtags?: string[] | null
+          id: string
+          instagramPostId?: string | null
+          linkedinPostId?: string | null
+          platforms?: Database["public"]["Enums"]["Platform"][] | null
+          projectId?: string | null
+          publishedAt?: string | null
+          scheduledFor?: string | null
+          status?: Database["public"]["Enums"]["PostStatus"]
+          twitterPostId?: string | null
+          updatedAt: string
+        }
+        Update: {
+          content?: string
+          createdAt?: string
+          createdBy?: string
+          facebookPostId?: string | null
+          hashtags?: string[] | null
+          id?: string
+          instagramPostId?: string | null
+          linkedinPostId?: string | null
+          platforms?: Database["public"]["Enums"]["Platform"][] | null
+          projectId?: string | null
+          publishedAt?: string | null
+          scheduledFor?: string | null
+          status?: Database["public"]["Enums"]["PostStatus"]
+          twitterPostId?: string | null
+          updatedAt?: string
+        }
+        Relationships: []
       }
       tags: {
         Row: {
@@ -937,6 +1812,54 @@ export type Database = {
           },
         ]
       }
+      testimonials: {
+        Row: {
+          approved: boolean
+          clientName: string
+          clientTitle: string | null
+          company: string | null
+          content: string
+          createdAt: string
+          featured: boolean
+          id: string
+          photo: string | null
+          platforms: string[] | null
+          projectId: string | null
+          rating: number
+          updatedAt: string
+        }
+        Insert: {
+          approved?: boolean
+          clientName: string
+          clientTitle?: string | null
+          company?: string | null
+          content: string
+          createdAt?: string
+          featured?: boolean
+          id: string
+          photo?: string | null
+          platforms?: string[] | null
+          projectId?: string | null
+          rating?: number
+          updatedAt: string
+        }
+        Update: {
+          approved?: boolean
+          clientName?: string
+          clientTitle?: string | null
+          company?: string | null
+          content?: string
+          createdAt?: string
+          featured?: boolean
+          id?: string
+          photo?: string | null
+          platforms?: string[] | null
+          projectId?: string | null
+          rating?: number
+          updatedAt?: string
+        }
+        Relationships: []
+      }
       users: {
         Row: {
           active: boolean
@@ -1008,7 +1931,17 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      AnalyticsType:
+        | "WEBSITE_TRAFFIC"
+        | "LEAD_CONVERSION"
+        | "PROJECT_COMPLETION"
+        | "REVENUE"
+        | "SOCIAL_ENGAGEMENT"
+        | "MARKETING_CAMPAIGN"
       ClientStatus: "ACTIVE" | "INACTIVE" | "PROSPECT"
+      ClientType: "RESIDENTIAL" | "COMMERCIAL" | "GOVERNMENT" | "INDUSTRIAL"
+      CommunicationType: "EMAIL" | "PHONE" | "SMS" | "MEETING" | "NOTE"
+      ContentStatus: "DRAFT" | "PUBLISHED" | "ARCHIVED"
       DocumentCategory:
         | "CONTRACT"
         | "PLAN"
@@ -1020,6 +1953,34 @@ export type Database = {
         | "PERMIT"
         | "CERTIFICATION"
         | "OTHER"
+      ExpenseCategory:
+        | "LABOR"
+        | "MATERIALS"
+        | "EQUIPMENT"
+        | "SUBCONTRACTORS"
+        | "PERMITS"
+        | "INSURANCE"
+        | "OVERHEAD"
+        | "OTHER"
+      InvoiceStatus: "DRAFT" | "SENT" | "PAID" | "OVERDUE" | "CANCELLED"
+      LeadSource:
+        | "WEBSITE"
+        | "REFERRAL"
+        | "SOCIAL_MEDIA"
+        | "COLD_OUTREACH"
+        | "REPEAT_CLIENT"
+        | "ADVERTISEMENT"
+        | "OTHER"
+      LeadStatus:
+        | "NEW"
+        | "CONTACTED"
+        | "QUALIFIED"
+        | "PROPOSAL_SENT"
+        | "NEGOTIATION"
+        | "WON"
+        | "LOST"
+      MaintenanceType: "PREVENTIVE" | "REPAIR" | "INSPECTION" | "UPGRADE"
+      MediaType: "IMAGE" | "VIDEO" | "GIF"
       MilestoneStatus:
         | "PENDING"
         | "IN_PROGRESS"
@@ -1027,6 +1988,8 @@ export type Database = {
         | "OVERDUE"
         | "CANCELLED"
       PhaseStatus: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "DELAYED"
+      Platform: "FACEBOOK" | "INSTAGRAM" | "LINKEDIN" | "TWITTER"
+      PostStatus: "DRAFT" | "SCHEDULED" | "PUBLISHED" | "FAILED"
       Priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT"
       ProjectCategory: "COMMUNICATIONS" | "CONSTRUCTION" | "BOTH"
       ProjectStatus:
@@ -1037,6 +2000,19 @@ export type Database = {
         | "COMPLETED"
         | "ARCHIVED"
         | "CANCELLED"
+      QuoteStatus:
+        | "DRAFT"
+        | "SENT"
+        | "VIEWED"
+        | "ACCEPTED"
+        | "REJECTED"
+        | "EXPIRED"
+      ReportType:
+        | "PROJECT_SUMMARY"
+        | "FINANCIAL"
+        | "SOCIAL_MEDIA"
+        | "LEAD_PIPELINE"
+        | "CUSTOM"
       UserRole:
         | "SUPER_ADMIN"
         | "ADMIN"
@@ -1174,7 +2150,18 @@ export const Constants = {
   },
   public: {
     Enums: {
+      AnalyticsType: [
+        "WEBSITE_TRAFFIC",
+        "LEAD_CONVERSION",
+        "PROJECT_COMPLETION",
+        "REVENUE",
+        "SOCIAL_ENGAGEMENT",
+        "MARKETING_CAMPAIGN",
+      ],
       ClientStatus: ["ACTIVE", "INACTIVE", "PROSPECT"],
+      ClientType: ["RESIDENTIAL", "COMMERCIAL", "GOVERNMENT", "INDUSTRIAL"],
+      CommunicationType: ["EMAIL", "PHONE", "SMS", "MEETING", "NOTE"],
+      ContentStatus: ["DRAFT", "PUBLISHED", "ARCHIVED"],
       DocumentCategory: [
         "CONTRACT",
         "PLAN",
@@ -1187,6 +2174,37 @@ export const Constants = {
         "CERTIFICATION",
         "OTHER",
       ],
+      ExpenseCategory: [
+        "LABOR",
+        "MATERIALS",
+        "EQUIPMENT",
+        "SUBCONTRACTORS",
+        "PERMITS",
+        "INSURANCE",
+        "OVERHEAD",
+        "OTHER",
+      ],
+      InvoiceStatus: ["DRAFT", "SENT", "PAID", "OVERDUE", "CANCELLED"],
+      LeadSource: [
+        "WEBSITE",
+        "REFERRAL",
+        "SOCIAL_MEDIA",
+        "COLD_OUTREACH",
+        "REPEAT_CLIENT",
+        "ADVERTISEMENT",
+        "OTHER",
+      ],
+      LeadStatus: [
+        "NEW",
+        "CONTACTED",
+        "QUALIFIED",
+        "PROPOSAL_SENT",
+        "NEGOTIATION",
+        "WON",
+        "LOST",
+      ],
+      MaintenanceType: ["PREVENTIVE", "REPAIR", "INSPECTION", "UPGRADE"],
+      MediaType: ["IMAGE", "VIDEO", "GIF"],
       MilestoneStatus: [
         "PENDING",
         "IN_PROGRESS",
@@ -1195,6 +2213,8 @@ export const Constants = {
         "CANCELLED",
       ],
       PhaseStatus: ["PENDING", "IN_PROGRESS", "COMPLETED", "DELAYED"],
+      Platform: ["FACEBOOK", "INSTAGRAM", "LINKEDIN", "TWITTER"],
+      PostStatus: ["DRAFT", "SCHEDULED", "PUBLISHED", "FAILED"],
       Priority: ["LOW", "MEDIUM", "HIGH", "URGENT"],
       ProjectCategory: ["COMMUNICATIONS", "CONSTRUCTION", "BOTH"],
       ProjectStatus: [
@@ -1205,6 +2225,21 @@ export const Constants = {
         "COMPLETED",
         "ARCHIVED",
         "CANCELLED",
+      ],
+      QuoteStatus: [
+        "DRAFT",
+        "SENT",
+        "VIEWED",
+        "ACCEPTED",
+        "REJECTED",
+        "EXPIRED",
+      ],
+      ReportType: [
+        "PROJECT_SUMMARY",
+        "FINANCIAL",
+        "SOCIAL_MEDIA",
+        "LEAD_PIPELINE",
+        "CUSTOM",
       ],
       UserRole: [
         "SUPER_ADMIN",

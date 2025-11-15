@@ -184,6 +184,17 @@ const config: Config = {
   				'100%': {
   					transform: 'rotate(360deg)'
   				}
+  			},
+  			shake: {
+  				'0%, 100%': {
+  					transform: 'translateX(0)'
+  				},
+  				'10%, 30%, 50%, 70%, 90%': {
+  					transform: 'translateX(-4px)'
+  				},
+  				'20%, 40%, 60%, 80%': {
+  					transform: 'translateX(4px)'
+  				}
   			}
   		},
   		animation: {
@@ -194,7 +205,8 @@ const config: Config = {
   			'fade-down': 'fadeDown 0.5s ease-in-out',
   			'fade-left': 'fadeLeft 0.5s ease-in-out',
   			'fade-right': 'fadeRight 0.5s ease-in-out',
-  			'spin-slow': 'spin-slow 3s linear infinite'
+  			'spin-slow': 'spin-slow 3s linear infinite',
+  			shake: 'shake 0.5s ease-in-out'
   		},
   		transitionTimingFunction: {
   			'bounce-sm': 'cubic-bezier(0.28, 0.84, 0.42, 1)'

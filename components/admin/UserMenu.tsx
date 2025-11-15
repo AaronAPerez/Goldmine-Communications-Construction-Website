@@ -1,8 +1,7 @@
 'use client';
 
-import { LogOut } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
-
+import { LogOut, User, Settings } from 'lucide-react';
 
 export default function UserMenu() {
   const { data: session } = useSession();
