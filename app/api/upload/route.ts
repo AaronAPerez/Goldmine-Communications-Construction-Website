@@ -24,17 +24,22 @@ const ALLOWED_DOCUMENT_TYPES = [
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 ];
 
-// Initialize Supabase client with service role for admin operations
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  {
+// Helper function to create Supabase client with service role for admin operations
+function getSupabaseAdmin() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error("Missing Supabase environment variables");
+  }
+
+  return createClient(supabaseUrl, supabaseKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
     },
-  }
-);
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,6 +48,9 @@ export async function POST(request: NextRequest) {
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    // Initialize Supabase client
+    const supabase = getSupabaseAdmin();
 
     // Parse form data
     const formData = await request.formData();
