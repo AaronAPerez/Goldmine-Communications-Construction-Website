@@ -10,6 +10,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { ScrollToTop } from '../components/Navigation/ScrollToTop';
 import { auth } from '@/lib/auth';
 import SessionProvider from '@/components/providers/SessionProvider';
+import { headers } from 'next/headers';
 
 
 
@@ -54,6 +55,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
+  const headersList = await headers();
+  const pathname = headersList.get('x-pathname') || '';
+
+  // Check if we're in the admin area
+  const isAdminRoute = pathname.startsWith('/admin');
 
   return (
     <html lang="en" className="scroll-smooth">
@@ -80,48 +86,60 @@ export default async function RootLayout({
       <body className={`${inter.className} overflow-x-hidden`}>
 
         {/* Skip link for accessibility */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-20 focus:left-4 
-                     bg-gold-400 text-white px-4 py-2 rounded-lg z-[60]"
-        >
-          Skip to main content
-        </a>
-
-        {/* Layout structure with overflow fixes */}
-        <div className="min-h-screen flex flex-col overflow-x-hidden w-full max-w-full">
-          {/* Top contact bar - fixed width */}
-          <div className="w-full overflow-x-hidden">
-            <TopContactBar />
-          </div>
-
-          {/* Floating navigation - fixed width */}
-          <div className="w-full overflow-x-hidden">
-            <FloatingNavigation />
-          </div>
-
-          {/* Main content with proper constraints */}
-          <main
-            id="main-content"
-            className="flex-grow w-full max-w-full overflow-x-hidden md:mt-4"
+        {!isAdminRoute && (
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-20 focus:left-4
+                       bg-gold-400 text-white px-4 py-2 rounded-lg z-[60]"
           >
-            <div className="w-full max-w-full">
-              <SessionProvider session={session}>
-                {children}
-              </SessionProvider>
+            Skip to main content
+          </a>
+        )}
+
+        {/* Admin routes get a clean layout, public routes get full navigation */}
+        {isAdminRoute ? (
+          // Admin Layout - No public navigation components
+          <SessionProvider session={session}>
+            {children}
+          </SessionProvider>
+        ) : (
+          // Public Layout - Full navigation and footer
+          <div className="min-h-screen flex flex-col overflow-x-hidden w-full max-w-full">
+            {/* Top contact bar - fixed width */}
+            <div className="w-full overflow-x-hidden">
+              <TopContactBar />
             </div>
-            <Analytics />
-            <SpeedInsights />
-          </main>
 
-          {/* Footer with width constraints */}
-          <div className="w-full overflow-x-hidden">
-            <Footer />
+            {/* Floating navigation - fixed width */}
+            <div className="w-full overflow-x-hidden">
+              <FloatingNavigation />
+            </div>
+
+            {/* Main content with proper constraints */}
+            <main
+              id="main-content"
+              className="flex-grow w-full max-w-full overflow-x-hidden md:mt-4"
+            >
+              <div className="w-full max-w-full">
+                <SessionProvider session={session}>
+                  {children}
+                </SessionProvider>
+              </div>
+            </main>
+
+            {/* Footer with width constraints */}
+            <div className="w-full overflow-x-hidden">
+              <Footer />
+            </div>
+
+            {/* Scroll to top button */}
+            <ScrollToTop />
           </div>
+        )}
 
-          {/* Scroll to top button */}
-          <ScrollToTop />
-        </div>
+        {/* Analytics for all routes */}
+        <Analytics />
+        <SpeedInsights />
 
       </body>
     </html>

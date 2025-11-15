@@ -12,7 +12,9 @@ export default auth((req) => {
     if (isLoggedIn) {
       return NextResponse.redirect(new URL("/admin/dashboard", req.url));
     }
-    return NextResponse.next();
+    const response = NextResponse.next();
+    response.headers.set('x-pathname', req.nextUrl.pathname);
+    return response;
   }
 
   // Protect admin routes - redirect to login if not authenticated
@@ -30,9 +32,21 @@ export default auth((req) => {
     }
   }
 
-  return NextResponse.next();
+  // Add pathname to headers for layout detection
+  const response = NextResponse.next();
+  response.headers.set('x-pathname', req.nextUrl.pathname);
+  return response;
 });
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
 };
