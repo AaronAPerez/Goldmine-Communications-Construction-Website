@@ -58,8 +58,10 @@ export default async function RootLayout({
   const headersList = await headers();
   const pathname = headersList.get('x-pathname') || '';
 
-  // Check if we're in the admin area
+  // Check if we're in the admin area or on a login page
   const isAdminRoute = pathname.startsWith('/admin');
+  const isLoginPage = pathname === '/login' || pathname === '/signup' || pathname === '/forgot-password' || pathname === '/reset-password';
+  const hideNavigation = isAdminRoute || isLoginPage;
 
   return (
     <html lang="en" className="scroll-smooth">
@@ -86,7 +88,7 @@ export default async function RootLayout({
       <body className={`${inter.className} overflow-x-hidden`}>
 
         {/* Skip link for accessibility */}
-        {!isAdminRoute && (
+        {!hideNavigation && (
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:absolute focus:top-20 focus:left-4
@@ -96,8 +98,8 @@ export default async function RootLayout({
           </a>
         )}
 
-        {/* Admin routes get a clean layout, public routes get full navigation */}
-        {isAdminRoute ? (
+        {/* Admin routes and login pages get a clean layout, public routes get full navigation */}
+        {hideNavigation ? (
           // Admin Layout - No public navigation components
           <SessionProvider session={session}>
             {children}

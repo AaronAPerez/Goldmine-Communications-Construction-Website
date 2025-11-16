@@ -205,7 +205,7 @@ const CTASection = () => {
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.6, delay: 0.4 + (index * 0.1) }}
               className="flex items-center gap-3 bg-white/10 backdrop-blur-sm 
-                       rounded-lg px-4 py-3 border border-white/20"
+                       rounded-xl px-4 py-3 border-2 border-black/20"
             >
               <span className="text-gray-900">
                 {indicator.icon}

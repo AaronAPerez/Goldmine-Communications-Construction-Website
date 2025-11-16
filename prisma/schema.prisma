@@ -580,21 +580,57 @@ model Expense {
 }
 
 model Invoice {
-  id            String        @id @default(cuid())
-  budgetId      String
-  budget        Budget        @relation(fields: [budgetId], references: [id], onDelete: Cascade)
-  invoiceNumber String        @unique
-  amount        Decimal       @db.Decimal(12, 2)
-  status        InvoiceStatus @default(DRAFT)
-  issuedDate    DateTime?
-  dueDate       DateTime?
-  paidDate      DateTime?
-  pdfUrl        String?
-  notes         String?       @db.Text
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id            String  @id @default(cuid())
+  budgetId      String?
+  budget        Budget? @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  projectId     String?
+  invoiceNumber String  @unique
+
+  // Client info (can reference project's client or be standalone)
+  clientName    String?
+  clientEmail   String?
+  clientPhone   String?
+  clientAddress String?
+
+  // Amounts
+  subtotal Decimal  @db.Decimal(12, 2)
+  tax      Decimal  @default(0) @db.Decimal(12, 2)
+  taxRate  Decimal? @db.Decimal(5, 2)
+  amount   Decimal  @db.Decimal(12, 2)
+
+  // Invoice details
+  title       String?
+  description String?       @db.Text
+  status      InvoiceStatus @default(DRAFT)
+  issuedDate  DateTime?
+  dueDate     DateTime?
+  paidDate    DateTime?
+  pdfUrl      String?
+  notes       String?       @db.Text
+
+  createdBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lineItems InvoiceLineItem[]
 
   @@map("invoices")
+}
+
+model InvoiceLineItem {
+  id          String  @id @default(cuid())
+  invoiceId   String
+  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  description String
+  quantity    Int
+  unit        String? // EA, LF, SF, LS, etc.
+  unitPrice   Decimal @db.Decimal(12, 2)
+  labor       Decimal @default(0) @db.Decimal(12, 2)
+  material    Decimal @default(0) @db.Decimal(12, 2)
+  total       Decimal @db.Decimal(12, 2)
+  order       Int     @default(0)
+
+  @@map("invoice_line_items")
 }
 
 enum InvoiceStatus {

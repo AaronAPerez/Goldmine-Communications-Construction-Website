@@ -2,8 +2,8 @@
 
 import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { 
-  HardHat, 
+import {
+  HardHat,
   Shield,
   CheckCircle,
   ArrowRight,
@@ -14,6 +14,7 @@ import {
   Building,
   Wrench,
 } from 'lucide-react';
+import Image from 'next/image';
 
 /**
  * Construction Page Component
@@ -307,15 +308,15 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
         className="overflow-hidden"
       >
         {/* <div className="p-6"> */}
-          {/* Project Gallery */}
-          {/* <div className="mb-6">
+        {/* Project Gallery */}
+        {/* <div className="mb-6">
             <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
               <Eye className="w-5 h-5 text-gold-500 mr-2" />
               {service.projectName} - Project Gallery
             </h4> */}
-            
-            {/* Main Image */}
-            {/* <div className="relative aspect-video rounded-lg overflow-hidden mb-4 bg-gray-100">
+
+        {/* Main Image */}
+        {/* <div className="relative aspect-video rounded-lg overflow-hidden mb-4 bg-gray-100">
               <OptimizedImage
                 src={service.projectImages[selectedImageIndex]}
                 alt={`${service.projectName} - Image ${selectedImageIndex + 1}`}
@@ -323,9 +324,9 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 600px"
               /> */}
-              
-              {/* Image Navigation */}
-              {/* {service.projectImages.length > 1 && (
+
+        {/* Image Navigation */}
+        {/* {service.projectImages.length > 1 && (
                 <>
                   <button
                     onClick={() => setSelectedImageIndex((prev) => 
@@ -347,15 +348,15 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
                   </button>
                   
                   {/* Image Counter */}
-                   {/* <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">
+        {/* <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">
                     {selectedImageIndex + 1} / {service.projectImages.length}
                   </div>
                 </>
               )}
             </div> */}
-            
-            {/* Thumbnail Navigation */}
-            {/* {service.projectImages.length > 1 && (
+
+        {/* Thumbnail Navigation */}
+        {/* {service.projectImages.length > 1 && (
               <div className="flex gap-2 overflow-x-auto">
                 {service.projectImages.map((image, idx) => (
                   <button
@@ -376,39 +377,39 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
                 ))}
               </div>
             )} */}
-          {/* </div> */}
+        {/* </div> */}
 
-          {/* Services List */}
-          <h4 className="font-semibold text-gray-900 mb-4">Services Included:</h4>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-            {service.services.map((item, idx) => (
-              <motion.li
-                key={idx}
-                initial={{ opacity: 0, x: -20 }}
-                animate={isExpanded ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ delay: idx * 0.05 }}
-                className="flex items-start gap-3 text-gray-600"
-              >
-                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                <span className="text-sm">{item}</span>
-              </motion.li>
-            ))}
-          </ul>
+        {/* Services List */}
+        <h4 className="font-semibold text-gray-900 mb-4">Services Included:</h4>
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          {service.services.map((item, idx) => (
+            <motion.li
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              animate={isExpanded ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ delay: idx * 0.05 }}
+              className="flex items-start gap-3 text-gray-600"
+            >
+              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+              <span className="text-sm">{item}</span>
+            </motion.li>
+          ))}
+        </ul>
 
-          {/* Specifications */}
-          {service.specifications && (
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h4 className="font-semibold text-gray-900 mb-3">Technical Specifications:</h4>
-              <dl className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {Object.entries(service.specifications).map(([key, value]) => (
-                  <div key={key} className="text-sm">
-                    <dt className="font-medium text-gray-900">{key}:</dt>
-                    <dd className="text-gray-600">{value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          )}
+        {/* Specifications */}
+        {service.specifications && (
+          <div className="bg-gray-50 rounded-lg p-4">
+            <h4 className="font-semibold text-gray-900 mb-3">Technical Specifications:</h4>
+            <dl className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {Object.entries(service.specifications).map(([key, value]) => (
+                <div key={key} className="text-sm">
+                  <dt className="font-medium text-gray-900">{key}:</dt>
+                  <dd className="text-gray-600">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
         {/* </div> */}
       </motion.div>
     </motion.div>
@@ -430,10 +431,16 @@ const ConstructionPage = () => {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <section 
+      <section
         ref={heroRef}
         className="relative py-24 bg-gradient-to-r from-gray-900 to-gray-800 overflow-hidden"
       >
+          <Image
+                                src="/images/projects/maintenance.jpg"
+                                alt="Construction Hero Image"
+                                fill
+                                className="absolute inset-0 object-cover opacity-30 z-0"
+                                />
         <div className="absolute inset-0 bg-grid-pattern opacity-10" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -450,8 +457,8 @@ const ConstructionPage = () => {
               <br />Excellence
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8">
-              From large-scale site development to precision equipment installation, 
-              we deliver comprehensive construction solutions with proven expertise, 
+              From large-scale site development to precision equipment installation,
+              we deliver comprehensive construction solutions with proven expertise,
               safety excellence, and exceptional results across all project types.
             </p>
             <motion.div
@@ -498,7 +505,7 @@ const ConstructionPage = () => {
               Safety & Quality Excellence
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our construction services are built on an unwavering foundation of safety excellence, 
+              Our construction services are built on an unwavering foundation of safety excellence,
               quality assurance, and proven results demonstrated across hundreds of successful projects.
             </p>
           </motion.div>
@@ -540,7 +547,7 @@ const ConstructionPage = () => {
               Comprehensive Construction Services
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From site development to specialized equipment installation, our comprehensive 
+              From site development to specialized equipment installation, our comprehensive
               service portfolio covers every aspect of modern construction with proven results.
             </p>
           </motion.div>
@@ -572,7 +579,7 @@ const ConstructionPage = () => {
               Licensed, Bonded & Insured
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
-              Your confidence and project protection are our highest priorities. We maintain 
+              Your confidence and project protection are our highest priorities. We maintain
               all necessary licenses, comprehensive bonding, and full insurance coverage.
             </p>
 
@@ -611,8 +618,8 @@ const ConstructionPage = () => {
               Ready to Build Your Vision?
             </h2>
             <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-              From comprehensive site development to precision equipment installation, 
-              our proven expertise and extensive project portfolio demonstrate our ability 
+              From comprehensive site development to precision equipment installation,
+              our proven expertise and extensive project portfolio demonstrate our ability
               to deliver exceptional results across all construction disciplines.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

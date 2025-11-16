@@ -17,63 +17,70 @@ import {
   Menu,
   X,
   Building2,
+  Receipt,
 } from 'lucide-react';
 import { useState } from 'react';
 import Image from 'next/image';
 
 
 const navigation = [
-  { 
-    name: 'Dashboard', 
-    href: '/admin/dashboard', 
+  {
+    name: 'Dashboard',
+    href: '/admin/dashboard',
     icon: LayoutDashboard,
     description: 'Overview and analytics'
   },
-  { 
-    name: 'Projects', 
-    href: '/admin/projects', 
+  {
+    name: 'Projects',
+    href: '/admin/projects',
     icon: FolderKanban,
     description: 'Manage projects'
   },
-  { 
-    name: 'Clients', 
-    href: '/admin/clients', 
+  {
+    name: 'Clients',
+    href: '/admin/clients',
     icon: Users,
     description: 'Client management'
   },
-  { 
-    name: 'Budget', 
-    href: '/admin/budget', 
+  {
+    name: 'Budget',
+    href: '/admin/budget',
     icon: DollarSign,
     description: 'Financial tracking'
   },
-  { 
-    name: 'Social Media', 
-    href: '/admin/social-media', 
+  {
+    name: 'Forms',
+    href: '/admin/forms',
+    icon: Receipt,
+    description: 'Invoices & quotes'
+  },
+  {
+    name: 'Social Media',
+    href: '/admin/social-media',
     icon: Share2,
     description: 'Content & scheduling'
   },
-  { 
-    name: 'Content', 
-    href: '/admin/content', 
+  {
+    name: 'Content',
+    href: '/admin/content',
     icon: FileText,
     description: 'Blog & services'
   },
-  { 
-    name: 'Equipment', 
-    href: '/admin/equipment', 
+  {
+    name: 'Equipment',
+    href: '/admin/equipment',
     icon: Wrench,
     description: 'Asset tracking'
   },
-  { 
-    name: 'Reports', 
-    href: '/admin/reports', 
+  {
+    name: 'Reports',
+    href: '/admin/reports',
     icon: BarChart3,
     description: 'Analytics & insights'
   },
-  { 
-    name: 'Settings', 
-    href: '/admin/settings', 
+  {
+    name: 'Settings',
+    href: '/admin/settings',
     icon: Settings,
     description: 'System configuration'
   },

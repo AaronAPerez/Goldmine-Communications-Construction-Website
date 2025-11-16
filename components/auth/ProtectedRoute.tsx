@@ -1,38 +1,66 @@
-// 'use client';
+'use client';
 
-// import { useEffect } from 'react';
-// import { useRouter } from 'next/navigation';
-// import { useAuth } from '@/lib/supabase-hooks';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-// interface ProtectedRouteProps {
-//   children: React.ReactNode;
-//   redirectTo?: string;
-// }
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  requiredRole?: string;
+  fallbackUrl?: string;
+}
 
-// export function ProtectedRoute({ children, redirectTo = '/login' }: ProtectedRouteProps) {
-//   const { user, loading } = useAuth();
-//   const router = useRouter();
+/**
+ * Protected Route wrapper component
+ * Redirects to login if user is not authenticated
+ * Optionally checks for required role
+ */
+export default function ProtectedRoute({
+  children,
+  requiredRole,
+  fallbackUrl = '/admin/login',
+}: ProtectedRouteProps) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
-//   useEffect(() => {
-//     if (!loading && !user) {
-//       router.push(redirectTo);
-//     }
-//   }, [user, loading, router, redirectTo]);
+  useEffect(() => {
+    // If loading, don't do anything
+    if (status === 'loading') return;
 
-//   if (loading) {
-//     return (
-//       <div className="min-h-screen flex items-center justify-center bg-gray-900">
-//         <div className="text-center">
-//           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto"></div>
-//           <p className="mt-4 text-gray-400">Loading...</p>
-//         </div>
-//       </div>
-//     );
-//   }
+    // If not authenticated, redirect to login
+    if (status === 'unauthenticated') {
+      router.push(fallbackUrl);
+      return;
+    }
 
-//   if (!user) {
-//     return null;
-//   }
+    // If authenticated but doesn't have required role, redirect to dashboard
+    if (requiredRole && session?.user?.role !== requiredRole) {
+      router.push('/admin/dashboard');
+    }
+  }, [status, session, router, requiredRole, fallbackUrl]);
 
-//   return <>{children}</>;
-// }
+  // Show loading state while checking authentication
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-gray-50 to-gold-50">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gold-400"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If not authenticated, don't render children (will redirect)
+  if (status === 'unauthenticated') {
+    return null;
+  }
+
+  // If authenticated but doesn't have required role, don't render (will redirect)
+  if (requiredRole && session?.user?.role !== requiredRole) {
+    return null;
+  }
+
+  // Render children if authenticated and has required role (if specified)
+  return <>{children}</>;
+}

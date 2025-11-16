@@ -17,13 +17,21 @@ export default function LoginPage() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [touched, setTouched] = useState({ email: false, password: false });
+  const [callbackUrl, setCallbackUrl] = useState('/admin/dashboard');
 
-  // Load remembered email on mount
+  // Load remembered email and callback URL on mount
   useEffect(() => {
     const savedEmail = localStorage.getItem('goldmine_admin_email');
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
+    }
+
+    // Get callback URL from query params
+    const params = new URLSearchParams(window.location.search);
+    const callback = params.get('callbackUrl');
+    if (callback) {
+      setCallbackUrl(callback);
     }
   }, []);
 
@@ -116,7 +124,7 @@ export default function LoginPage() {
 
         // Small delay for better UX
         setTimeout(() => {
-          router.push('/admin/dashboard');
+          router.push(callbackUrl);
           router.refresh();
         }, 500);
       }
@@ -125,13 +133,6 @@ export default function LoginPage() {
       console.error('Login error:', error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  // Handle keyboard shortcuts
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !loading) {
-      handleSubmit(e as any);
     }
   };
 
@@ -144,7 +145,7 @@ export default function LoginPage() {
         duration={4000}
       />
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="max-w-md w-full mx-4">
+        <div className="max-w-md w-full mx-4 my-32">
           {/* Login Card */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 space-y-6 border border-gray-100">
             {/* Logo */}
@@ -152,8 +153,8 @@ export default function LoginPage() {
               <Image
                 src="/images/logo/logo-circular.jpg"
                 alt="Goldmine Communications"
-                width={80}
-                height={80}
+                width={120}
+                height={120}
                 className="rounded-full ring-4 ring-gold-100"
               />
             </div>

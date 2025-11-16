@@ -1,52 +1,42 @@
-import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default auth((req) => {
-  const isLoggedIn = !!req.auth;
-  const isAdminRoute = req.nextUrl.pathname.startsWith("/admin");
-  const isLoginPage = req.nextUrl.pathname === "/admin/login";
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
 
-  // Allow access to login page
-  if (isLoginPage) {
-    // Redirect to dashboard if already logged in
-    if (isLoggedIn) {
-      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
-    }
-    const response = NextResponse.next();
-    response.headers.set('x-pathname', req.nextUrl.pathname);
+  // Create response with pathname header for layout detection
+  const response = NextResponse.next();
+  response.headers.set('x-pathname', pathname);
+
+  // Only apply auth logic to admin routes
+  if (!pathname.startsWith('/admin')) {
     return response;
   }
 
-  // Protect admin routes - redirect to login if not authenticated
-  if (isAdminRoute && !isLoggedIn) {
-    return NextResponse.redirect(new URL("/admin/login", req.url));
+  // Allow login page to be accessed
+  if (pathname === '/admin/login') {
+    return response;
   }
 
-  // Check role-based access for sensitive routes
-  if (req.nextUrl.pathname.startsWith("/admin/settings")) {
-    const role = req.auth?.user?.role;
-    const isAdmin = role === "SUPER_ADMIN" || role === "ADMIN";
+  // Check for NextAuth session token
+  const sessionToken =
+    req.cookies.get('authjs.session-token')?.value ||
+    req.cookies.get('__Secure-authjs.session-token')?.value;
 
-    if (!isAdmin) {
-      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
-    }
+  // If no session token, redirect to login
+  if (!sessionToken) {
+    const loginUrl = new URL('/admin/login', req.url);
+    loginUrl.searchParams.set('callbackUrl', pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
-  // Add pathname to headers for layout detection
-  const response = NextResponse.next();
-  response.headers.set('x-pathname', req.nextUrl.pathname);
+  // Allow authenticated users to proceed
   return response;
-});
+}
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    // Match all routes except static files and API
+    '/((?!_next/static|_next/image|favicon.ico|.*\\..*).)*',
   ],
 };

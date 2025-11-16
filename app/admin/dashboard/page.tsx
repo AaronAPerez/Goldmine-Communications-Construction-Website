@@ -2,6 +2,7 @@ import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import DashboardContent from '@/components/admin/DashboardContent';
+import AdminPageLayout from '@/components/admin/layouts/AdminPageLayout';
 
 export const metadata = {
   title: 'Admin Dashboard | Goldmine Communications',
@@ -52,5 +53,9 @@ export default async function AdminDashboard() {
 
   const data = await getDashboardData();
 
-  return <DashboardContent session={session} data={data} />;
+  return (
+    <AdminPageLayout>
+      <DashboardContent session={session} data={data} />
+    </AdminPageLayout>
+  );
 }
