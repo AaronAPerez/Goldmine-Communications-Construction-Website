@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { Decimal } from '@prisma/client/runtime/library';
 
 // GET /api/invoices - List all invoices with optional filters
 export async function GET(request: NextRequest) {
@@ -40,23 +41,10 @@ export async function GET(request: NextRequest) {
       take: limit ? parseInt(limit) : undefined,
       orderBy: { createdAt: 'desc' },
       include: {
-        project: {
-          select: {
-            id: true,
-            title: true,
-            client: {
-              select: {
-                id: true,
-                name: true,
-                email: true,
-                phone: true,
-              },
-            },
-          },
-        },
         lineItems: {
           orderBy: { order: 'asc' },
         },
+        budget: true,
       },
     });
 
@@ -136,27 +124,28 @@ export async function POST(request: NextRequest) {
       data: {
         invoiceNumber,
         projectId: projectId || null,
-        clientName,
+        clientName: clientName || null,
         clientEmail: clientEmail || null,
         clientPhone: clientPhone || null,
         clientAddress: clientAddress || null,
         issuedDate: issuedDate ? new Date(issuedDate) : new Date(),
         dueDate: dueDate ? new Date(dueDate) : null,
-        subtotal,
-        tax: tax || 0,
-        taxRate: taxRate || null,
-        amount,
+        subtotal: new Decimal(subtotal.toString()),
+        tax: new Decimal((tax || 0).toString()),
+        taxRate: taxRate ? new Decimal(taxRate.toString()) : null,
+        amount: new Decimal(amount.toString()),
         status: status || 'DRAFT',
+        description: notes || null,
         notes: notes || null,
         lineItems: {
           create: lineItems.map((item: any, index: number) => ({
             description: item.description,
             quantity: item.quantity,
             unit: item.unit || 'EA',
-            unitPrice: item.unitPrice,
-            labor: item.labor || 0,
-            material: item.material || 0,
-            total: item.total,
+            unitPrice: new Decimal(item.unitPrice.toString()),
+            labor: new Decimal((item.labor || 0).toString()),
+            material: new Decimal((item.material || 0).toString()),
+            total: new Decimal(item.total.toString()),
             order: item.order ?? index,
           })),
         },
@@ -165,28 +154,19 @@ export async function POST(request: NextRequest) {
         lineItems: {
           orderBy: { order: 'asc' },
         },
-        project: {
-          select: {
-            id: true,
-            title: true,
-            client: {
-              select: {
-                id: true,
-                name: true,
-                email: true,
-                phone: true,
-              },
-            },
-          },
-        },
+        budget: true,
       },
     });
 
     return NextResponse.json(invoice, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating invoice:', error);
     return NextResponse.json(
-      { error: 'Failed to create invoice' },
+      {
+        error: 'Failed to create invoice',
+        details: error.message,
+        code: error.code
+      },
       { status: 500 }
     );
   }

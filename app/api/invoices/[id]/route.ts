@@ -19,27 +19,7 @@ export async function GET(
         lineItems: {
           orderBy: { order: 'asc' },
         },
-        project: {
-          select: {
-            id: true,
-            title: true,
-            description: true,
-            location: true,
-            bidDate: true,
-            client: {
-              select: {
-                id: true,
-                name: true,
-                email: true,
-                phone: true,
-                address: true,
-                city: true,
-                state: true,
-                zipCode: true,
-              },
-            },
-          },
-        },
+        budget: true,
       },
     });
 
@@ -149,20 +129,7 @@ export async function PUT(
         lineItems: {
           orderBy: { order: 'asc' },
         },
-        project: {
-          select: {
-            id: true,
-            title: true,
-            client: {
-              select: {
-                id: true,
-                name: true,
-                email: true,
-                phone: true,
-              },
-            },
-          },
-        },
+        budget: true,
       },
     });
 

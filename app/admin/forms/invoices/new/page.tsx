@@ -61,6 +61,13 @@ export default function NewInvoicePage() {
     },
   ]);
 
+  // Validation state
+  const [touched, setTouched] = useState({
+    invoiceNumber: false,
+    clientName: false,
+    lineItems: false,
+  });
+
   // Fetch projects on mount
   useEffect(() => {
     fetchProjects();
@@ -72,10 +79,11 @@ export default function NewInvoicePage() {
       const res = await fetch('/api/projects');
       if (res.ok) {
         const data = await res.json();
-        setProjects(data);
+        setProjects(data.projects || []);
       }
     } catch (error) {
       console.error('Error fetching projects:', error);
+      toast.error('Failed to load projects');
     }
   };
 
@@ -153,12 +161,42 @@ export default function NewInvoicePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Mark all fields as touched for validation
+    setTouched({
+      invoiceNumber: true,
+      clientName: true,
+      lineItems: true,
+    });
+
+    // Validate required fields
+    if (!invoiceNumber.trim()) {
+      toast.error('Invoice number is required');
+      return;
+    }
+
+    if (!clientName.trim()) {
+      toast.error('Client name is required');
+      return;
+    }
+
+    if (!hasValidLineItems()) {
+      toast.error('Please add at least one valid line item with a description and amount');
+      return;
+    }
+
     setLoading(true);
 
     try {
       const subtotal = calculateSubtotal();
       const tax = calculateTax();
       const amount = calculateTotal();
+
+      // Calculate unitPrice for each line item
+      const lineItemsWithUnitPrice = lineItems.map((item) => ({
+        ...item,
+        unitPrice: item.quantity > 0 ? item.total / item.quantity : 0,
+      }));
 
       const res = await fetch('/api/invoices', {
         method: 'POST',
@@ -178,21 +216,25 @@ export default function NewInvoicePage() {
           amount,
           status,
           notes: notes || null,
-          lineItems,
+          lineItems: lineItemsWithUnitPrice,
         }),
       });
 
       if (!res.ok) {
         const error = await res.json();
-        throw new Error(error.error || 'Failed to create invoice');
+        const errorMessage = error.details
+          ? `${error.error}: ${error.details}`
+          : error.error || 'Failed to create invoice';
+        throw new Error(errorMessage);
       }
 
       const invoice = await res.json();
       toast.success('Invoice created successfully!');
       router.push(`/admin/forms/invoices/${invoice.id}`);
     } catch (error: any) {
-      toast.error(error.message || 'Failed to create invoice');
-      console.error('Error creating invoice:', error);
+      const errorMsg = error.message || 'Failed to create invoice';
+      toast.error(errorMsg);
+      console.error('Error creating invoice:', errorMsg);
     } finally {
       setLoading(false);
     }
@@ -203,6 +245,26 @@ export default function NewInvoicePage() {
       style: 'currency',
       currency: 'USD',
     }).format(amount);
+  };
+
+  // Validation helpers
+  const hasValidLineItems = () => {
+    return lineItems.some((item) => item.description.trim() !== '' && item.total > 0);
+  };
+
+  const getFieldError = (field: string) => {
+    if (!touched[field as keyof typeof touched]) return '';
+
+    switch (field) {
+      case 'invoiceNumber':
+        return !invoiceNumber.trim() ? 'Invoice number is required' : '';
+      case 'clientName':
+        return !clientName.trim() ? 'Client name is required' : '';
+      case 'lineItems':
+        return !hasValidLineItems() ? 'At least one valid line item is required' : '';
+      default:
+        return '';
+    }
   };
 
   return (
@@ -234,9 +296,17 @@ export default function NewInvoicePage() {
                 type="text"
                 value={invoiceNumber}
                 onChange={(e) => setInvoiceNumber(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400"
+                onBlur={() => setTouched({ ...touched, invoiceNumber: true })}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 transition-colors ${
+                  getFieldError('invoiceNumber')
+                    ? 'border-red-300 focus:ring-red-400 focus:border-red-400'
+                    : 'border-gray-300 focus:ring-gold-400 focus:border-gold-400'
+                }`}
                 required
               />
+              {getFieldError('invoiceNumber') && (
+                <p className="mt-1 text-sm text-red-600">{getFieldError('invoiceNumber')}</p>
+              )}
             </div>
 
             <div>
@@ -309,6 +379,7 @@ export default function NewInvoicePage() {
                 onChange={(e) => setTaxRate(parseFloat(e.target.value) || 0)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400"
               />
+              <p className="mt-1 text-xs text-gray-500">Default is 9.25% - adjust as needed</p>
             </div>
           </div>
         </div>
@@ -325,9 +396,18 @@ export default function NewInvoicePage() {
                 type="text"
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400"
+                onBlur={() => setTouched({ ...touched, clientName: true })}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 transition-colors ${
+                  getFieldError('clientName')
+                    ? 'border-red-300 focus:ring-red-400 focus:border-red-400'
+                    : 'border-gray-300 focus:ring-gold-400 focus:border-gold-400'
+                }`}
                 required
+                placeholder="Enter client name"
               />
+              {getFieldError('clientName') && (
+                <p className="mt-1 text-sm text-red-600">{getFieldError('clientName')}</p>
+              )}
             </div>
 
             <div>
@@ -339,7 +419,9 @@ export default function NewInvoicePage() {
                 value={clientEmail}
                 onChange={(e) => setClientEmail(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400"
+                placeholder="client@example.com"
               />
+              <p className="mt-1 text-xs text-gray-500">Optional - for sending invoice via email</p>
             </div>
 
             <div>
@@ -351,7 +433,9 @@ export default function NewInvoicePage() {
                 value={clientPhone}
                 onChange={(e) => setClientPhone(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400"
+                placeholder="(555) 123-4567"
               />
+              <p className="mt-1 text-xs text-gray-500">Optional - contact phone number</p>
             </div>
 
             <div>
@@ -363,14 +447,16 @@ export default function NewInvoicePage() {
                 value={clientAddress}
                 onChange={(e) => setClientAddress(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400"
+                placeholder="123 Main St, City, ST 12345"
               />
+              <p className="mt-1 text-xs text-gray-500">Optional - billing address</p>
             </div>
           </div>
         </div>
 
         {/* Line Items */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-2">
             <h2 className="text-xl font-bold text-gray-900">Line Items</h2>
             <button
               type="button"
@@ -381,6 +467,14 @@ export default function NewInvoicePage() {
               Add Item
             </button>
           </div>
+          <p className="text-sm text-gray-600 mb-4">
+            Add items to the invoice. Enter material and labor costs separately for each item.
+          </p>
+          {getFieldError('lineItems') && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-sm text-red-600">{getFieldError('lineItems')}</p>
+            </div>
+          )}
 
           <div className="space-y-4">
             {lineItems.map((item, index) => (
@@ -511,6 +605,9 @@ export default function NewInvoicePage() {
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400"
             placeholder="Add any additional notes or payment instructions..."
           />
+          <p className="mt-2 text-xs text-gray-500">
+            Optional - Include payment terms, special instructions, or thank you message
+          </p>
         </div>
 
         {/* Actions */}

@@ -144,7 +144,7 @@ export default function LoginPage() {
         closeButton
         duration={4000}
       />
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-400">
         <div className="max-w-md w-full mx-4 my-32">
           {/* Login Card */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 space-y-6 border border-gray-100">
@@ -153,8 +153,8 @@ export default function LoginPage() {
               <Image
                 src="/images/logo/logo-circular.jpg"
                 alt="Goldmine Communications"
-                width={120}
-                height={120}
+                width={140}
+                height={140}
                 className="rounded-full ring-4 ring-gold-100"
               />
             </div>
@@ -314,10 +314,10 @@ export default function LoginPage() {
 
           {/* Footer Info */}
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-black">
               Goldmine Communications & Construction
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-600 mt-1">
               Secure access to your business dashboard
             </p>
           </div>
