@@ -105,7 +105,7 @@ model Client {
   status          ClientStatus
   assignedToId    String
   assignedTo      User          @relation("ClientAssignee", fields: [assignedToId], references: [id])
-  
+
   // Relations
   projects        Project[]
   notes           Note[]
@@ -165,10 +165,10 @@ model Project {
   client          Client          @relation(fields: [clientId], references: [id])
   managerId       String
   manager         User            @relation("ProjectManager", fields: [managerId], references: [id])
-  
+
   // Location as JSON
   location        Json            // { address, city, state, zip, lat, lng }
-  
+
   // Timeline
   startDate       DateTime
   endDate         DateTime?

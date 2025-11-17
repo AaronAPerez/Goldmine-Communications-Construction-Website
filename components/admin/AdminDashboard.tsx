@@ -1,8 +1,8 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import DashboardContent from '@/components/admin/DashboardContent';
+import { auth } from '@/lib/auth';
 
 export const metadata = {
   title: 'Admin Dashboard | Goldmine Communications',
@@ -37,7 +37,7 @@ async function getDashboardData() {
 }
 
 export default async function AdminDashboard() {
-  const session = await getServerSession(authOptions);
+    const session = await auth();
 
   if (!session) {
     redirect('/admin/login');

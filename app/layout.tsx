@@ -3,14 +3,10 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import TopContactBar from '../components/Contact/TopContactBar';
-import FloatingNavigation from '../components/Navigation/FloatingNavigation';
-import Footer from '../components/Footer/Footer';
 import { Analytics } from "@vercel/analytics/react";
-import { ScrollToTop } from '../components/Navigation/ScrollToTop';
 import { auth } from '@/lib/auth';
 import SessionProvider from '@/components/providers/SessionProvider';
-import { headers } from 'next/headers';
+import LayoutProvider from '@/components/providers/LayoutProvider';
 
 
 
@@ -55,13 +51,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
-  const headersList = await headers();
-  const pathname = headersList.get('x-pathname') || '';
-
-  // Check if we're in the admin area or on a login page
-  const isAdminRoute = pathname.startsWith('/admin');
-  const isLoginPage = pathname === '/login' || pathname === '/signup' || pathname === '/forgot-password' || pathname === '/reset-password';
-  const hideNavigation = isAdminRoute || isLoginPage;
 
   return (
     <html lang="en" className="scroll-smooth">
@@ -86,63 +75,15 @@ export default async function RootLayout({
         /> */}
       </head>
       <body className={`${inter.className} overflow-x-hidden`}>
-
-        {/* Skip link for accessibility */}
-        {!hideNavigation && (
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-20 focus:left-4
-                       bg-gold-400 text-white px-4 py-2 rounded-lg z-[60]"
-          >
-            Skip to main content
-          </a>
-        )}
-
-        {/* Admin routes and login pages get a clean layout, public routes get full navigation */}
-        {hideNavigation ? (
-          // Admin Layout - No public navigation components
-          <SessionProvider session={session}>
+        <SessionProvider session={session}>
+          <LayoutProvider>
             {children}
-          </SessionProvider>
-        ) : (
-          // Public Layout - Full navigation and footer
-          <div className="min-h-screen flex flex-col overflow-x-hidden w-full max-w-full">
-            {/* Top contact bar - fixed width */}
-            <div className="w-full overflow-x-hidden">
-              <TopContactBar />
-            </div>
-
-            {/* Floating navigation - fixed width */}
-            <div className="w-full overflow-x-hidden">
-              <FloatingNavigation />
-            </div>
-
-            {/* Main content with proper constraints */}
-            <main
-              id="main-content"
-              className="flex-grow w-full max-w-full overflow-x-hidden md:mt-4"
-            >
-              <div className="w-full max-w-full">
-                <SessionProvider session={session}>
-                  {children}
-                </SessionProvider>
-              </div>
-            </main>
-
-            {/* Footer with width constraints */}
-            <div className="w-full overflow-x-hidden">
-              <Footer />
-            </div>
-
-            {/* Scroll to top button */}
-            <ScrollToTop />
-          </div>
-        )}
+          </LayoutProvider>
+        </SessionProvider>
 
         {/* Analytics for all routes */}
         <Analytics />
         <SpeedInsights />
-
       </body>
     </html>
   );

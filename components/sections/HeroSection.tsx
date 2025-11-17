@@ -337,7 +337,8 @@ const HeroSection = () => {
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       className="group inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 
-                               bg-gradient-to-r from-gold-400 to-gold-600 text-white
+                               bg-gradient-to-r from-gold-400 to-gold-600 text-black
+                                border-2 border-black/80
                                rounded-xl font-semibold text-base sm:text-lg transition-all duration-300
                                shadow-xl hover:shadow-2xl hover:shadow-gold-400/25 w-full sm:w-auto
                                min-w-0 max-w-full"

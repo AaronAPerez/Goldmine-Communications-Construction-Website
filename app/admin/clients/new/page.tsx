@@ -1,7 +1,6 @@
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
-import AdminPageLayout from '@/components/admin/layouts/AdminPageLayout';
 import ClientForm from '@/components/admin/clients/ClientForm';
 
 export const metadata = {
@@ -9,8 +8,9 @@ export const metadata = {
 };
 
 async function getAssignableUsers() {
-  const users = await prisma.user.findMany({
+  return prisma.user.findMany({
     where: {
+      role: { in: ['SUPER_ADMIN', 'ADMIN', 'SALES_REP'] },
       active: true,
     },
     select: {
@@ -19,31 +19,17 @@ async function getAssignableUsers() {
       email: true,
     },
   });
-
-  return users;
 }
 
 export default async function NewClientPage() {
   const session = await auth();
-
-  if (!session) {
-    redirect('/admin/login');
-  }
+  if (!session) redirect('/admin/login');
 
   const assignableUsers = await getAssignableUsers();
 
   return (
-    <AdminPageLayout>
-      <div className="max-w-4xl">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Create New Client</h1>
-          <p className="text-sm text-gray-600 mt-1">
-            Add a new client to your CRM
-          </p>
-        </div>
-
-        <ClientForm assignableUsers={assignableUsers} />
-      </div>
-    </AdminPageLayout>
+    <div className="max-w-4xl mx-auto">
+      <ClientForm assignableUsers={assignableUsers} />
+    </div>
   );
 }

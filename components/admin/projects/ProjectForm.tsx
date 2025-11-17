@@ -7,13 +7,10 @@ import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import {
   Save,
-  X,
   Upload,
   Calendar,
   DollarSign,
   MapPin,
-  User,
-  FileText,
   Tag,
   Loader2,
 } from 'lucide-react';
