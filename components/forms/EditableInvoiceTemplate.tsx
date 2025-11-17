@@ -227,7 +227,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
       <div ref={ref} className="bg-white text-gray-900 print:p-0">
         <div className="max-w-[8.5in] mx-auto p-8 print:p-6">
           {/* Header */}
-          <div className="flex items-start justify-between mb-6 border-b-4 border-gold-400 pb-4">
+          <div className="flex items-start justify-between mb-6 border-b-4 border-[#a68729] pb-4">
             <div>
               <Image
                 src={COMPANY_INFO.logo}
@@ -258,7 +258,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                     onChange={(e) => handleInputChange('invoiceNumber', e.target.value)}
                     onBlur={(e) => validateField('invoiceNumber', e.target.value)}
                     readOnly={readOnly}
-                    className={`w-40 text-sm px-2 py-1 ${inputClass} ${errors.invoiceNumber ? 'border-red-500' : ''}`}
+                    className={`w-40 text-sm px-2 py-1 text-right ${inputClass} ${errors.invoiceNumber ? 'border-red-500' : ''}`}
                   />
                 </div>
                 {errors.invoiceNumber && !readOnly && (
@@ -271,7 +271,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                     value={data.issuedDate}
                     onChange={(e) => handleInputChange('issuedDate', e.target.value)}
                     readOnly={readOnly}
-                    className={`w-36 text-sm px-2 py-1 ${inputClass} print-hide-calendar`}
+                    className={`w-36 text-sm px-2 py-1 text-right ${inputClass} print-hide-calendar`}
                   />
                 </div>
                 {(data.dueDate || !readOnly) && (
@@ -282,7 +282,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                       value={data.dueDate || ''}
                       onChange={(e) => handleInputChange('dueDate', e.target.value)}
                       readOnly={readOnly}
-                      className={`w-36 text-sm px-2 py-1 ${inputClass} print-hide-calendar`}
+                      className={`w-36 text-sm px-2 py-1 text-right ${inputClass} print-hide-calendar`}
                     />
                   </div>
                 )}
@@ -305,7 +305,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                     value={data.title || ''}
                     onChange={(e) => handleInputChange('title', e.target.value)}
                     readOnly={readOnly}
-                    placeholder={!readOnly ? 'EV Charging Station Infrastructure Development' : ''}
+                    placeholder={!readOnly ? 'Enter project name or title' : ''}
                     className={`inline-block ml-1 text-sm px-2 py-1 ${inputClass}`}
                     style={{ width: 'calc(100% - 70px)' }}
                   />
@@ -317,7 +317,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                     value={data.location || ''}
                     onChange={(e) => handleInputChange('location', e.target.value)}
                     readOnly={readOnly}
-                    placeholder={!readOnly ? 'Downtown Plaza, San Jose, CA 95113' : ''}
+                    placeholder={!readOnly ? 'Enter project location/address' : ''}
                     className={`inline-block ml-1 text-sm px-2 py-1 ${inputClass}`}
                     style={{ width: 'calc(100% - 75px)' }}
                   />
@@ -333,9 +333,9 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                     style={{ width: 'calc(100% - 75px)' }}
                   />
                 </div>
-                <div>
+                {/* <div>
                   <span className="font-semibold">Estimator:</span> Goldmine Communications & Construction
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -353,7 +353,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                     onChange={(e) => handleInputChange('clientName', e.target.value)}
                     onBlur={(e) => validateField('clientName', e.target.value)}
                     readOnly={readOnly}
-                    placeholder={!readOnly ? 'Silicon Valley Transit Authority' : ''}
+                    placeholder={!readOnly ? 'Enter client/company name' : ''}
                     className={`inline-block ml-1 text-sm px-2 py-1 ${inputClass} ${errors.clientName ? 'border-red-500' : ''}`}
                     style={{ width: 'calc(100% - 55px)' }}
                     required
@@ -370,7 +370,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                     onChange={(e) => handleInputChange('clientPhone', e.target.value)}
                     onBlur={(e) => validateField('clientPhone', e.target.value)}
                     readOnly={readOnly}
-                    placeholder={!readOnly ? '(408) 555-0123' : ''}
+                    placeholder={!readOnly ? 'Enter phone number' : ''}
                     className={`inline-block ml-1 text-sm px-2 py-1 ${inputClass} ${errors.clientPhone ? 'border-red-500' : ''}`}
                     style={{ width: 'calc(100% - 60px)' }}
                   />
@@ -386,7 +386,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                     onChange={(e) => handleInputChange('clientEmail', e.target.value)}
                     onBlur={(e) => validateField('clientEmail', e.target.value)}
                     readOnly={readOnly}
-                    placeholder={!readOnly ? 'projects@svta.org' : ''}
+                    placeholder={!readOnly ? 'Enter email address' : ''}
                     className={`inline-block ml-1 text-sm px-2 py-1 ${inputClass} ${errors.clientEmail ? 'border-red-500' : ''}`}
                     style={{ width: 'calc(100% - 50px)' }}
                   />
@@ -401,7 +401,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                     value={data.clientAddress || ''}
                     onChange={(e) => handleInputChange('clientAddress', e.target.value)}
                     readOnly={readOnly}
-                    placeholder={!readOnly ? '123 main street' : ''}
+                    placeholder={!readOnly ? 'Enter street address' : ''}
                     className={`inline-block ml-1 text-sm px-2 py-1 ${inputClass}`}
                     style={{ width: 'calc(100% - 70px)' }}
                   />
@@ -431,15 +431,15 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
             {/* Table */}
             <div className="border border-gray-300 rounded-lg overflow-hidden">
               <table className="w-full text-sm">
-                <thead className="bg-gray-100">
+                <thead className="bg-gray-200">
                   <tr>
-                    <th className="text-center py-3 px-3 font-semibold text-gray-700 border-r border-gray-300">Item #</th>
-                    <th className="text-left py-3 px-4 font-semibold text-gray-700 border-r border-gray-300">Description</th>
-                    <th className="text-center py-3 px-3 font-semibold text-gray-700 border-r border-gray-300">Qty</th>
-                    <th className="text-center py-3 px-3 font-semibold text-gray-700 border-r border-gray-300">Unit</th>
-                    <th className="text-right py-3 px-3 font-semibold text-gray-700 border-r border-gray-300">Material</th>
-                    <th className="text-right py-3 px-3 font-semibold text-gray-700 border-r border-gray-300">Labor</th>
-                    <th className="text-right py-3 px-3 font-semibold text-gray-700">Total</th>
+                    <th className="text-center py-3 px-3 font-semibold text-gray-800 border-r border-gray-300">Item #</th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-800 border-r border-gray-300">Description</th>
+                    <th className="text-center py-3 px-3 font-semibold text-gray-800 border-r border-gray-300">Qty</th>
+                    <th className="text-center py-3 px-3 font-semibold text-gray-800 border-r border-gray-300">Unit</th>
+                    <th className="text-right py-3 px-3 font-semibold text-gray-800 border-r border-gray-300">Material</th>
+                    <th className="text-right py-3 px-3 font-semibold text-gray-800 border-r border-gray-300">Labor</th>
+                    <th className="text-right py-3 px-3 font-semibold text-gray-800">Total</th>
                     {!readOnly && <th className="w-12 no-print"></th>}
                   </tr>
                 </thead>
@@ -447,7 +447,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                   {data.lineItems.map((item, index) => (
                     <tr
                       key={item.id || index}
-                      className="border-t border-gray-300"
+                      className={`border-t border-gray-300 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}
                     >
                       <td className="py-2 px-3 text-center border-r border-gray-300">{index + 1}</td>
                       <td className="py-2 px-4 border-r border-gray-300">
@@ -456,7 +456,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                           value={item.description}
                           onChange={(e) => handleLineItemChange(index, 'description', e.target.value)}
                           readOnly={readOnly}
-                          placeholder={!readOnly ? 'Site Development & Foundation Construction for EV Charging Stations' : ''}
+                          placeholder={!readOnly ? 'Enter work description' : ''}
                           className={`text-sm px-2 py-1 ${cellInputClass}`}
                         />
                       </td>
@@ -470,28 +470,31 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                           className={`text-sm px-2 py-1 text-center ${cellInputClass}`}
                         />
                       </td>
-                      <td className="py-2 px-3 border-r border-gray-300 print-hide-dropdown">
-                        <select
-                          value={item.unit}
-                          onChange={(e) => handleLineItemChange(index, 'unit', e.target.value)}
-                          disabled={readOnly}
-                          className={`text-sm px-2 py-1 text-center ${cellInputClass}`}
-                        >
-                          <option value="EA">EA</option>
-                          <option value="LF">LF</option>
-                          <option value="SF">SF</option>
-                          <option value="LS">LS</option>
-                        </select>
+                      <td className="py-2 px-3 border-r border-gray-300">
+                        {readOnly ? (
+                          <span className="text-sm text-center block">{item.unit}</span>
+                        ) : (
+                          <select
+                            value={item.unit}
+                            onChange={(e) => handleLineItemChange(index, 'unit', e.target.value)}
+                            className={`text-sm px-2 py-1 text-center ${cellInputClass}`}
+                          >
+                            <option value="EA">EA</option>
+                            <option value="LF">LF</option>
+                            <option value="SF">SF</option>
+                            <option value="LS">LS</option>
+                          </select>
+                        )}
                       </td>
                       <td className="py-2 px-3 border-r border-gray-300">
                         <input
                           type="number"
                           step="0.01"
                           min="0"
-                          value={item.material}
+                          value={item.material || ''}
                           onChange={(e) => handleLineItemChange(index, 'material', parseFloat(e.target.value) || 0)}
                           readOnly={readOnly}
-                          placeholder={!readOnly ? '0.00' : ''}
+                          placeholder={!readOnly ? 'Material cost' : ''}
                           className={`text-sm px-2 py-1 text-right ${cellInputClass}`}
                         />
                       </td>
@@ -500,10 +503,10 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                           type="number"
                           step="0.01"
                           min="0"
-                          value={item.labor}
+                          value={item.labor || ''}
                           onChange={(e) => handleLineItemChange(index, 'labor', parseFloat(e.target.value) || 0)}
                           readOnly={readOnly}
-                          placeholder={!readOnly ? '0.00' : ''}
+                          placeholder={!readOnly ? 'Labor cost' : ''}
                           className={`text-sm px-2 py-1 text-right ${cellInputClass}`}
                         />
                       </td>
@@ -553,9 +556,9 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
                   </span>
                   <span className="text-sm font-semibold">{formatCurrency(data.tax)}</span>
                 </div>
-                <div className="flex justify-between py-3 bg-gradient-to-r from-gold-500 to-gold-600 text-white px-4 rounded-lg mt-2">
-                  <span className="text-lg font-bold">TOTAL:</span>
-                  <span className="text-lg font-bold">{formatCurrency(data.amount)}</span>
+                <div className="flex justify-between py-3 px-4 mt-2">
+                  <span className="text-lg font-bold text-[#a68729]">TOTAL:</span>
+                  <span className="text-lg font-bold text-[#a68729]">{formatCurrency(data.amount)}</span>
                 </div>
               </div>
             </div>
@@ -563,7 +566,7 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
 
           {/* Terms & Conditions */}
           <div className="mt-6 border-t border-gray-300 pt-4">
-            <h2 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wide">
+            <h2 className="text-sm font-bold text-[#a68729] mb-3 uppercase tracking-wide">
               TERMS & CONDITIONS
             </h2>
             <div className="space-y-1">
@@ -656,8 +659,37 @@ const EditableInvoiceTemplate = forwardRef<HTMLDivElement, EditableInvoiceTempla
             }
 
             /* Adjust padding for print */
-            .print\\:p-6 {
+            .print:p-6 {
               padding: 1.5rem !important;
+            }
+
+            /* Preserve gold color for section headers in print */
+            .text-gold-600,
+            .text-[#a68729] {
+              color: #a68729 !important;
+              print-color-adjust: exact;
+              -webkit-print-color-adjust: exact;
+            }
+
+            /* Preserve table header background in print */
+            .bg-gray-200 {
+              background-color: #e5e7eb !important;
+              print-color-adjust: exact;
+              -webkit-print-color-adjust: exact;
+            }
+
+            /* Preserve alternating row colors in print */
+            .bg-gray-50 {
+              background-color: #f9fafb !important;
+              print-color-adjust: exact;
+              -webkit-print-color-adjust: exact;
+            }
+
+            /* Preserve border colors in print */
+            .border-[#a68729] {
+              border-color: #a68729 !important;
+              print-color-adjust: exact;
+              -webkit-print-color-adjust: exact;
             }
           }
         `}</style>
