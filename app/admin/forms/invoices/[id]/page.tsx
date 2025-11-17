@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Edit, Printer, Trash2, Download } from 'lucide-react';
+import { ArrowLeft, Edit, Printer, Trash2 } from 'lucide-react';
 import InvoiceTemplate from '@/components/forms/InvoiceTemplate';
 import { toast } from 'sonner';
 import { useReactToPrint } from 'react-to-print';

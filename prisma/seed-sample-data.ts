@@ -84,7 +84,7 @@ async function main() {
     data: [
       {
         projectId: project.id,
-        url: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800',
+        url: 'https://www.goldminecomm.net/_next/image?url=%2Fim…ion%2FAV-station%2FAvStation-card.jpg&w=1080&q=75',
         caption: 'DC Fast charging station installation',
         altText: 'Electric vehicle charging station',
         order: 0,
