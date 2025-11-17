@@ -180,30 +180,31 @@ export default function NewInvoicePage() {
 
   return (
     <AdminPageLayout>
-      <div className="space-y-4">
+      <div className="space-y-4 pb-20 md:pb-4">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
             <Link
               href="/admin/forms/invoices"
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors touch-target-44"
+              aria-label="Back to invoices"
             >
               <ArrowLeft className="w-6 h-6 text-gray-600" />
             </Link>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Create New Invoice</h1>
-              <p className="text-gray-600 mt-1">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Create New Invoice</h1>
+              <p className="text-sm md:text-base text-gray-600 mt-1">
                 {isBlankForm ? 'Creating a blank invoice form' : 'Pre-filled with project data'}
               </p>
             </div>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-3">
+          {/* Actions - Desktop */}
+          <div className="hidden md:flex items-center gap-3">
             <button
               type="button"
               onClick={createBlankForm}
-              className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors touch-target-44"
             >
               <FileText className="w-5 h-5" />
               Blank Form
@@ -212,7 +213,7 @@ export default function NewInvoicePage() {
               type="button"
               onClick={handlePrint}
               disabled={!invoiceData}
-              className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-target-44"
             >
               <Printer className="w-5 h-5" />
               Print
@@ -221,7 +222,7 @@ export default function NewInvoicePage() {
               type="button"
               onClick={handleSave}
               disabled={loading || !invoiceData}
-              className="flex items-center gap-2 px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-target-44"
             >
               <Save className="w-5 h-5" />
               {loading ? 'Saving...' : 'Save Invoice'}
@@ -230,14 +231,14 @@ export default function NewInvoicePage() {
         </div>
 
         {/* Project Selection */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Load from Project (Optional)</h2>
-          <div className="flex items-center gap-4">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
+          <h2 className="text-base md:text-lg font-bold text-gray-900 mb-3 md:mb-4">Load from Project (Optional)</h2>
+          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
             <div className="flex-1">
               <select
                 value={selectedProjectId}
                 onChange={(e) => handleProjectChange(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400"
+                className="w-full px-4 py-3 md:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-gold-400 text-base md:text-sm touch-target-44"
               >
                 <option value="">Create blank invoice (no project)</option>
                 {projects.map((project) => (
@@ -253,14 +254,14 @@ export default function NewInvoicePage() {
               </div>
             )}
           </div>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-xs md:text-sm text-gray-600">
             Select a project to automatically fill in client and project details, or create a blank invoice to enter all information manually.
           </p>
         </div>
 
         {/* Invoice Preview with Editable Fields */}
-        <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 shadow-inner">
-          <div className="bg-white rounded-lg shadow-xl">
+        <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-3 md:p-6 shadow-inner">
+          <div className="bg-white rounded-lg shadow-xl overflow-x-auto">
             <EditableInvoiceTemplate
               ref={invoiceRef}
               initialData={invoiceData}
@@ -280,9 +281,63 @@ export default function NewInvoicePage() {
             <li>Click "Save Invoice" when done to save to the database</li>
             <li>Click "Print" to generate a PDF preview</li>
             <li>Use "Blank Form" to start over with empty fields</li>
+            <li className="md:hidden font-semibold">On mobile: Pinch to zoom for better viewing</li>
           </ul>
         </div>
+
+        {/* Mobile Floating Action Bar */}
+        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-2xl z-50 safe-area-bottom">
+          <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={createBlankForm}
+                className="flex items-center justify-center gap-2 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium active:bg-gray-100 transition-colors touch-target-44"
+              >
+                <FileText className="w-5 h-5" />
+                <span className="text-sm">Blank Form</span>
+              </button>
+              <button
+                type="button"
+                onClick={handlePrint}
+                disabled={!invoiceData}
+                className="flex items-center justify-center gap-2 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium active:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-target-44"
+              >
+                <Printer className="w-5 h-5" />
+                <span className="text-sm">Print</span>
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={handleSave}
+              disabled={loading || !invoiceData}
+              className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary-600 active:bg-primary-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-target-44"
+            >
+              <Save className="w-5 h-5" />
+              <span>{loading ? 'Saving...' : 'Save Invoice'}</span>
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* Mobile-specific styles */}
+      <style jsx>{`
+        .touch-target-44 {
+          min-height: 44px;
+          min-width: 44px;
+        }
+
+        .safe-area-bottom {
+          padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        }
+
+        @media (max-width: 768px) {
+          /* Enable smooth scrolling on mobile */
+          :global(html) {
+            scroll-behavior: smooth;
+          }
+        }
+      `}</style>
     </AdminPageLayout>
   );
 }

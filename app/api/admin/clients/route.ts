@@ -18,13 +18,25 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
     const type = searchParams.get('type');
     const assignedToId = searchParams.get('assignedToId');
+    const search = searchParams.get('search');
 
     const where: any = {};
     if (status) where.status = status;
     if (type) where.type = type;
     if (assignedToId) where.assignedToId = assignedToId;
 
-    const [clients, total] = await Promise.all([
+    // Add search functionality
+    if (search) {
+      where.OR = [
+        { firstName: { contains: search, mode: 'insensitive' } },
+        { lastName: { contains: search, mode: 'insensitive' } },
+        { email: { contains: search, mode: 'insensitive' } },
+        { companyName: { contains: search, mode: 'insensitive' } },
+        { phone: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    const [clients, total, statusCounts, typeCounts] = await Promise.all([
       prisma.client.findMany({
         where,
         skip: (page - 1) * limit,
@@ -49,6 +61,16 @@ export async function GET(request: NextRequest) {
         },
       }),
       prisma.client.count({ where }),
+      // Status counts
+      prisma.client.groupBy({
+        by: ['status'],
+        _count: true,
+      }),
+      // Type counts
+      prisma.client.groupBy({
+        by: ['type'],
+        _count: true,
+      }),
     ]);
 
     return NextResponse.json({
@@ -59,6 +81,8 @@ export async function GET(request: NextRequest) {
         total,
         pages: Math.ceil(total / limit),
       },
+      statusCounts,
+      typeCounts,
     });
   } catch (error) {
     console.error('GET /api/admin/clients error:', error);

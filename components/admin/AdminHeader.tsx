@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Bell, Search, Calendar, ChevronDown } from 'lucide-react';
+import { Bell, Search, Calendar } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 
@@ -37,7 +37,7 @@ export default function AdminHeader() {
   const unreadCount = notifications.filter(n => n.unread).length;
 
   return (
-    <header className="sticky top-0 z-30 bg-gradient-to-r from-primary-900 to-primary-100">
+    <header className="sticky top-0 z-30 bg-gradient-to-r from-primary-900 to-primary-400">
       <div className="flex items-center justify-between px-2 py-2">
         <div className="">
               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gold-500/20 text-gold-300 border border-gold-400/30 shadow-sm">
@@ -45,15 +45,9 @@ export default function AdminHeader() {
               </span>
             </div>
           
-            <Image
-            src="/images/logo/logo-banner.jpg"
-            alt="Goldmine Logo"
-            width={100}
-            height={100}
-            className='mx-4'
-            />
+          
         {/* Search */}
-        <div className="flex-1">
+        <div className="flex-1 mx-4 max-w-lg">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
@@ -67,8 +61,8 @@ export default function AdminHeader() {
         {/* Right side actions */}
         <div className="flex items-center gap-4 ml-4">
           {/* Current Date */}
-          <div className="hidden md:flex items-center gap-2 text-sm text-gray-700">
-            <Calendar className="w-4 h-4 text-gold-500" />
+          <div className="hidden md:flex items-center gap-2 text-sm text-gray-200">
+            <Calendar className="w-4 h-4 text-white" />
             <span>{new Date().toLocaleDateString('en-US', {
               weekday: 'short',
               month: 'short',
@@ -80,7 +74,7 @@ export default function AdminHeader() {
           <div className="relative">
             <button
               onClick={() => setShowNotifications(!showNotifications)}
-              className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              className="relative p-2 text-gray-300 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <Bell className="w-5 h-5" />
               {unreadCount > 0 && (
@@ -145,8 +139,16 @@ export default function AdminHeader() {
             )}
           </div>
 
+            <Image
+            src="/images/logo/logo-banner.jpg"
+            alt="Goldmine Logo"
+            width={100}
+            height={100}
+            className='mx-4'
+            />
+
           {/* User Profile Dropdown - Mobile Hidden */}
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors border border-transparent hover:border-gray-200">
+          {/* <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors border border-transparent hover:border-gray-200">
             <div className="w-8 h-8 bg-gradient-to-br from-gold-400 to-gold-500 rounded-full flex items-center justify-center shadow-sm">
               <span className="text-white font-semibold text-sm">
                 {session?.user?.name?.charAt(0) || 'U'}
@@ -161,7 +163,7 @@ export default function AdminHeader() {
               </p>
             </div>
             <ChevronDown className="w-4 h-4 text-gray-400" />
-          </div>
+          </div> */}
         </div>
       </div>
     </header>

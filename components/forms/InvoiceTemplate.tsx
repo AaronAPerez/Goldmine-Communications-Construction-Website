@@ -267,12 +267,12 @@ const InvoiceTemplate = forwardRef<HTMLDivElement, InvoiceTemplateProps>(
           </div>
 
           {/* Notes */}
-          {data.notes && (
+          {/* {data.notes && (
             <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
               <h3 className="text-sm font-semibold text-gray-900 mb-2">Additional Notes:</h3>
               <p className="text-xs text-gray-700 whitespace-pre-wrap">{data.notes}</p>
             </div>
-          )}
+          )} */}
 
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-gray-300 text-center">
@@ -299,11 +299,11 @@ const InvoiceTemplate = forwardRef<HTMLDivElement, InvoiceTemplateProps>(
               -webkit-print-color-adjust: exact;
             }
 
-            .print\\:p-0 {
+            .print:p-0 {
               padding: 0 !important;
             }
 
-            .print\\:p-12 {
+            .print:p-12 {
               padding: 3rem !important;
             }
 

@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { clientUpdateSchema } from '@/lib/validations/client';
-import { ZodError } from 'zod';
+import { ZodError } from 'zod/v3';
+
 
 // GET /api/admin/clients/[id] - Get single client
 export async function GET(

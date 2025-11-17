@@ -26,13 +26,29 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
     const category = searchParams.get('category');
     const clientId = searchParams.get('clientId');
+    const search = searchParams.get('search');
 
     const where: any = {};
     if (status) where.status = status;
     if (category) where.category = category;
     if (clientId) where.clientId = clientId;
 
-    const [projects, total] = await Promise.all([
+    // Add search functionality
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+        { client: {
+          OR: [
+            { firstName: { contains: search, mode: 'insensitive' } },
+            { lastName: { contains: search, mode: 'insensitive' } },
+            { companyName: { contains: search, mode: 'insensitive' } },
+          ]
+        }},
+      ];
+    }
+
+    const [projects, total, statusCounts, categoryCounts] = await Promise.all([
       prisma.project.findMany({
         where,
         skip: (page - 1) * limit,
@@ -44,7 +60,6 @@ export async function GET(request: NextRequest) {
               firstName: true,
               lastName: true,
               companyName: true,
-              email: true,
             },
           },
           manager: {
@@ -56,19 +71,13 @@ export async function GET(request: NextRequest) {
           },
           images: {
             select: {
-              id: true,
               url: true,
-              featured: true,
             },
-            take: 1,
-            where: {
-              featured: true,
-            },
+            orderBy: { order: 'asc' },
           },
           _count: {
             select: {
               images: true,
-              notes: true,
             },
           },
         },
@@ -77,6 +86,16 @@ export async function GET(request: NextRequest) {
         },
       }),
       prisma.project.count({ where }),
+      // Status counts
+      prisma.project.groupBy({
+        by: ['status'],
+        _count: true,
+      }),
+      // Category counts
+      prisma.project.groupBy({
+        by: ['category'],
+        _count: true,
+      }),
     ]);
 
     return NextResponse.json({
@@ -87,6 +106,8 @@ export async function GET(request: NextRequest) {
         total,
         pages: Math.ceil(total / limit),
       },
+      statusCounts,
+      categoryCounts,
     });
   } catch (error) {
     console.error('GET /api/admin/projects error:', error);

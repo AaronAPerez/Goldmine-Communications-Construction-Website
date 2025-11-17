@@ -19,6 +19,7 @@ import {
   Receipt,
 } from 'lucide-react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 
 const navigation = [
@@ -94,8 +95,13 @@ export default function AdminSidebar() {
       {/* Mobile menu button */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-800 to-primary-900 px-4 py-3 flex items-center justify-between shadow-lg">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-gold-400 to-gold-500 rounded-lg flex items-center justify-center shadow-md">
-          </div>
+          <Image
+            src="/images/logo/logo-banner.jpg"
+            alt="Goldmine Logo"
+            width={100}
+            height={100}
+            className=''
+          />
           <span className="text-white font-semibold">Goldmine Admin</span>
         </div>
         <button
@@ -127,7 +133,7 @@ export default function AdminSidebar() {
         `}
       >
         <div className="flex flex-col h-full">
-          
+
 
           {/* User Info */}
           <div className="px-4 py-2.5 border-b border-primary-700/50">
@@ -146,8 +152,8 @@ export default function AdminSidebar() {
                 </p>
               </div>
             </div>
-            
-            
+
+
           </div>
 
           {/* Navigation */}

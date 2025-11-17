@@ -51,11 +51,9 @@ export default function InvoiceDetailPage() {
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
 
-  useEffect(() => {
-    fetchInvoice();
-  }, [params.id]);
-
   const fetchInvoice = async () => {
+    if (!params?.id) return;
+
     try {
       const res = await fetch(`/api/invoices/${params.id}`);
       if (!res.ok) throw new Error('Failed to fetch invoice');
@@ -69,12 +67,19 @@ export default function InvoiceDetailPage() {
     }
   };
 
+  useEffect(() => {
+    fetchInvoice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params?.id]);
+
   const handlePrint = useReactToPrint({
-    content: () => invoiceRef.current,
+    contentRef: invoiceRef,
     documentTitle: invoice?.invoiceNumber || 'Invoice',
   });
 
   const handleDelete = async () => {
+    if (!params?.id) return;
+
     if (!confirm('Are you sure you want to delete this invoice? This action cannot be undone.')) {
       return;
     }

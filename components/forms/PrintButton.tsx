@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { Printer } from 'lucide-react';
 
@@ -20,7 +19,7 @@ export default function PrintButton({
   variant = 'outline',
 }: PrintButtonProps) {
   const handlePrint = useReactToPrint({
-    content: () => contentRef.current,
+    contentRef,
     documentTitle,
   });
 
