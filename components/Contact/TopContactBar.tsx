@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 export default function TopContactBar() {
   return (
     <>
-      {/* Yellow top bar - Always visible */}
+      {/* Gold top bar - Always visible */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-[#B3995D] text-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-8 text-sm">

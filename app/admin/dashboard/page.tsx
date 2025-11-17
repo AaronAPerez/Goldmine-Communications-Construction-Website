@@ -11,7 +11,7 @@ export const metadata = {
 
 async function getDashboardData() {
   // Fetch real data from database
-  const [projectCount, clientCount, activeProjects, totalUsers, recentProjects] = await Promise.all([
+  const [projectCount, clientCount, activeProjects, totalUsers, recentProjectsRaw] = await Promise.all([
     prisma.project?.count().catch(() => 0) || 0,
     prisma.client?.count().catch(() => 0) || 0,
     prisma.project?.count({ where: { status: 'ACTIVE' } }).catch(() => 0) || 0,
@@ -24,6 +24,17 @@ async function getDashboardData() {
       },
     }).catch(() => []) || [],
   ]);
+
+  // Convert Decimal to number for serialization
+  const recentProjects = recentProjectsRaw.map(project => ({
+    ...project,
+    budgetAmount: project.budgetAmount ? Number(project.budgetAmount) : null,
+    actualCost: project.actualCost ? Number(project.actualCost) : null,
+    client: {
+      ...project.client,
+      lifetimeValue: project.client.lifetimeValue ? Number(project.client.lifetimeValue) : 0,
+    },
+  }));
 
   // Mock data for revenue (you'll replace this with real data later)
   const revenue = {

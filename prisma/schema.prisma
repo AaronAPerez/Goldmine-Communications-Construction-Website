@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,7 +8,7 @@ datasource db {
 }
 
 // ============================================
-// AUTHENTICATION & USERS (NextAuth.js Compatible)
+// AUTHENTICATION
 // ============================================
 
 model User {
@@ -19,28 +16,24 @@ model User {
   name          String?
   email         String    @unique
   emailVerified DateTime?
-  password      String? // For credentials login
+  password      String?
   image         String?
   role          UserRole  @default(VIEWER)
   department    String?
   phone         String?
   active        Boolean   @default(true)
-
-  // NextAuth Relations
-  accounts Account[]
-  sessions Session[]
-
-  // Project Management Relations
-  projects     Project[]
-  teamMembers  TeamMember[]
-  activityLogs ActivityLog[]
-  comments     Comment[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  
+  accounts      Account[]
+  sessions      Session[]
+  projects      Project[] @relation("ProjectManager")
+  clients       Client[]  @relation("ClientAssignee")
+  notes         Note[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
   @@index([email])
-  @@map("users")
+  @@index([role])
 }
 
 enum UserRole {
@@ -49,6 +42,7 @@ enum UserRole {
   PROJECT_MANAGER
   MARKETING
   FINANCE
+  FIELD_TECH
   VIEWER
 }
 
@@ -65,12 +59,10 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
-  @@map("accounts")
 }
 
 model Session {
@@ -79,9 +71,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  
   @@index([userId])
-  @@map("sessions")
 }
 
 model VerificationToken {
@@ -90,658 +81,44 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-  @@map("verification_tokens")
 }
 
 // ============================================
-// CLIENT MANAGEMENT
+// CLIENTS & CRM
 // ============================================
 
 model Client {
-  id        String       @id @default(cuid())
-  name      String
-  email     String?
-  phone     String?
-  company   String?
-  address   String?
-  city      String?
-  state     String?
-  zipCode   String?
-  country   String?      @default("USA")
-  notes     String?      @db.Text
-  status    ClientStatus @default(ACTIVE)
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
-
+  id              String        @id @default(cuid())
+  type            ClientType
+  companyName     String?
+  firstName       String
+  lastName        String
+  email           String        @unique
+  phone           String
+  alternatePhone  String?
+  
+  // Address as JSON
+  address         Json          // { street, city, state, zip }
+  
+  // Lead management
+  source          LeadSource
+  status          ClientStatus
+  assignedToId    String
+  assignedTo      User          @relation("ClientAssignee", fields: [assignedToId], references: [id])
+  
   // Relations
-  projects Project[]
-
-  @@map("clients")
-}
-
-enum ClientStatus {
-  ACTIVE
-  INACTIVE
-  PROSPECT
-}
-
-// ============================================
-// PROJECT MANAGEMENT
-// ============================================
-
-model Project {
-  id              String          @id @default(cuid())
-  title           String
-  description     String?         @db.Text
-  richDescription String?         @db.Text // Rich text HTML content
-  slug            String          @unique
-  status          ProjectStatus   @default(DRAFT)
-  category        ProjectCategory
-  priority        Priority        @default(MEDIUM)
-
-  // Client & Location
-  clientId  String?
-  client    Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
-  location  String?
-  address   String?
-  city      String?
-  state     String?
-  zipCode   String?
-  latitude  Float?
-  longitude Float?
-
-  // Dates
-  startDate       DateTime?
-  endDate         DateTime?
-  actualStartDate DateTime?
-  actualEndDate   DateTime?
-
-  // Budget
-  estimatedBudget Decimal? @db.Decimal(12, 2)
-  actualCost      Decimal? @db.Decimal(12, 2)
-
-  // Progress
-  progressPercent Int @default(0)
-
-  // Owner
-  ownerId String?
-  owner   User?   @relation(fields: [ownerId], references: [id], onDelete: SetNull)
-
-  // Metadata
-  featured    Boolean   @default(false)
-  publishedAt DateTime?
-  archivedAt  DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  // Relations
-  services       ProjectService[]
-  images         ProjectImage[]
-  documents      ProjectDocument[]
-  milestones     Milestone[]
-  phases         ProjectPhase[]
-  team           TeamMember[]
-  equipment      ProjectEquipment[]
-  certifications ProjectCertification[]
-  activityLogs   ActivityLog[]
-  comments       Comment[]
-  tags           ProjectTag[]
-  budget         Budget?
-
-  @@map("projects")
-}
-
-enum ProjectStatus {
-  DRAFT
-  PLANNING
-  ACTIVE
-  ON_HOLD
-  COMPLETED
-  ARCHIVED
-  CANCELLED
-}
-
-enum ProjectCategory {
-  COMMUNICATIONS
-  CONSTRUCTION
-  BOTH
-}
-
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
-}
-
-// ============================================
-// PROJECT SERVICES
-// ============================================
-
-model Service {
-  id          String          @id @default(cuid())
-  name        String          @unique
-  description String?
-  category    ProjectCategory
-  icon        String?
-  isActive    Boolean         @default(true)
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-
-  projects ProjectService[]
-
-  @@map("services")
-}
-
-model ProjectService {
-  id        String   @id @default(cuid())
-  projectId String
-  serviceId String
-  notes     String?
-  createdAt DateTime @default(now())
-
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-
-  @@unique([projectId, serviceId])
-  @@map("project_services")
-}
-
-// ============================================
-// IMAGES & DOCUMENTS
-// ============================================
-
-model ProjectImage {
-  id           String   @id @default(cuid())
-  projectId    String
-  url          String
-  thumbnailUrl String?
-  caption      String?
-  altText      String?
-  width        Int?
-  height       Int?
-  fileSize     Int?
-  mimeType     String?
-  phase        String? // Which phase this image belongs to
-  order        Int      @default(0)
-  isPrimary    Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-
-  @@map("project_images")
-}
-
-model ProjectDocument {
-  id          String           @id @default(cuid())
-  projectId   String
-  name        String
-  description String?
-  url         String
-  fileSize    Int?
-  mimeType    String?
-  category    DocumentCategory
-  version     String           @default("1.0")
-  uploadedAt  DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-
-  @@map("project_documents")
-}
-
-enum DocumentCategory {
-  CONTRACT
-  PLAN
-  SPECIFICATION
-  CHANGE_ORDER
-  INSPECTION_REPORT
-  PHOTO
-  FINAL_DELIVERABLE
-  PERMIT
-  CERTIFICATION
-  OTHER
-}
-
-// ============================================
-// PROJECT TIMELINE & MILESTONES
-// ============================================
-
-model ProjectPhase {
-  id          String      @id @default(cuid())
-  projectId   String
-  name        String
-  description String?
-  startDate   DateTime?
-  endDate     DateTime?
-  status      PhaseStatus @default(PENDING)
-  order       Int
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-
-  project    Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  milestones Milestone[]
-
-  @@map("project_phases")
-}
-
-enum PhaseStatus {
-  PENDING
-  IN_PROGRESS
-  COMPLETED
-  DELAYED
-}
-
-model Milestone {
-  id          String          @id @default(cuid())
-  projectId   String
-  phaseId     String?
-  title       String
-  description String?         @db.Text
-  dueDate     DateTime
-  completedAt DateTime?
-  status      MilestoneStatus @default(PENDING)
-  order       Int             @default(0)
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-
-  project Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  phase   ProjectPhase? @relation(fields: [phaseId], references: [id], onDelete: SetNull)
-
-  @@map("milestones")
-}
-
-enum MilestoneStatus {
-  PENDING
-  IN_PROGRESS
-  COMPLETED
-  OVERDUE
-  CANCELLED
-}
-
-// ============================================
-// TEAM & EQUIPMENT
-// ============================================
-
-model TeamMember {
-  id        String    @id @default(cuid())
-  projectId String
-  userId    String
-  role      String
-  startDate DateTime  @default(now())
-  endDate   DateTime?
-  isActive  Boolean   @default(true)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([projectId, userId])
-  @@map("team_members")
-}
-
-model Equipment {
-  id           String   @id @default(cuid())
-  name         String
-  description  String?
-  model        String?
-  serialNumber String?
-  category     String?
-  isAvailable  Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  projects           ProjectEquipment[]
-  maintenanceRecords MaintenanceRecord[]
-
-  @@map("equipment")
-}
-
-model ProjectEquipment {
-  id          String    @id @default(cuid())
-  projectId   String
-  equipmentId String
-  quantity    Int       @default(1)
-  startDate   DateTime?
-  endDate     DateTime?
-  notes       String?
-  createdAt   DateTime  @default(now())
-
-  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  equipment Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
-
-  @@unique([projectId, equipmentId])
-  @@map("project_equipment")
-}
-
-// ============================================
-// CERTIFICATIONS & COMPLIANCE
-// ============================================
-
-model Certification {
-  id          String           @id @default(cuid())
-  name        String           @unique
-  description String?
-  issuingBody String?
-  category    ProjectCategory?
-  isActive    Boolean          @default(true)
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-
-  projects ProjectCertification[]
-
-  @@map("certifications")
-}
-
-model ProjectCertification {
-  id              String    @id @default(cuid())
-  projectId       String
-  certificationId String
-  certNumber      String?
-  issuedDate      DateTime?
-  expiryDate      DateTime?
-  documentUrl     String?
-  notes           String?
-  createdAt       DateTime  @default(now())
-
-  project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  certification Certification @relation(fields: [certificationId], references: [id], onDelete: Cascade)
-
-  @@unique([projectId, certificationId])
-  @@map("project_certifications")
-}
-
-// ============================================
-// ACTIVITY LOG & COMMENTS
-// ============================================
-
-model ActivityLog {
-  id          String   @id @default(cuid())
-  projectId   String
-  userId      String?
-  action      String
-  description String?
-  metadata    Json?
-  createdAt   DateTime @default(now())
-
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
-
-  @@map("activity_logs")
-}
-
-model Comment {
-  id        String   @id @default(cuid())
-  projectId String
-  userId    String
-  content   String   @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("comments")
-}
-
-// ============================================
-// TAGS
-// ============================================
-
-model Tag {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  slug      String   @unique
-  color     String?
-  createdAt DateTime @default(now())
-
-  projects ProjectTag[]
-
-  @@map("tags")
-}
-
-model ProjectTag {
-  id        String   @id @default(cuid())
-  projectId String
-  tagId     String
-  createdAt DateTime @default(now())
-
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  tag     Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
-
-  @@unique([projectId, tagId])
-  @@map("project_tags")
-}
-
-// ============================================
-// BUDGET & FINANCIAL MANAGEMENT
-// ============================================
-
-model Budget {
-  id           String   @id @default(cuid())
-  projectId    String   @unique
-  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  totalBudget  Decimal  @db.Decimal(12, 2)
-  profitMargin Decimal? @db.Decimal(5, 2)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  allocations BudgetAllocation[]
-  expenses    Expense[]
-  invoices    Invoice[]
-
-  @@map("budgets")
-}
-
-model BudgetAllocation {
-  id        String          @id @default(cuid())
-  budgetId  String
-  budget    Budget          @relation(fields: [budgetId], references: [id], onDelete: Cascade)
-  category  ExpenseCategory
-  allocated Decimal         @db.Decimal(12, 2)
-  spent     Decimal         @default(0) @db.Decimal(12, 2)
-  remaining Decimal         @db.Decimal(12, 2)
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
-
-  @@map("budget_allocations")
-}
-
-enum ExpenseCategory {
-  LABOR
-  MATERIALS
-  EQUIPMENT
-  SUBCONTRACTORS
-  PERMITS
-  INSURANCE
-  OVERHEAD
-  OTHER
-}
-
-model Expense {
-  id          String          @id @default(cuid())
-  budgetId    String
-  budget      Budget          @relation(fields: [budgetId], references: [id], onDelete: Cascade)
-  description String
-  amount      Decimal         @db.Decimal(12, 2)
-  category    ExpenseCategory
-  vendor      String?
-  date        DateTime
-  receipt     String? // S3 URL
-  approved    Boolean         @default(false)
-  approvedBy  String?
-  approvedAt  DateTime?
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-
-  @@map("expenses")
-}
-
-model Invoice {
-  id            String  @id @default(cuid())
-  budgetId      String?
-  budget        Budget? @relation(fields: [budgetId], references: [id], onDelete: Cascade)
-  projectId     String?
-  invoiceNumber String  @unique
-
-  // Client info (can reference project's client or be standalone)
-  clientName    String?
-  clientEmail   String?
-  clientPhone   String?
-  clientAddress String?
-
-  // Amounts
-  subtotal Decimal  @db.Decimal(12, 2)
-  tax      Decimal  @default(0) @db.Decimal(12, 2)
-  taxRate  Decimal? @db.Decimal(5, 2)
-  amount   Decimal  @db.Decimal(12, 2)
-
-  // Invoice details
-  title       String?
-  description String?       @db.Text
-  status      InvoiceStatus @default(DRAFT)
-  issuedDate  DateTime?
-  dueDate     DateTime?
-  paidDate    DateTime?
-  pdfUrl      String?
-  notes       String?       @db.Text
-
-  createdBy String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  lineItems InvoiceLineItem[]
-
-  @@map("invoices")
-}
-
-model InvoiceLineItem {
-  id          String  @id @default(cuid())
-  invoiceId   String
-  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-  description String
-  quantity    Int
-  unit        String? // EA, LF, SF, LS, etc.
-  unitPrice   Decimal @db.Decimal(12, 2)
-  labor       Decimal @default(0) @db.Decimal(12, 2)
-  material    Decimal @default(0) @db.Decimal(12, 2)
-  total       Decimal @db.Decimal(12, 2)
-  order       Int     @default(0)
-
-  @@map("invoice_line_items")
-}
-
-enum InvoiceStatus {
-  DRAFT
-  SENT
-  PAID
-  OVERDUE
-  CANCELLED
-}
-
-// ============================================
-// SOCIAL MEDIA MANAGEMENT
-// ============================================
-
-model SocialPost {
-  id              String     @id @default(cuid())
-  content         String     @db.Text
-  platforms       Platform[]
-  status          PostStatus @default(DRAFT)
-  scheduledFor    DateTime?
-  publishedAt     DateTime?
-  projectId       String?
-  hashtags        String[]
-  facebookPostId  String?
-  instagramPostId String?
-  linkedinPostId  String?
-  twitterPostId   String?
-  createdBy       String
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-
-  media     SocialMedia[]
-  analytics SocialAnalytics?
-
-  @@map("social_posts")
-}
-
-enum Platform {
-  FACEBOOK
-  INSTAGRAM
-  LINKEDIN
-  TWITTER
-}
-
-enum PostStatus {
-  DRAFT
-  SCHEDULED
-  PUBLISHED
-  FAILED
-}
-
-model SocialMedia {
-  id        String     @id @default(cuid())
-  postId    String
-  post      SocialPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  url       String
-  type      MediaType
-  altText   String?
-  order     Int        @default(0)
-  createdAt DateTime   @default(now())
-
-  @@map("social_media")
-}
-
-enum MediaType {
-  IMAGE
-  VIDEO
-  GIF
-}
-
-model SocialAnalytics {
-  id          String     @id @default(cuid())
-  postId      String     @unique
-  post        SocialPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  likes       Int        @default(0)
-  comments    Int        @default(0)
-  shares      Int        @default(0)
-  reach       Int        @default(0)
-  impressions Int        @default(0)
-  clicks      Int        @default(0)
-  engagement  Decimal    @default(0) @db.Decimal(5, 2)
-  updatedAt   DateTime   @updatedAt
-
-  @@map("social_analytics")
-}
-
-// ============================================
-// CRM & LEAD MANAGEMENT
-// ============================================
-
-model Lead {
-  id            String     @id @default(cuid())
-  type          ClientType @default(RESIDENTIAL)
-  companyName   String?
-  firstName     String
-  lastName      String
-  email         String     @unique
-  phone         String
-  address       Json?
-  source        LeadSource @default(WEBSITE)
-  status        LeadStatus @default(NEW)
-  assignedTo    String?
-  lifetimeValue Decimal    @default(0) @db.Decimal(12, 2)
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-
-  quotes         Quote[]
-  communications Communication[]
-  notes          Note[]
-
-  @@map("leads")
+  projects        Project[]
+  notes           Note[]
+  
+  // Metrics
+  lifetimeValue   Decimal       @default(0) @db.Decimal(12, 2)
+  
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  
+  @@index([email])
+  @@index([status])
+  @@index([assignedToId])
 }
 
 enum ClientType {
@@ -757,279 +134,139 @@ enum LeadSource {
   SOCIAL_MEDIA
   COLD_OUTREACH
   REPEAT_CLIENT
-  ADVERTISEMENT
   OTHER
 }
 
-enum LeadStatus {
-  NEW
+enum ClientStatus {
+  LEAD
   CONTACTED
   QUALIFIED
   PROPOSAL_SENT
-  NEGOTIATION
-  WON
+  ACTIVE_CLIENT
+  COMPLETED
   LOST
 }
 
-model Quote {
-  id          String      @id @default(cuid())
-  leadId      String
-  lead        Lead        @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  title       String
-  description String      @db.Text
-  subtotal    Decimal     @db.Decimal(12, 2)
-  tax         Decimal     @db.Decimal(12, 2)
-  total       Decimal     @db.Decimal(12, 2)
-  validUntil  DateTime
-  status      QuoteStatus @default(DRAFT)
-  pdfUrl      String?
-  signedAt    DateTime?
-  createdBy   String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+// ============================================
+// PROJECTS
+// ============================================
 
-  lineItems QuoteLineItem[]
-
-  @@map("quotes")
+model Project {
+  id              String          @id @default(cuid())
+  title           String
+  slug            String          @unique
+  description     String          @db.Text
+  category        ProjectCategory
+  status          ProjectStatus   @default(DRAFT)
+  priority        ProjectPriority @default(MEDIUM)
+  
+  // Client & team
+  clientId        String
+  client          Client          @relation(fields: [clientId], references: [id])
+  managerId       String
+  manager         User            @relation("ProjectManager", fields: [managerId], references: [id])
+  
+  // Location as JSON
+  location        Json            // { address, city, state, zip, lat, lng }
+  
+  // Timeline
+  startDate       DateTime
+  endDate         DateTime?
+  estimatedEndDate DateTime?
+  
+  // Financial
+  budgetAmount    Decimal?        @db.Decimal(12, 2)
+  actualCost      Decimal?        @db.Decimal(12, 2)
+  
+  // Content
+  images          ProjectImage[]
+  notes           Note[]
+  
+  // Public website
+  featured        Boolean         @default(false)
+  publishedAt     DateTime?
+  seoTitle        String?
+  seoDescription  String?
+  
+  // Metadata
+  tags            String[]
+  services        String[]        // Array of service names
+  
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  
+  @@index([slug])
+  @@index([clientId])
+  @@index([managerId])
+  @@index([status])
+  @@index([category])
 }
 
-enum QuoteStatus {
+enum ProjectCategory {
+  COMMUNICATIONS
+  CONSTRUCTION
+  BOTH
+}
+
+enum ProjectStatus {
   DRAFT
-  SENT
-  VIEWED
-  ACCEPTED
-  REJECTED
-  EXPIRED
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  ARCHIVED
+  CANCELLED
 }
 
-model QuoteLineItem {
-  id          String  @id @default(cuid())
-  quoteId     String
-  quote       Quote   @relation(fields: [quoteId], references: [id], onDelete: Cascade)
-  description String
-  quantity    Int
-  unitPrice   Decimal @db.Decimal(12, 2)
-  total       Decimal @db.Decimal(12, 2)
-  order       Int     @default(0)
-
-  @@map("quote_line_items")
+enum ProjectPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
 }
 
-model Communication {
-  id      String            @id @default(cuid())
-  leadId  String
-  lead    Lead              @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  type    CommunicationType
-  subject String?
-  content String            @db.Text
-  sentBy  String
-  sentAt  DateTime          @default(now())
-
-  @@map("communications")
+model ProjectImage {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  url         String   // Supabase storage URL
+  caption     String?
+  altText     String?
+  order       Int      @default(0)
+  featured    Boolean  @default(false)
+  width       Int?
+  height      Int?
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([projectId])
+  @@index([featured])
 }
 
-enum CommunicationType {
-  EMAIL
-  PHONE
-  SMS
-  MEETING
-  NOTE
-}
+// ============================================
+// NOTES & COMMUNICATION
+// ============================================
 
 model Note {
   id        String   @id @default(cuid())
-  leadId    String
-  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
   content   String   @db.Text
+  
+  // Relations (polymorphic-ish)
+  clientId  String?
+  client    Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Author
   createdBy String
+  user      User     @relation(fields: [createdBy], references: [id])
+  
+  pinned    Boolean  @default(false)
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@map("notes")
-}
-
-// ============================================
-// CMS - BLOG & CONTENT
-// ============================================
-
-model BlogPost {
-  id             String        @id @default(cuid())
-  title          String
-  slug           String        @unique
-  content        String        @db.Text
-  excerpt        String?       @db.Text
-  featuredImage  String?
-  authorId       String
-  status         ContentStatus @default(DRAFT)
-  publishedAt    DateTime?
-  seoTitle       String?
-  seoDescription String?       @db.Text
-  views          Int           @default(0)
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-
-  categories BlogCategory[]
-  tags       BlogTag[]
-
-  @@map("blog_posts")
-}
-
-enum ContentStatus {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
-}
-
-model BlogCategory {
-  id        String   @id @default(cuid())
-  postId    String
-  post      BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  name      String
-  slug      String
-  createdAt DateTime @default(now())
-
-  @@unique([postId, slug])
-  @@map("blog_categories")
-}
-
-model BlogTag {
-  id        String   @id @default(cuid())
-  postId    String
-  post      BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  name      String
-  slug      String
-  createdAt DateTime @default(now())
-
-  @@unique([postId, slug])
-  @@map("blog_tags")
-}
-
-model Testimonial {
-  id          String   @id @default(cuid())
-  clientName  String
-  clientTitle String?
-  company     String?
-  content     String   @db.Text
-  rating      Int      @default(5)
-  photo       String?
-  projectId   String?
-  featured    Boolean  @default(false)
-  approved    Boolean  @default(false)
-  platforms   String[] // ['website', 'social']
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("testimonials")
-}
-
-model ContentPage {
-  id             String          @id @default(cuid())
-  title          String
-  slug           String          @unique
-  content        String          @db.Text
-  category       ProjectCategory
-  description    String?         @db.Text
-  features       String[]
-  icon           String?
-  image          String?
-  active         Boolean         @default(true)
-  order          Int             @default(0)
-  seoTitle       String?
-  seoDescription String?         @db.Text
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-
-  @@map("content_pages")
-}
-
-// ============================================
-// ANALYTICS & REPORTING
-// ============================================
-
-model Analytics {
-  id        String        @id @default(cuid())
-  type      AnalyticsType
-  metric    String
-  value     Decimal       @db.Decimal(12, 2)
-  metadata  Json?
-  timestamp DateTime
-  createdAt DateTime      @default(now())
-
-  @@map("analytics")
-}
-
-enum AnalyticsType {
-  WEBSITE_TRAFFIC
-  LEAD_CONVERSION
-  PROJECT_COMPLETION
-  REVENUE
-  SOCIAL_ENGAGEMENT
-  MARKETING_CAMPAIGN
-}
-
-model Report {
-  id         String     @id @default(cuid())
-  name       String
-  type       ReportType
-  config     Json // Report configuration
-  schedule   String? // Cron expression
-  recipients String[] // Email addresses
-  lastRun    DateTime?
-  nextRun    DateTime?
-  active     Boolean    @default(true)
-  createdBy  String
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-
-  @@map("reports")
-}
-
-enum ReportType {
-  PROJECT_SUMMARY
-  FINANCIAL
-  SOCIAL_MEDIA
-  LEAD_PIPELINE
-  CUSTOM
-}
-
-// ============================================
-// ENHANCED EQUIPMENT MANAGEMENT
-// ============================================
-
-model MaintenanceRecord {
-  id          String          @id @default(cuid())
-  equipmentId String
-  equipment   Equipment       @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
-  type        MaintenanceType
-  description String          @db.Text
-  cost        Decimal?        @db.Decimal(12, 2)
-  performedBy String?
-  performedAt DateTime
-  nextDueDate DateTime?
-  documentUrl String?
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-
-  @@map("maintenance_records")
-}
-
-enum MaintenanceType {
-  PREVENTIVE
-  REPAIR
-  INSPECTION
-  UPGRADE
-}
-
-model EquipmentUsage {
-  id          String    @id @default(cuid())
-  equipmentId String
-  projectId   String
-  operatorId  String?
-  startDate   DateTime
-  endDate     DateTime?
-  hours       Decimal?  @db.Decimal(8, 2)
-  notes       String?   @db.Text
-  createdAt   DateTime  @default(now())
-
-  @@map("equipment_usage")
+  
+  @@index([clientId])
+  @@index([projectId])
+  @@index([createdBy])
 }

@@ -1,35 +1,202 @@
-import AdminPageLayout from '@/components/admin/layouts/AdminPageLayout';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import { prisma } from '@/lib/prisma';
+import AdminPageLayout from '@/components/admin/layouts/AdminPageLayout';
+import Link from 'next/link';
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { format } from 'date-fns';
 
 export const metadata = {
-  title: 'Projects | Goldmine Admin',
+  title: 'Projects | Admin Dashboard',
+  description: 'Manage your projects',
+};
+
+async function getProjects() {
+  const projects = await prisma.project.findMany({
+    include: {
+      client: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          companyName: true,
+        },
+      },
+      manager: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      _count: {
+        select: {
+          images: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  // Convert Decimal to number for serialization
+  return projects.map(project => ({
+    ...project,
+    budgetAmount: project.budgetAmount ? Number(project.budgetAmount) : null,
+    actualCost: project.actualCost ? Number(project.actualCost) : null,
+  }));
+}
+
+const statusColors = {
+  DRAFT: 'bg-gray-100 text-gray-800',
+  PLANNING: 'bg-blue-100 text-blue-800',
+  ACTIVE: 'bg-green-100 text-green-800',
+  ON_HOLD: 'bg-yellow-100 text-yellow-800',
+  COMPLETED: 'bg-purple-100 text-purple-800',
+  ARCHIVED: 'bg-gray-100 text-gray-600',
+  CANCELLED: 'bg-red-100 text-red-800',
 };
 
 export default async function ProjectsPage() {
   const session = await auth();
-  if (!session) redirect('/admin/login');
+
+  if (!session) {
+    redirect('/admin/login');
+  }
+
+  const projects = await getProjects();
 
   return (
     <AdminPageLayout>
-      <div>
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Projects</h1>
-          <p className="text-gray-600 mt-2">Manage your construction and communications projects</p>
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
+            <p className="text-sm text-gray-600 mt-1">
+              Manage your construction and communications projects
+            </p>
+          </div>
+          <Link
+            href="/admin/projects/new"
+            className="inline-flex items-center px-4 py-2 bg-gold-600 text-white rounded-lg hover:bg-gold-700 transition-colors"
+          >
+            <PlusIcon className="h-5 w-5 mr-2" />
+            New Project
+          </Link>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-          <div className="text-center py-12">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {[
+            { label: 'Total Projects', value: projects.length },
+            { label: 'Active', value: projects.filter(p => p.status === 'ACTIVE').length },
+            { label: 'Planning', value: projects.filter(p => p.status === 'PLANNING').length },
+            { label: 'Completed', value: projects.filter(p => p.status === 'COMPLETED').length },
+          ].map((stat) => (
+            <div key={stat.label} className="bg-white rounded-lg shadow p-4">
+              <p className="text-sm text-gray-600">{stat.label}</p>
+              <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Projects Management</h3>
-            <p className="text-gray-600 mb-4">This feature is coming soon</p>
-            <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-              Create New Project
-            </button>
+          ))}
+        </div>
+
+        {/* Projects Table */}
+        <div className="bg-white shadow rounded-lg overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Project
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Client
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Manager
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Category
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Start Date
+                  </th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {projects.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                      No projects yet. Create your first project to get started.
+                    </td>
+                  </tr>
+                ) : (
+                  projects.map((project) => (
+                    <tr key={project.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                        <div>
+                          <div className="text-sm font-medium text-gray-900">
+                            {project.title}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {project._count.images} images
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          {project.client.companyName ||
+                            `${project.client.firstName} ${project.client.lastName}`}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          {project.manager.name}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="text-sm text-gray-900">
+                          {project.category}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span
+                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            statusColors[project.status]
+                          }`}
+                        >
+                          {project.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {format(new Date(project.startDate), 'MMM d, yyyy')}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                        <Link
+                          href={`/admin/projects/${project.id}`}
+                          className="text-gold-600 hover:text-gold-900"
+                        >
+                          View
+                        </Link>
+                        <Link
+                          href={`/admin/projects/${project.id}/edit`}
+                          className="text-blue-600 hover:text-blue-900"
+                        >
+                          Edit
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
