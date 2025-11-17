@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
@@ -34,7 +33,6 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
-  // viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
   robots: 'index, follow',
 };
 
@@ -63,20 +61,16 @@ export default async function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        {/* <meta name="theme-color" content="#D4AF37" />
-        <link
-          rel="preload"
-          href="/images/WorkOregonPics/image16.jpeg"
-          as="image"
-          type="image/jpeg"
-        /> */}
+        {/* <meta name="theme-color" content="#D4AF37" /> */}
       </head>
-      <body className={`${inter.className} overflow-x-hidden`}>
-        <SessionProvider session={session}>
-          <LayoutProvider>
-            {children}
-          </LayoutProvider>
-        </SessionProvider>
+      <body className={`${inter.className} min-h-screen overflow-x-hidden`}>
+        <main id="main-content">
+          <SessionProvider session={session}>
+            <LayoutProvider>
+              {children}
+            </LayoutProvider>
+          </SessionProvider>
+        </main>
 
         {/* Analytics for all routes */}
         <Analytics />
