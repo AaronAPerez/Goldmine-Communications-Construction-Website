@@ -203,7 +203,7 @@ export default function NewInvoicePage() {
             <button
               type="button"
               onClick={createBlankForm}
-              className="flex items-center gap-2 px-4 py-2 outline outline-gray-700 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
             >
               <FileText className="w-5 h-5" />
               Blank Form
@@ -212,7 +212,7 @@ export default function NewInvoicePage() {
               type="button"
               onClick={handlePrint}
               disabled={!invoiceData}
-              className="flex items-center gap-2 px-4 py-2 outline outline-green-600 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Printer className="w-5 h-5" />
               Print
@@ -275,11 +275,11 @@ export default function NewInvoicePage() {
           <h3 className="text-sm font-semibold text-blue-900 mb-2">💡 How to use:</h3>
           <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
             <li>Click on any field with a blue background to edit it directly on the form</li>
-            <li>Use the &quot;Add Row&quot; button to add more line items</li>
+            <li>Use the "Add Row" button to add more line items</li>
             <li>All calculations update automatically as you type</li>
-            <li>Click &quot;Save Invoice&quot; when done to save to the database</li>
-            <li>Click &quot;Print&quot; to generate a PDF preview</li>
-            <li>Use &quot;Blank Form&quot; to start over with empty fields</li>
+            <li>Click "Save Invoice" when done to save to the database</li>
+            <li>Click "Print" to generate a PDF preview</li>
+            <li>Use "Blank Form" to start over with empty fields</li>
           </ul>
         </div>
       </div>

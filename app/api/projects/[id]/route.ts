@@ -25,6 +25,7 @@ const projectUpdateSchema = z.object({
   tags: z.array(z.string()).optional(),
   featured: z.boolean().optional(),
   images: z.array(z.string()).optional(),
+  blueprintUrl: z.string().nullable().optional(),
 });
 
 // GET /api/admin/projects/[id] - Get single project
@@ -139,6 +140,7 @@ export async function PATCH(
     if (validatedData.tags !== undefined) updateData.tags = validatedData.tags;
     if (validatedData.featured !== undefined) updateData.featured = validatedData.featured;
     if (validatedData.budgetAmount !== undefined) updateData.budgetAmount = validatedData.budgetAmount;
+    if (validatedData.blueprintUrl !== undefined) updateData.blueprintUrl = validatedData.blueprintUrl;
 
     // Parse dates if provided
     if (validatedData.startDate) {

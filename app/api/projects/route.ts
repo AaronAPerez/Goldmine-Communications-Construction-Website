@@ -25,6 +25,7 @@ const projectSchema = z.object({
   tags: z.array(z.string()).optional(),
   featured: z.boolean().default(false),
   images: z.array(z.string()).optional(),
+  blueprintUrl: z.string().optional().nullable(),
 });
 
 // Helper function to generate slug
@@ -156,6 +157,7 @@ export async function POST(request: NextRequest) {
         tags: validatedData.tags || [],
         featured: validatedData.featured,
         publishedAt: validatedData.status === 'COMPLETED' ? new Date() : null,
+        blueprintUrl: validatedData.blueprintUrl || null,
       },
       include: {
         client: true,

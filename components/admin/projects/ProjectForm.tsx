@@ -13,8 +13,10 @@ import {
   MapPin,
   Tag,
   Loader2,
+  FileText,
 } from 'lucide-react';
 import ImageUploader from './ImageUploader';
+import BlueprintUploader from './BlueprintUploader';
 
 // Validation schema
 const projectSchema = z.object({
@@ -80,6 +82,7 @@ export default function ProjectForm({
   const [uploadedImages, setUploadedImages] = useState<string[]>(
     initialData?.images?.map((img: any) => img.url) || []
   );
+  const [blueprintUrl, setBlueprintUrl] = useState<string>('');
 
   const {
     register,
@@ -143,6 +146,47 @@ export default function ProjectForm({
     }
   };
 
+  // Handle blueprint data extraction
+  const handleBlueprintParsed = (data: {
+    projectName?: string;
+    siteNumber?: string;
+    location?: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    clientName?: string;
+    description?: string;
+  }) => {
+    // Auto-fill form fields from blueprint data
+    if (data.projectName) {
+      setValue('title', data.projectName);
+    }
+    if (data.description) {
+      const currentDesc = watch('description');
+      if (!currentDesc || currentDesc.length < 10) {
+        setValue('description', data.description);
+      }
+    }
+    if (data.address) {
+      setValue('address', data.address);
+    }
+    if (data.city) {
+      setValue('city', data.city);
+    }
+    if (data.state) {
+      setValue('state', data.state.toUpperCase());
+    }
+    if (data.zipCode) {
+      setValue('zip', data.zipCode);
+    }
+    // Note: Client matching would require fuzzy search - for now we just note it
+    if (data.clientName) {
+      console.log('Client from blueprint:', data.clientName);
+      // You could implement client matching here
+    }
+  };
+
   // Generate slug from title
   const generateSlug = (title: string) => {
     return title
@@ -183,6 +227,7 @@ export default function ProjectForm({
             ? new Date(data.publishedAt).toISOString()
             : null,
         images: uploadedImages,
+        blueprintUrl: blueprintUrl || null,
       };
 
       const url = isEdit
@@ -231,6 +276,29 @@ export default function ProjectForm({
           Cancel
         </button>
       </div>
+
+      {/* Blueprint Upload - Only show for new projects */}
+      {!isEdit && (
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-sm border-2 border-blue-200 p-6">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="p-2 bg-blue-500 rounded-lg">
+              <FileText className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">
+                Upload Project Blueprint (Optional)
+              </h2>
+              <p className="text-sm text-gray-600 mt-1">
+                Upload a PDF blueprint to automatically extract project information and fill in the form below
+              </p>
+            </div>
+          </div>
+          <BlueprintUploader
+            onBlueprintParsed={handleBlueprintParsed}
+            onFileUploaded={setBlueprintUrl}
+          />
+        </div>
+      )}
 
       {/* Basic Information */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">

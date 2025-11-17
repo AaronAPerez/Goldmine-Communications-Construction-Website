@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     const uploadResults = [];
+    const errors = [];
 
     for (const file of files) {
       const fileExt = file.name.split('.').pop();
@@ -41,7 +42,11 @@ export async function POST(request: NextRequest) {
         });
 
       if (error) {
-        console.error('Upload error:', error);
+        console.error('Supabase upload error for file:', file.name, error);
+        errors.push({
+          fileName: file.name,
+          error: error.message,
+        });
         continue;
       }
 
@@ -55,9 +60,21 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    // If all uploads failed, return an error
+    if (uploadResults.length === 0 && errors.length > 0) {
+      return NextResponse.json(
+        {
+          error: 'All file uploads failed',
+          details: errors
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json({
       success: true,
       files: uploadResults,
+      errors: errors.length > 0 ? errors : undefined,
     });
   } catch (error) {
     console.error('POST /api/admin/upload error:', error);
