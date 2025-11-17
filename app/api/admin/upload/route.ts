@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
-import { storage } from '@/lib/supabase-storage';
+import { storageServer } from '@/lib/supabase-storage-server';
 
 // POST /api/admin/upload - Upload images
 export async function POST(request: NextRequest) {
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Upload files to Supabase Storage
-    const uploadResults = await storage.uploadMultipleFiles(
+    const uploadResults = await storageServer.uploadMultipleFiles(
       files,
       'images',
       projectId

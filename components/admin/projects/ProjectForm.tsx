@@ -1,160 +1,333 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { projectFormSchema, ProjectFormData } from '@/lib/validations/project';
-import { useState } from 'react';
+import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import {
+  Save,
+  X,
+  Upload,
+  Calendar,
+  DollarSign,
+  MapPin,
+  User,
+  FileText,
+  Tag,
+  Loader2,
+} from 'lucide-react';
 import ImageUploader from './ImageUploader';
 
+// Validation schema
+const projectSchema = z.object({
+  title: z.string().min(3, 'Title must be at least 3 characters'),
+  description: z.string().min(10, 'Description must be at least 10 characters'),
+  category: z.enum(['COMMUNICATIONS', 'CONSTRUCTION', 'BOTH']),
+  status: z.enum(['DRAFT', 'PLANNING', 'ACTIVE', 'ON_HOLD', 'COMPLETED', 'ARCHIVED']),
+  priority: z.enum(['LOW', 'MEDIUM', 'HIGH', 'URGENT']),
+  clientId: z.string().min(1, 'Please select a client'),
+  address: z.string().min(1, 'Address is required'),
+  city: z.string().min(1, 'City is required'),
+  state: z.string().length(2, 'State must be 2 characters (e.g., CA)'),
+  zip: z.string().min(5, 'ZIP code is required'),
+  startDate: z.string().min(1, 'Start date is required'),
+  endDate: z.string().optional(),
+  budgetAmount: z.string().optional(),
+  services: z.array(z.string()).min(1, 'Select at least one service'),
+  tags: z.string().optional(),
+  featured: z.boolean().default(false),
+  publishedAt: z.string().optional(),
+});
+
+type ProjectFormData = z.infer<typeof projectSchema>;
+
 interface ProjectFormProps {
-  initialData?: Partial<ProjectFormData>;
-  projectId?: string;
-  clients: Array<{ id: string; firstName: string; lastName: string; companyName?: string }>;
-  managers: Array<{ id: string; name: string; email: string }>;
+  clients: Array<{
+    id: string;
+    firstName: string;
+    lastName: string;
+    companyName?: string;
+  }>;
+  initialData?: any;
+  isEdit?: boolean;
 }
 
+const AVAILABLE_SERVICES = [
+  // Communications
+  'Network Infrastructure',
+  'Fiber Optic Installation',
+  'Data Center Setup',
+  '5G Installation',
+  'Wireless Solutions',
+  'DAS Systems',
+  'Structured Cabling',
+  // Construction
+  'Site Development',
+  'Excavation & Grading',
+  'Concrete Work',
+  'Foundation Construction',
+  'Infrastructure Development',
+  'Utility Installation',
+  'Demolition',
+  'Equipment Transport',
+];
+
 export default function ProjectForm({
-  initialData,
-  projectId,
   clients,
-  managers,
+  initialData,
+  isEdit = false,
 }: ProjectFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [images, setImages] = useState<File[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [uploadedImages, setUploadedImages] = useState<string[]>(
+    initialData?.images?.map((img: any) => img.url) || []
+  );
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    watch,
     setValue,
+    formState: { errors },
   } = useForm<ProjectFormData>({
-    resolver: zodResolver(projectFormSchema),
-    defaultValues: initialData || {
-      status: 'DRAFT',
-      priority: 'MEDIUM',
-      featured: false,
-      services: [],
-      tags: [],
-    },
+    resolver: zodResolver(projectSchema),
+    defaultValues: initialData
+      ? {
+          title: initialData.title,
+          description: initialData.description,
+          category: initialData.category,
+          status: initialData.status,
+          priority: initialData.priority,
+          clientId: initialData.clientId,
+          address: initialData.location.address,
+          city: initialData.location.city,
+          state: initialData.location.state,
+          zip: initialData.location.zip,
+          startDate: new Date(initialData.startDate)
+            .toISOString()
+            .split('T')[0],
+          endDate: initialData.endDate
+            ? new Date(initialData.endDate).toISOString().split('T')[0]
+            : '',
+          budgetAmount: initialData.budgetAmount
+            ? initialData.budgetAmount.toString()
+            : '',
+          services: initialData.services || [],
+          tags: initialData.tags?.join(', ') || '',
+          featured: initialData.featured || false,
+          publishedAt: initialData.publishedAt
+            ? new Date(initialData.publishedAt).toISOString().split('T')[0]
+            : '',
+        }
+      : {
+          status: 'DRAFT',
+          priority: 'MEDIUM',
+          category: 'BOTH',
+          services: [],
+          featured: false,
+        },
   });
 
-  const onSubmit = async (data: ProjectFormData) => {
-    try {
-      setIsSubmitting(true);
-      setError(null);
+  const selectedServices = watch('services') || [];
+  const status = watch('status');
+  const category = watch('category');
 
-      const url = projectId
-        ? `/api/admin/projects/${projectId}`
-        : '/api/admin/projects';
-      const method = projectId ? 'PATCH' : 'POST';
+  // Toggle service selection
+  const toggleService = (service: string) => {
+    const current = selectedServices;
+    if (current.includes(service)) {
+      setValue(
+        'services',
+        current.filter((s) => s !== service)
+      );
+    } else {
+      setValue('services', [...current, service]);
+    }
+  };
+
+  // Generate slug from title
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  };
+
+  // Handle form submission
+  const onSubmit = async (data: ProjectFormData) => {
+    setIsSubmitting(true);
+
+    try {
+      const slug = isEdit ? initialData.slug : generateSlug(data.title);
+
+      const payload = {
+        title: data.title,
+        slug,
+        description: data.description,
+        category: data.category,
+        status: data.status,
+        priority: data.priority,
+        clientId: data.clientId,
+        location: {
+          address: data.address,
+          city: data.city,
+          state: data.state,
+          zip: data.zip,
+        },
+        startDate: new Date(data.startDate).toISOString(),
+        endDate: data.endDate ? new Date(data.endDate).toISOString() : null,
+        budgetAmount: data.budgetAmount ? parseFloat(data.budgetAmount) : null,
+        services: data.services,
+        tags: data.tags ? data.tags.split(',').map((t) => t.trim()) : [],
+        featured: data.featured,
+        publishedAt:
+          data.status === 'COMPLETED' && data.publishedAt
+            ? new Date(data.publishedAt).toISOString()
+            : null,
+        images: uploadedImages,
+      };
+
+      const url = isEdit
+        ? `/api/projects/${initialData.id}`
+        : '/api/projects';
+
+      const method = isEdit ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Failed to save project');
+        throw new Error(error.message || 'Failed to save project');
       }
 
-      const project = await response.json();
-
-      // Upload images if any
-      if (images.length > 0) {
-        const formData = new FormData();
-        images.forEach((image) => {
-          formData.append('files', image);
-        });
-        formData.append('projectId', project.id);
-
-        await fetch('/api/admin/upload', {
-          method: 'POST',
-          body: formData,
-        });
-      }
-
-      router.push('/admin/projects');
+      const result = await response.json();
+      router.push(`/admin/projects/${result.id}`);
       router.refresh();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-    } finally {
+    } catch (error: any) {
+      alert(error.message || 'Failed to save project');
       setIsSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-          {error}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {isEdit ? 'Edit Project' : 'Create New Project'}
+          </h1>
+          <p className="text-gray-600 mt-1">
+            {isEdit ? 'Update project details' : 'Add a new project to your portfolio'}
+          </p>
         </div>
-      )}
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
 
       {/* Basic Information */}
-      <div className="bg-white shadow rounded-lg p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-900">Basic Information</h2>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">
+          Basic Information
+        </h2>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Title *
-          </label>
-          <input
-            {...register('title')}
-            type="text"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
-          />
-          {errors.title && (
-            <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
-          )}
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Title */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Project Title *
+            </label>
+            <input
+              {...register('title')}
+              type="text"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
+              placeholder="Oregon AV Charging Infrastructure"
+            />
+            {errors.title && (
+              <p className="text-red-600 text-sm mt-1">{errors.title.message}</p>
+            )}
+          </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Description *
-          </label>
-          <textarea
-            {...register('description')}
-            rows={4}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
-          />
-          {errors.description && (
-            <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
-          )}
-        </div>
+          {/* Description */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Description *
+            </label>
+            <textarea
+              {...register('description')}
+              rows={4}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
+              placeholder="Comprehensive description of the project..."
+            />
+            {errors.description && (
+              <p className="text-red-600 text-sm mt-1">
+                {errors.description.message}
+              </p>
+            )}
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Category */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Category *
             </label>
             <select
               {...register('category')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
             >
-              <option value="">Select category</option>
+              <option value="BOTH">Both</option>
               <option value="COMMUNICATIONS">Communications</option>
               <option value="CONSTRUCTION">Construction</option>
-              <option value="BOTH">Both</option>
             </select>
             {errors.category && (
-              <p className="mt-1 text-sm text-red-600">{errors.category.message}</p>
+              <p className="text-red-600 text-sm mt-1">
+                {errors.category.message}
+              </p>
             )}
           </div>
 
+          {/* Client */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Status
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Client *
+            </label>
+            <select
+              {...register('clientId')}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
+            >
+              <option value="">Select a client...</option>
+              {clients.map((client) => (
+                <option key={client.id} value={client.id}>
+                  {client.companyName ||
+                    `${client.firstName} ${client.lastName}`}
+                </option>
+              ))}
+            </select>
+            {errors.clientId && (
+              <p className="text-red-600 text-sm mt-1">
+                {errors.clientId.message}
+              </p>
+            )}
+          </div>
+
+          {/* Status */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Status *
             </label>
             <select
               {...register('status')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
             >
               <option value="DRAFT">Draft</option>
               <option value="PLANNING">Planning</option>
@@ -162,17 +335,17 @@ export default function ProjectForm({
               <option value="ON_HOLD">On Hold</option>
               <option value="COMPLETED">Completed</option>
               <option value="ARCHIVED">Archived</option>
-              <option value="CANCELLED">Cancelled</option>
             </select>
           </div>
 
+          {/* Priority */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Priority
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Priority *
             </label>
             <select
               {...register('priority')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
             >
               <option value="LOW">Low</option>
               <option value="MEDIUM">Medium</option>
@@ -183,207 +356,246 @@ export default function ProjectForm({
         </div>
       </div>
 
-      {/* Client & Manager */}
-      <div className="bg-white shadow rounded-lg p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-900">Client & Team</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Client *
-            </label>
-            <select
-              {...register('clientId')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
-            >
-              <option value="">Select client</option>
-              {clients.map((client) => (
-                <option key={client.id} value={client.id}>
-                  {client.companyName || `${client.firstName} ${client.lastName}`}
-                </option>
-              ))}
-            </select>
-            {errors.clientId && (
-              <p className="mt-1 text-sm text-red-600">{errors.clientId.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Project Manager *
-            </label>
-            <select
-              {...register('managerId')}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
-            >
-              <option value="">Select manager</option>
-              {managers.map((manager) => (
-                <option key={manager.id} value={manager.id}>
-                  {manager.name}
-                </option>
-              ))}
-            </select>
-            {errors.managerId && (
-              <p className="mt-1 text-sm text-red-600">{errors.managerId.message}</p>
-            )}
-          </div>
-        </div>
-      </div>
-
       {/* Location */}
-      <div className="bg-white shadow rounded-lg p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-900">Location</h2>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+          <MapPin className="w-5 h-5" />
+          Location
+        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700">
-              Address *
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Street Address *
             </label>
             <input
-              {...register('location.address')}
+              {...register('address')}
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
+              placeholder="123 Main Street"
             />
-            {errors.location?.address && (
-              <p className="mt-1 text-sm text-red-600">{errors.location.address.message}</p>
+            {errors.address && (
+              <p className="text-red-600 text-sm mt-1">{errors.address.message}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               City *
             </label>
             <input
-              {...register('location.city')}
+              {...register('city')}
               type="text"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
+              placeholder="San Jose"
             />
-            {errors.location?.city && (
-              <p className="mt-1 text-sm text-red-600">{errors.location.city.message}</p>
+            {errors.city && (
+              <p className="text-red-600 text-sm mt-1">{errors.city.message}</p>
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                State *
-              </label>
-              <input
-                {...register('location.state')}
-                type="text"
-                maxLength={2}
-                placeholder="CA"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
-              />
-              {errors.location?.state && (
-                <p className="mt-1 text-sm text-red-600">{errors.location.state.message}</p>
-              )}
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              State *
+            </label>
+            <input
+              {...register('state')}
+              type="text"
+              maxLength={2}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent uppercase"
+              placeholder="CA"
+            />
+            {errors.state && (
+              <p className="text-red-600 text-sm mt-1">{errors.state.message}</p>
+            )}
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                ZIP *
-              </label>
-              <input
-                {...register('location.zip')}
-                type="text"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
-              />
-              {errors.location?.zip && (
-                <p className="mt-1 text-sm text-red-600">{errors.location.zip.message}</p>
-              )}
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              ZIP Code *
+            </label>
+            <input
+              {...register('zip')}
+              type="text"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
+              placeholder="95125"
+            />
+            {errors.zip && (
+              <p className="text-red-600 text-sm mt-1">{errors.zip.message}</p>
+            )}
           </div>
         </div>
       </div>
 
       {/* Timeline & Budget */}
-      <div className="bg-white shadow rounded-lg p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-900">Timeline & Budget</h2>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+          <Calendar className="w-5 h-5" />
+          Timeline & Budget
+        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Start Date *
             </label>
             <input
               {...register('startDate')}
               type="date"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
             />
             {errors.startDate && (
-              <p className="mt-1 text-sm text-red-600">{errors.startDate.message}</p>
+              <p className="text-red-600 text-sm mt-1">
+                {errors.startDate.message}
+              </p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               End Date
             </label>
             <input
               {...register('endDate')}
               type="date"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Budget Amount
             </label>
-            <input
-              {...register('budgetAmount')}
-              type="number"
-              step="0.01"
-              placeholder="0.00"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gold-500 focus:ring-gold-500"
-            />
+            <div className="relative">
+              <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                {...register('budgetAmount')}
+                type="number"
+                step="0.01"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
+                placeholder="50000.00"
+              />
+            </div>
           </div>
+
+          {status === 'COMPLETED' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Published Date
+              </label>
+              <input
+                {...register('publishedAt')}
+                type="date"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
+              />
+            </div>
+          )}
         </div>
       </div>
 
       {/* Services */}
-      <div className="bg-white shadow rounded-lg p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-900">Services *</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {['Fiber Optic Installation', 'Network Cabling', 'Tower Construction', 'Site Survey', 'Equipment Installation', 'Maintenance'].map((service) => (
-            <label key={service} className="flex items-center">
-              <input
-                type="checkbox"
-                value={service}
-                {...register('services')}
-                className="rounded border-gray-300 text-gold-600 focus:ring-gold-500"
-              />
-              <span className="ml-2 text-sm text-gray-700">{service}</span>
-            </label>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+          <Tag className="w-5 h-5" />
+          Services Provided *
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          {AVAILABLE_SERVICES.map((service) => (
+            <button
+              key={service}
+              type="button"
+              onClick={() => toggleService(service)}
+              className={`
+                px-4 py-2 rounded-lg text-sm font-medium transition-colors
+                ${
+                  selectedServices.includes(service)
+                    ? 'bg-gold-500 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }
+              `}
+            >
+              {service}
+            </button>
           ))}
         </div>
         {errors.services && (
-          <p className="mt-1 text-sm text-red-600">{errors.services.message}</p>
+          <p className="text-red-600 text-sm mt-2">{errors.services.message}</p>
         )}
       </div>
 
       {/* Images */}
-      <div className="bg-white shadow rounded-lg p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-900">Project Images</h2>
-        <ImageUploader onImagesChange={setImages} />
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+          <Upload className="w-5 h-5" />
+          Project Images
+        </h2>
+        <ImageUploader
+          images={uploadedImages}
+          onImagesChange={setUploadedImages}
+          projectId={initialData?.id}
+        />
       </div>
 
-      {/* Submit Buttons */}
-      <div className="flex justify-end gap-3">
+      {/* Additional Options */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">
+          Additional Options
+        </h2>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Tags (comma-separated)
+            </label>
+            <input
+              {...register('tags')}
+              type="text"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent"
+              placeholder="infrastructure, communications, fiber-optic"
+            />
+          </div>
+
+          <div className="flex items-center">
+            <input
+              {...register('featured')}
+              type="checkbox"
+              id="featured"
+              className="w-4 h-4 text-gold-600 border-gray-300 rounded focus:ring-gold-500"
+            />
+            <label htmlFor="featured" className="ml-2 text-sm text-gray-700">
+              Feature this project on the homepage
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {/* Submit Button */}
+      <div className="flex items-center justify-end gap-4">
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+          className="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition-colors"
+          disabled={isSubmitting}
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-4 py-2 bg-gold-600 text-white rounded-md text-sm font-medium hover:bg-gold-700 disabled:opacity-50"
+          className="px-6 py-3 bg-gold-500 hover:bg-gold-600 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
-          {isSubmitting ? 'Saving...' : projectId ? 'Update Project' : 'Create Project'}
+          {isSubmitting ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            <>
+              <Save className="w-5 h-5" />
+              {isEdit ? 'Update Project' : 'Create Project'}
+            </>
+          )}
         </button>
       </div>
     </form>
