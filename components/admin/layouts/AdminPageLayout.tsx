@@ -12,7 +12,7 @@ interface AdminPageLayoutProps {
  */
 export default function AdminPageLayout({ children }: AdminPageLayoutProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-400 via-gray-50 to-gold-100">
+    <div className="min-h-screen bg-gray-200">
       <div className="flex h-screen overflow-hidden">
         {/* Sidebar */}
         <AdminSidebar />
@@ -24,7 +24,7 @@ export default function AdminPageLayout({ children }: AdminPageLayoutProps) {
 
           {/* Page Content */}
           <main className="flex-1 overflow-y-auto">
-            <div className="container mx-auto px-2 py-2">
+            <div className="container mx-auto p-4">
               {children}
             </div>
           </main>

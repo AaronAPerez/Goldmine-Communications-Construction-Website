@@ -16,11 +16,9 @@ import {
   LogOut,
   Menu,
   X,
-  Building2,
   Receipt,
 } from 'lucide-react';
 import { useState } from 'react';
-import Image from 'next/image';
 
 
 const navigation = [
@@ -123,7 +121,7 @@ export default function AdminSidebar() {
       {/* Sidebar */}
       <div
         className={`
-          fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-primary-900 via-primary-800 to-primary-900 transform transition-transform duration-300 ease-in-out shadow-2xl
+          fixed inset-y-0 left-0 z-50 w-60 bg-gradient-to-b from-primary-900 via-primary-800 to-primary-900 transform transition-transform duration-300 ease-in-out shadow-2xl
           lg:translate-x-0 lg:static lg:z-0
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
         `}

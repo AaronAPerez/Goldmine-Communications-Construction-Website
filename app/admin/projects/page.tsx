@@ -5,6 +5,7 @@ import AdminPageLayout from '@/components/admin/layouts/AdminPageLayout';
 import Link from 'next/link';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { format } from 'date-fns';
+import { Eye, Pencil } from 'lucide-react';
 
 export const metadata = {
   title: 'Projects | Admin Dashboard',
@@ -107,6 +108,9 @@ export default async function ProjectsPage() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
+                           <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Project
                   </th>
@@ -125,9 +129,9 @@ export default async function ProjectsPage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Start Date
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {/* <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -140,6 +144,24 @@ export default async function ProjectsPage() {
                 ) : (
                   projects.map((project) => (
                     <tr key={project.id} className="hover:bg-gray-50">
+                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                        <Link
+                          href={`/admin/projects/${project.id}`}
+                          className="text-gold-600 hover:text-gold-900"
+                        >
+                          <Eye size={16} className="inline-block mr-1"
+                          aria-label='view' />
+                          {/* View */}
+                        </Link>
+                        <Link
+                          href={`/admin/projects/${project.id}/edit`}
+                          className="text-blue-600 hover:text-blue-900"
+                        >
+                          <Pencil size={16} className="inline-block mr-1"
+                          aria-label="edit" />
+                          {/* Edit */}
+                        </Link>
+                      </td>
                       <td className="px-6 py-4">
                         <div>
                           <div className="text-sm font-medium text-gray-900">
@@ -178,7 +200,7 @@ export default async function ProjectsPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {format(new Date(project.startDate), 'MMM d, yyyy')}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                      {/* <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                         <Link
                           href={`/admin/projects/${project.id}`}
                           className="text-gold-600 hover:text-gold-900"
@@ -191,7 +213,7 @@ export default async function ProjectsPage() {
                         >
                           Edit
                         </Link>
-                      </td>
+                      </td> */}
                     </tr>
                   ))
                 )}

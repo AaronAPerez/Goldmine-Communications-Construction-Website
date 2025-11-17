@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { toast, Toaster } from 'sonner';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import FloatingNavigation from '@/components/Navigation/FloatingNavigation';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -145,7 +146,8 @@ export default function LoginPage() {
         duration={4000}
       />
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-400">
-        <div className="max-w-md w-full mx-4 my-32">
+       
+        <div className="max-w-md w-full mx-4 my-12">
           {/* Login Card */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 space-y-6 border border-gray-100">
             {/* Logo */}
