@@ -227,7 +227,7 @@ const HeroSection = () => {
       role="banner"
     >
       {/* Background Images with Enhanced Loading */}
-      <div className="absolute inset-0 z-0 w-full bg-black">
+      <div className="absolute inset-0 z-0 w-full h-full bg-black">
         <AnimatePresence initial={false}>
           <motion.div
             key={currentSlide}
@@ -244,7 +244,7 @@ const HeroSection = () => {
               priority={true} // Critical for LCP
               fetchPriority="high"
               onLoad={() => handleImageLoad(currentSlide)}
-              className="object-cover"
+              className="object-cover w-full h-full"
               sizes="100vw"
             />
 
@@ -327,11 +327,12 @@ const HeroSection = () => {
                     <span className="truncate">{currentSlideData.subtitle}</span>
                   </motion.div>
 
-                  {/* Main Title - Responsive text sizing */}
+                    {/* Main Title - Responsive text sizing with fixed height */}
                   <h1
                     id="hero-heading"
                     className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight
-                             w-full max-w-full break-words"
+                             w-full max-w-full break-words min-h-[3.5rem] sm:min-h-[4rem] md:min-h-[4.5rem]
+                             lg:min-h-[6rem] xl:min-h-[7rem] flex items-center"
                   >
                     <span className="block text-white text-shadow-lg">
                       {currentSlideData.title}
