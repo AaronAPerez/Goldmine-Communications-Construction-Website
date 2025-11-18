@@ -79,7 +79,7 @@ export default function FloatingNavigation() {
               </Link>
 
               {/* Navigation Items */}
-              <nav className="flex items-center space-x-6">
+              <nav className="flex items-center space-x-6" aria-label="Main navigation">
                 {navItems.map((item) => {
                   const isActive = pathname === item.href;
                   return (
@@ -90,8 +90,9 @@ export default function FloatingNavigation() {
                         relative px-3 py-2 rounded-lg transition-all duration-300
                         group flex items-center gap-2
                         text-shadow hover:text-shadow-lg
-                        ${isActive 
-                          ? 'text-[#B3995D] font-semibold' 
+                        focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-black
+                        ${isActive
+                          ? 'text-[#B3995D] font-semibold'
                           : 'text-white hover:text-[#B3995D]'
                         }
                       `}
@@ -133,7 +134,8 @@ export default function FloatingNavigation() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-white hover:text-[#B3995D] transition-colors"
+              className="p-2 rounded-lg text-white hover:text-[#B3995D] transition-colors
+                       focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-black"
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
@@ -152,6 +154,8 @@ export default function FloatingNavigation() {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.2 }}
                 className="border-t border-white/10"
+                role="navigation"
+                aria-label="Mobile navigation"
               >
                 {navItems.map((item) => (
                   <Link
@@ -160,8 +164,9 @@ export default function FloatingNavigation() {
                     className={`
                       flex items-center gap-3 px-4 py-3
                       transition-colors duration-200
+                      focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gold-400
                       ${pathname === item.href
-                        ? 'bg-[#B3995D]/20 text-[#B3995D]'
+                        ? 'bg-[#B3995D]/20 text-[#B3995D] font-semibold'
                         : 'text-white hover:bg-white/10 hover:text-[#B3995D]'
                       }
                     `}

@@ -93,7 +93,7 @@ export default function RootLayout({
           {/* Main content with proper constraints */}
           <main
             id="main-content"
-            className="flex-grow w-full max-w-full overflow-x-hidden md:mt-4"
+            className="flex-grow w-full max-w-full overflow-x-hidden md:mt-4 bg-gray-50"
           >
             <div className="w-full max-w-full">
               {children}

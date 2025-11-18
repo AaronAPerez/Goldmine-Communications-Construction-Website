@@ -35,6 +35,7 @@ import FloatingParticles from '../Hero/FloatingParticles';
 interface HeroSlide {
   id: string;
   image: string;
+  mobileImage?: string; // Optional mobile-specific image
   title: string;
   subtitle: string;
   description: string;
@@ -49,7 +50,8 @@ interface HeroSlide {
 const heroSlides: HeroSlide[] = [
   {
     id: 'ev-charging',
-    image: '/images/projects/Oregon-AV-Station/AV-station/Oregon-AvStations-hero.jpg',
+    image: '/images/projects/Oregon-AV-Station/AV-Station/Oregon-AvStations-hero.jpg',
+    mobileImage: '/images/projects/Oregon-AV-Station/Av-Station-EV.jpg',
     title: 'Future-Ready EV Infrastructure',
     subtitle: 'Clean Energy Technology',
     description: 'Advanced electric vehicle charging solutions and smart technology integration for sustainable transportation networks.',
@@ -86,7 +88,7 @@ const heroSlides: HeroSlide[] = [
   },
   {
     id: 'construction',
-    image: '/images/projects/Oregon-AV-Station/trench/trench-4.jpg',
+    image: '/images/projects/Oregon-AV-Station/transport-hero.jpg',
     title: 'Professional Construction',
     subtitle: 'Site Development',
     description: 'Expert construction services with 15+ years of specialized experience in healthcare facilities and critical infrastructure.',
@@ -140,10 +142,23 @@ const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [, setIsLoaded] = useState(false);
   const [, setImageLoadStates] = useState<boolean[]>(new Array(heroSlides.length).fill(false));
+  const [isMobile, setIsMobile] = useState(false);
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Auto-advance carousel
   useEffect(() => {
@@ -212,23 +227,25 @@ const HeroSection = () => {
       role="banner"
     >
       {/* Background Images with Enhanced Loading */}
-      <div className="absolute inset-0 z-0 w-full">
-        <AnimatePresence mode="wait">
+      <div className="absolute inset-0 z-0 w-full bg-black">
+        <AnimatePresence initial={false}>
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full"
           >
             <Image
-              src={currentSlideData.image}
+              src={isMobile && currentSlideData.mobileImage ? currentSlideData.mobileImage : currentSlideData.image}
               alt="Hero image"
               fill
-              priority={true} // Critical for LCP  
+              priority={true} // Critical for LCP
               fetchPriority="high"
               onLoad={() => handleImageLoad(currentSlide)}
+              className="object-cover"
+              sizes="100vw"
             />
 
             {/* Enhanced overlays for better text readability */}
@@ -251,14 +268,14 @@ const HeroSection = () => {
           >
             <div className="relative inline-block">
               {/* Mobile Logo */}
-              <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-4">
+              <div className="relative w-44 h-44 sm:w-52 sm:h-52 mx-auto my-2">
                 <div className="absolute inset-0 bg-gradient-to-r from-gold-400/30 to-gold-600/30 rounded-full blur-xl" />
                 <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border-3 border-gold-400/60 bg-white/10 backdrop-blur-sm">
                   <Image
                     src="/images/logo/logo-circular.jpg"
                     alt="Goldmine Communications and Construction"
                     fill
-                    className="object-contain p-2"
+                    className="object-contain p-4"
                     // priority
                     sizes="(max-width: 640px) 128px, 144px"
                   />
@@ -267,10 +284,10 @@ const HeroSection = () => {
 
               {/* Mobile Company Name */}
               <div className="text-center max-w-full">
-                <h2 className="text-xl sm:text-2xl font-bold text-gold-400 mb-1 text-shadow break-words">
+                <h2 className="text-3xl sm:text-4xl font-bold text-gold-400 mb-1 text-shadow break-words">
                   Goldmine Communications
                 </h2>
-                <div className="text-lg sm:text-xl text-gray-100 text-shadow-sm">
+                <div className="text-xl sm:text-3xl text-gray-100 text-shadow-sm">
                   & Construction
                 </div>
               </div>
@@ -334,8 +351,9 @@ const HeroSection = () => {
                       href={currentSlideData.cta.primary.href}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="group inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 
-                               bg-gradient-to-r from-gold-400 to-gold-600 text-white
+                      className="group inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4
+                        border-2 border-white/80 
+                             bg-gradient-to-r from-gold-400 to-gold-700 text-white
                                rounded-xl font-semibold text-base sm:text-lg transition-all duration-300
                                shadow-xl hover:shadow-2xl hover:shadow-gold-400/25 w-full sm:w-auto
                                min-w-0 max-w-full"
@@ -443,8 +461,8 @@ const HeroSection = () => {
                       src="/images/logo/logo-circular.jpg"
                       alt="Goldmine Communications and Construction"
                       fill
-                      className="object-contain p-8"
-                    // priority
+                      className="object-contain p-6"
+                      priority
                     />
                   </div>
                 </div>
@@ -454,7 +472,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.8, delay: 0.7 }}
-                  className="mt-6"
+                  className="mt-4"
                 >
                   <h2 className="text-4xl xl:text-5xl font-bold text-gold-400 mb-3 text-shadow">
                     Goldmine Communications

@@ -233,8 +233,8 @@ const CommunicationsSection = () => {
             href="/communications"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center px-8 py-3 bg-gold-400 hover:bg-gold-500 
-                     text-white font-medium rounded-lg transition-colors shadow-lg hover:shadow-xl"
+            className="inline-flex items-center px-8 py-3 rounded-xl bg-gradient-to-r from-gold-400 to-gold-700 hover:bg-gold-500 
+                     text-white font-medium transition-colors shadow-lg hover:shadow-xl"
           >
             Explore Communications Services
             <ArrowRight className="w-5 h-5 ml-2" />

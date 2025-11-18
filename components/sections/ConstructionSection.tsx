@@ -111,7 +111,7 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       {/* Service Header */}
       <div className={`p-6 bg-gradient-to-r ${service.color} text-white`}>
         <div className="flex items-center gap-4">
-          <div className="p-3 bg-white/20 rounded-lg group-hover:scale-110 
+          <div className="p-3 bg-white/20 rounded-xl group-hover:scale-110 
                         transition-transform duration-300">
             {service.icon}
           </div>
@@ -217,8 +217,8 @@ const ConstructionSection = () => {
                 href="/construction"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-8 py-4 bg-gold-400 hover:bg-gold-500 
-                         text-white font-medium rounded-lg transition-colors shadow-lg hover:shadow-xl
+                className="inline-flex items-center px-8 py-4   bg-gradient-to-r from-gold-400 to-gold-700 hover:bg-gold-500 
+                         text-white font-medium rounded-xl transition-colors shadow-lg hover:shadow-xl
                          focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-800"
               >
                 Explore All Construction Services
@@ -231,7 +231,7 @@ const ConstructionSection = () => {
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-4 border-2 border-white
                          text-white hover:bg-white hover:text-gray-900 font-medium 
-                         rounded-lg transition-colors
+                         rounded-xl transition-colors
                          focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
               >
                 View Project Portfolio
@@ -243,7 +243,7 @@ const ConstructionSection = () => {
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-gold-400
                          text-gold-400 hover:bg-gold-400 hover:text-white font-medium 
-                         rounded-lg transition-colors
+                         rounded-xl transition-colors
                          focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-800"
               >
                 Get Free Estimate
