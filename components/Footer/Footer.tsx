@@ -66,11 +66,10 @@ const footerSections: FooterSection[] = [
     title: 'Resources',
     links: [
       { label: 'Case Studies', href: '/projects' },
-      { label: 'Industry Insights', href: '/blog' },
-      { label: 'Safety Standards', href: '/safety' },
-      { label: 'Quality Assurance', href: '/quality' },
-      { label: 'Technical Support', href: '/support' },
-      { label: 'Documentation', href: '/docs' }
+      { label: 'Privacy Policy', href: '/privacy-policy' },
+      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Accessibility', href: '/accessibility' },
+      { label: 'Sitemap', href: '/sitemap' }
     ]
   }
 ];
