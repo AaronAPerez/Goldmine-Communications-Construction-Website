@@ -320,7 +320,7 @@ const HeroSection = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
                     className="inline-flex items-center px-4 py-2 bg-gold-400/20 backdrop-blur-sm 
-                             border border-gold-400/30 rounded-full text-sm font-semibold text-gold-300 mb-6
+                             border border-gold-400/30 rounded-full text-sm font-semibold text-gold-300 my-2 pt-2
                              max-w-full"
                   >
                     <Star className="w-4 h-4 mr-2 flex-shrink-0" />
@@ -332,7 +332,7 @@ const HeroSection = () => {
                     id="hero-heading"
                     className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight
                              w-full max-w-full break-words min-h-[3.5rem] sm:min-h-[4rem] md:min-h-[4.5rem]
-                             lg:min-h-[6rem] xl:min-h-[7rem] flex items-center"
+                             lg:min-h-[6rem] xl:min-h-[7rem] flex items-center justify-center lg:justify-start"
                   >
                     <span className="block text-white text-shadow-lg">
                       {currentSlideData.title}
