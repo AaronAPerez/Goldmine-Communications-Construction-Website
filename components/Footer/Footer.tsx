@@ -44,11 +44,11 @@ const footerSections: FooterSection[] = [
     title: 'Quick Links',
     links: [
       { label: 'Home', href: '/' },
-      { label: 'About Us', href: '/about' },
-      { label: 'Services', href: '/services' },
+      { label: 'Communications', href: '//communications' },
+      { label: 'Construction', href: '/construction' },
       { label: 'Projects', href: '/projects' },
       { label: 'Contact', href: '/contact' },
-      { label: 'Careers', href: '/careers' }
+      // { label: 'Careers', href: '/careers' }
     ]
   },
   {
