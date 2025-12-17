@@ -126,7 +126,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-white relative overflow-hidden">
+    <footer className="bg-[#1a1a1a] text-white relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div 
@@ -152,7 +152,7 @@ export default function Footer() {
           >
             <Link href="/" className="inline-block group">
               <div className="flex items-center space-x-4">
-                <div className="relative w-16 h-16 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border-2 border-gold-400/30">
+                <div className="relative w-24 h-24 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border-2 border-gold-400/30">
                   <Image
                     src="/images/logo/logo-circular.jpg"
                     alt="Goldmine Communications and Construction"

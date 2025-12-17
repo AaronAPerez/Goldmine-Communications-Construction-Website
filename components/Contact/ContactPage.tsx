@@ -44,7 +44,6 @@ const contactMethods = [
     icon: <Phone className="w-6 h-6" />,
     title: 'Phone Numbers',
     primary: '(925) 305-5980',
-    secondary: '(510) 695-3177',
     description: 'Main Line & Support',
     action: {
       label: 'Call Now',

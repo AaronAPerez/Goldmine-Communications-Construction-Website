@@ -101,7 +101,7 @@ const CTAButton = ({ action, index }: CTAButtonProps) => {
     >
       {/* Gradient Background for Primary Button */}
       {isPrimary && (
-        <div className="absolute inset-0 bg-gradient-to-r from-[#C4A032] to-[#D4AF37] 
+        <div className="absolute inset-0 bg-gradient-to-r from-gold-400 to-gold-600
                        rounded-xl opacity-0 group-hover:opacity-10 transition-opacity" />
       )}
 
@@ -257,7 +257,7 @@ const CTASection = () => {
           >
             (925) 305-5980
           </a>
-          <p className="text-sm mt-2 opacity-80">
+          <p className="text-sm mt-2">
             Available Monday - Friday: 9:00 AM - 6:00 PM
           </p>
         </motion.div>
@@ -267,7 +267,7 @@ const CTASection = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-8 text-gray-900/70 italic"
+          className="mt-8 text-gray-900/90 italic"
         >
           Building tomorrow&apos;s infrastructure, today.
         </motion.p>
