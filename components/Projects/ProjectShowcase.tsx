@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  Tag, 
-  MapPin, 
-  X, 
+import {
+  ChevronLeft,
+  ChevronRight,
+  Tag,
+  MapPin,
+  X,
   Eye,
   ArrowUpRight,
   CheckCircle,
@@ -85,7 +85,49 @@ const projects: Project[] = [
     }
   },
   {
-    id: 'comprehensive-site-development-2024',
+    id: 'ripon-ev-infrastructure',
+    title: 'Ripon EV Station Infrastructure',
+    description: 'Strategic underground utility installation and trenching for EV station deployment in Ripon, CA. Includes safety compliance, site preparation, and phased construction documentation.',
+    category: 'Infrastructure',
+    location: 'Ripon, CA',
+    // completionDate: 'December, 2025',
+    thumbnailUrl: '/images/projects/Ripon-CA/ripon-ev-station-trench-15.webp',
+    galleryImages: [
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-1.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-2.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-3.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-4.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-5.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-6.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-7.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-8.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-9.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-10.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-11.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-12.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-13.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-14.webp',
+      '/images/projects/Ripon-CA/ripon-ev-station-trench-15.webp',
+    ],
+    features: [
+      'Underground trenching and conduit installation',
+      'EV station site preparation and layout',
+      'Safety tape and hazard zone compliance',
+      'Heavy equipment and material staging',
+      'Timestamped geo-located construction documentation',
+      'Multi-phase infrastructure deployment'
+    ],
+    specifications: {
+      'Utility Type': 'EV Charging Infrastructure',
+      'Trench Depth': 'Varied by site phase',
+      'Location Accuracy': 'GPS-tagged image documentation',
+      'Safety Protocols': 'Caution tape, signage, and perimeter control',
+      'Construction Equipment': 'Excavators, trucks, and trench boxes',
+      'Documentation': '15+ timestamped progress photos'
+    }
+  },
+  {
+    id: 'comprehensive-site-development',
     title: 'Comprehensive Site Development',
     description: 'Large-scale site development project featuring extensive excavation, grading, access road construction, and complete infrastructure preparation for commercial development.',
     category: 'Site Development',
@@ -94,7 +136,7 @@ const projects: Project[] = [
     // client: 'Regional Development Authority',
     // duration: '18 months',
     // teamSize: 25,
-    thumbnailUrl:  '/images/projects/Bodega-Bay-CA/transport-1.jpg',
+    thumbnailUrl: '/images/projects/Bodega-Bay-CA/transport-1.jpg',
     galleryImages: [
       '/images/projects/Bodega-Bay-CA/jack-hammer-1.jpg',
       '/images/projects/Bodega-Bay-CA/bulldozer-transport.jpg',
@@ -137,7 +179,7 @@ const projects: Project[] = [
     // client: 'Communications Infrastructure Corp',
     // duration: '12 months',
     // teamSize: 20,
-    thumbnailUrl:  '/images/projects/Sparks-NV/tower-tree-7.jpg',
+    thumbnailUrl: '/images/projects/Sparks-NV/tower-tree-7.jpg',
     galleryImages: [
       '/images/projects/Sparks-NV/tower-base-1.jpg',
       '/images/projects/Sparks-NV/tower-tree-1.jpg',
@@ -197,7 +239,7 @@ const ProjectCard = ({ project, index, onViewDetails }: ProjectCardProps) => {
                  ring-1 ring-white/20"
     >
       {/* Project Image with Enhanced Overlay */}
-      <div 
+      <div
         className="relative aspect-[4/3] cursor-pointer overflow-hidden"
         onClick={() => onViewDetails(project)}
         role="button"
@@ -218,13 +260,13 @@ const ProjectCard = ({ project, index, onViewDetails }: ProjectCardProps) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority={index < 2}
         />
-        
+
         {/* Enhanced Overlay with Gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
+
         {/* View Details Button with Animation */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.8 }}
             whileHover={{ scale: 1.1 }}
             className="bg-white/95 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-gold-200"
@@ -255,7 +297,7 @@ const ProjectCard = ({ project, index, onViewDetails }: ProjectCardProps) => {
         <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-gold-700 transition-colors">
           {project.title}
         </h3>
-        
+
         <p className="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
           {project.description}
         </p>
@@ -333,13 +375,13 @@ export default function ProjectShowcase() {
           break;
         case 'ArrowLeft':
           event.preventDefault();
-          setCurrentImageIndex((prev) => 
+          setCurrentImageIndex((prev) =>
             prev === 0 ? selectedProject.galleryImages.length - 1 : prev - 1
           );
           break;
         case 'ArrowRight':
           event.preventDefault();
-          setCurrentImageIndex((prev) => 
+          setCurrentImageIndex((prev) =>
             (prev + 1) % selectedProject.galleryImages.length
           );
           break;
@@ -362,24 +404,24 @@ export default function ProjectShowcase() {
   }, [modalOpen, selectedProject]);
 
   // Filter projects
-  const filteredProjects = selectedCategory === 'all' 
-    ? projects 
-    : projects.filter(project => 
-        project.category.toLowerCase() === selectedCategory.toLowerCase()
-      );
+  const filteredProjects = selectedCategory === 'all'
+    ? projects
+    : projects.filter(project =>
+      project.category.toLowerCase() === selectedCategory.toLowerCase()
+    );
 
   const categories = ['all', ...Array.from(new Set(projects.map(p => p.category)))];
 
   // Blueprint Compass SVG component
   const BlueprintCompass = () => (
     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="50" cy="50" r="48" stroke="#B3995D" strokeWidth="2"/>
-      <path d="M50 2V98" stroke="#B3995D" strokeWidth="1"/>
-      <path d="M2 50H98" stroke="#B3995D" strokeWidth="1"/>
-      <path d="M26 50L50 26L74 50L50 74L26 50Z" stroke="#B3995D" strokeWidth="2"/>
-      <circle cx="50" cy="50" r="5" stroke="#B3995D" strokeWidth="2"/>
-      <path d="M18 18L82 82" stroke="#B3995D" strokeWidth="1"/>
-      <path d="M18 82L82 18" stroke="#B3995D" strokeWidth="1"/>
+      <circle cx="50" cy="50" r="48" stroke="#B3995D" strokeWidth="2" />
+      <path d="M50 2V98" stroke="#B3995D" strokeWidth="1" />
+      <path d="M2 50H98" stroke="#B3995D" strokeWidth="1" />
+      <path d="M26 50L50 26L74 50L50 74L26 50Z" stroke="#B3995D" strokeWidth="2" />
+      <circle cx="50" cy="50" r="5" stroke="#B3995D" strokeWidth="2" />
+      <path d="M18 18L82 82" stroke="#B3995D" strokeWidth="1" />
+      <path d="M18 82L82 18" stroke="#B3995D" strokeWidth="1" />
       <text x="50" y="20" textAnchor="middle" fontSize="8" fill="#B3995D">N</text>
     </svg>
   );
@@ -388,7 +430,7 @@ export default function ProjectShowcase() {
     <section ref={sectionRef} className="relative py-16" aria-labelledby="projects-heading">
       {/* Enhanced Blueprint Grid Paper Background */}
       <div className="absolute inset-0 bg-blue-50/70" aria-hidden="true">
-        <div className="absolute inset-0" 
+        <div className="absolute inset-0"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(179, 153, 93, 0.08) 1px, transparent 1px),
@@ -397,8 +439,8 @@ export default function ProjectShowcase() {
             backgroundSize: '20px 20px'
           }}
         />
-        
-        <div className="absolute inset-0" 
+
+        <div className="absolute inset-0"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(179, 153, 93, 0.15) 1px, transparent 1px),
@@ -407,23 +449,23 @@ export default function ProjectShowcase() {
             backgroundSize: '100px 100px'
           }}
         />
-        
+
         {/* Decorative elements */}
         <div className="absolute left-10 top-20 w-40 h-40 border-2 border-gold-300/25 rounded-full"></div>
         <div className="absolute right-20 bottom-40 w-60 h-60 border border-dashed border-gold-400/25 rounded-lg transform rotate-3"></div>
         <div className="absolute left-1/4 bottom-20 w-20 h-20 border border-gold-300/25 rounded-sm rotate-45"></div>
-        
+
         <div className="absolute right-10 top-10 w-32 h-32 opacity-15 z-30">
           <BlueprintCompass />
         </div>
-        
+
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-gold-300/12 text-9xl font-bold rotate-[-25deg] select-none pointer-events-none tracking-wider">
             PORTFOLIO
           </div>
         </div>
       </div>
-      
+
       {/* Content overlay */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative z-10 py-16 px-6">
@@ -434,7 +476,7 @@ export default function ProjectShowcase() {
             transition={{ duration: 0.8 }}
             className="text-center backdrop-blur-sm mb-12 p-8 shadow-xl rounded-2xl border border-gold-300/40 bg-gradient-to-br from-amber-50/95 to-orange-50/95 ring-1 ring-white/30"
           >
-            <h2 
+            <h2
               id="projects-heading"
               className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             >
@@ -557,7 +599,7 @@ export default function ProjectShowcase() {
           >
             {/* Blueprint Backdrop */}
             <div className="fixed inset-0 bg-blue-50/95">
-              <div className="absolute inset-0" 
+              <div className="absolute inset-0"
                 style={{
                   backgroundImage: `
                     linear-gradient(to right, rgba(179, 153, 93, 0.08) 1px, transparent 1px),
@@ -570,9 +612,9 @@ export default function ProjectShowcase() {
                 <BlueprintCompass />
               </div>
             </div>
-            
+
             {/* Enhanced Modal Content */}
-              <div className="relative min-h-screen flex items-center justify-center p-4">
+            <div className="relative min-h-screen flex items-center justify-center p-4">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -590,9 +632,9 @@ export default function ProjectShowcase() {
                 >
                   <X className="w-5 h-5" />
                 </button>
-                
+
                 <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-gold-400 to-gold-500 rounded-t-2xl"></div>
-                
+
                 <div className="p-4">
                   {/* Project Header */}
                   <div className="mb-8">
@@ -649,21 +691,21 @@ export default function ProjectShowcase() {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            setCurrentImageIndex((prev) => 
+                            setCurrentImageIndex((prev) =>
                               prev === 0 ? selectedProject.galleryImages.length - 1 : prev - 1
                             );
                           }}
                           className="absolute left-1 top-1/2 -translate-y-1/2 p-2 rounded-full 
                                    bg-white/90 hover:bg-white border border-gray-200 shadow-lg
                                    text-gray-700 hover:text-gray-900 transition-all duration-200"
-                                   aria-label='Previous Image'
+                          aria-label='Previous Image'
                         >
                           <ChevronLeft className="w-6 h-6" />
                         </button>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            setCurrentImageIndex((prev) => 
+                            setCurrentImageIndex((prev) =>
                               (prev + 1) % selectedProject.galleryImages.length
                             );
                           }}
@@ -677,27 +719,26 @@ export default function ProjectShowcase() {
 
                         {/* Image Counter */}
                         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white rounded-full px-3 py-1">
-                       
-                            {currentImageIndex + 1} of {selectedProject.galleryImages.length}
+
+                          {currentImageIndex + 1} of {selectedProject.galleryImages.length}
                         </div>
 
-                          <div className="flex gap-1">
-                            {selectedProject.galleryImages.map((_, index) => (
-                              <button
-                                key={index}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setCurrentImageIndex(index);
-                                }}
-                                className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                                  index === currentImageIndex 
-                                    ? 'bg-gold-400 scale-125' 
-                                    : 'bg-white/60 hover:bg-white/80'
+                        <div className="flex gap-1">
+                          {selectedProject.galleryImages.map((_, index) => (
+                            <button
+                              key={index}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setCurrentImageIndex(index);
+                              }}
+                              className={`w-2 h-2 rounded-full transition-all duration-200 ${index === currentImageIndex
+                                  ? 'bg-gold-400 scale-125'
+                                  : 'bg-white/60 hover:bg-white/80'
                                 }`}
-                              />
-                            ))}
-                          </div>
-                     
+                            />
+                          ))}
+                        </div>
+
                       </>
                     )}
                   </div>
@@ -752,7 +793,7 @@ export default function ProjectShowcase() {
                         </h3>
                         <ul className="grid grid-cols-1 gap-3">
                           {selectedProject.features.map((feature, index) => (
-                            <motion.li 
+                            <motion.li
                               key={index}
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
@@ -777,7 +818,7 @@ export default function ProjectShowcase() {
                         <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 h-full shadow-sm">
                           <dl className="space-y-4">
                             {Object.entries(selectedProject.specifications).map(([key, value], index) => (
-                              <motion.div 
+                              <motion.div
                                 key={key}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -801,12 +842,12 @@ export default function ProjectShowcase() {
                         Interested in a Similar Project?
                       </h4>
                       <p className="text-gray-700 mb-6 text-sm leading-relaxed">
-                        Let&apos;s discuss how our proven expertise can help bring your vision to life with the same 
+                        Let&apos;s discuss how our proven expertise can help bring your vision to life with the same
                         level of precision and excellence demonstrated in this comprehensive project.
                       </p>
-                      
+
                       <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                        <a 
+                        <a
                           href="/contact"
                           className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gold-400 to-gold-500 
                                    text-white font-medium rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
@@ -814,7 +855,7 @@ export default function ProjectShowcase() {
                           Start Your Project
                           <ArrowUpRight className="w-4 h-4 ml-2" />
                         </a>
-                        <a 
+                        <a
                           href="/services"
                           className="inline-flex items-center px-6 py-3 bg-white border-2 border-gold-400
                                    text-gold-600 hover:bg-gold-50 font-medium rounded-lg transition-all duration-200"

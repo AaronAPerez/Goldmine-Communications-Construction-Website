@@ -80,6 +80,7 @@ const constructionServices: ConstructionService[] = [
       'Grading & Paving',
       'Structural & Site Concrete',
       'Pouring & Pumping',
+      'Asphalt Striping',
       'Demolition Services'
     ],
     color: 'from-orange-500 to-orange-600'
