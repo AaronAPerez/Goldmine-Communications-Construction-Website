@@ -44,7 +44,6 @@
     "imagemin": "^9.0.1",
     "imagemin-avif": "^0.1.6",
     "imagemin-webp": "^4.1.0",
-    "lottie-react": "^2.4.0",
     "lucide-react": "^0.473.0",
     "motion": "^12.12.2",
     "next": "^15.3.3",
