@@ -311,7 +311,7 @@ const CommunicationsPage = () => {
                 className="inline-flex items-center px-8 py-3 bg-gold-400 hover:bg-gold-500 
                          text-white font-medium rounded-lg transition-colors shadow-lg"
               >
-                Get Free Consultation
+                Get a Quote
                 <ArrowRight className="w-5 h-5 ml-2" />
               </motion.a>
               <motion.a

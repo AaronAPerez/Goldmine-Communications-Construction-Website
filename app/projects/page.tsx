@@ -296,7 +296,7 @@ export default function ProjectsPage() {
                        hover:bg-gray-50 font-medium rounded-lg transition-colors shadow-lg
                        focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gold-500"
             >
-              Get Your Free Consultation
+              Get a Quote
               <ArrowRight className="w-5 h-5 ml-2" />
             </a>
             <a

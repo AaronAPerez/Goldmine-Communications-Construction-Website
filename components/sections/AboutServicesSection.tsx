@@ -90,12 +90,12 @@ const coreValues: CoreValue[] = [
 const fadeInUpVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: (delay = 0) => ({
-    opacity: 1, 
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.6,
       delay: delay * 0.1,
-      ease: [0.21, 1.11, 0.81, 0.99]
+      ease: [0.21, 1.11, 0.81, 0.99] as const
     }
   })
 };
@@ -310,7 +310,7 @@ export default function AboutServicesSection() {
                        hover:-translate-y-1"
             >
               <Phone className="w-5 h-5 mr-3" />
-              Get Free Consultation
+              Get a Quote
               <ArrowRight className="w-5 h-5 ml-3" />
             </a>
           </motion.div>
