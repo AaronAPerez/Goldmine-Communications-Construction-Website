@@ -44,6 +44,7 @@ const contactMethods = [
     icon: <Phone className="w-6 h-6" />,
     title: 'Phone Numbers',
     primary: '(925) 305-5980',
+    secondary: '(510) 695-3177',
     description: 'Main Line & Support',
     action: {
       label: 'Call Now',
@@ -387,7 +388,7 @@ const ContactPage = () => {
                 Ready to Start Your Next Project?
               </h2>
               <p className="text-xl text-gold-100 max-w-2xl mx-auto mb-8">
-                Get a free consultation and discover how we can help bring your
+                Schedule a consultation and discover how we can help bring your
                 communications and construction vision to life.
               </p>
               <motion.a
@@ -398,7 +399,7 @@ const ContactPage = () => {
                          hover:bg-gray-50 font-medium rounded-lg transition-colors shadow-lg"
               >
                 <Phone className="w-5 h-5 mr-2" />
-                Call Now for Free Consultation
+                Call Now for a Quote
               </motion.a>
             </motion.div>
           </section>

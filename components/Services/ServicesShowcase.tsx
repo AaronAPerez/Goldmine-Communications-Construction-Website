@@ -206,7 +206,7 @@ export default function ServicesShowcase() {
                        text-white bg-gold-400 hover:bg-gold-500 
                        transition-colors duration-300"
             >
-              Get a Free Consultation
+              Get a Quote
             </a>
           </div>
         </motion.div>

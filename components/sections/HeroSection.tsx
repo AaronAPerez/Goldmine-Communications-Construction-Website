@@ -35,7 +35,6 @@ import FloatingParticles from '../Hero/FloatingParticles';
 interface HeroSlide {
   id: string;
   image: string;
-  mobileImage?: string; // Optional mobile-specific image
   title: string;
   subtitle: string;
   description: string;
@@ -50,8 +49,7 @@ interface HeroSlide {
 const heroSlides: HeroSlide[] = [
   {
     id: 'ev-charging',
-    image: '/images/projects/Oregon-AV-Station/AV-station/Oregon-AvStations-hero.jpg',
-    mobileImage: '/images/projects/Oregon-AV-Station/Av-Station-EV.jpg',
+    image: '/images/projects/Oregon-AV-Station/AV-Station/Oregon-AvStations-hero.jpg',
     title: 'Future-Ready EV Infrastructure',
     subtitle: 'Clean Energy Technology',
     description: 'Advanced electric vehicle charging solutions and smart technology integration for sustainable transportation networks.',
@@ -88,7 +86,7 @@ const heroSlides: HeroSlide[] = [
   },
   {
     id: 'construction',
-    image: '/images/projects/Oregon-AV-Station/transport-hero.jpg',
+    image: '/images/projects/transport-hero.jpg',
     title: 'Professional Construction',
     subtitle: 'Site Development',
     description: 'Expert construction services with 15+ years of specialized experience in healthcare facilities and critical infrastructure.',
@@ -99,7 +97,7 @@ const heroSlides: HeroSlide[] = [
         icon: <ArrowRight className="w-5 h-5" />
       },
       secondary: {
-        text: 'Free Consultation',
+        text: 'Get a Quote',
         href: '/contact',
         icon: <Phone className="w-4 h-4" />
       }
@@ -142,23 +140,10 @@ const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [, setIsLoaded] = useState(false);
   const [, setImageLoadStates] = useState<boolean[]>(new Array(heroSlides.length).fill(false));
-  const [isMobile, setIsMobile] = useState(false);
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Detect mobile screen size
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // md breakpoint
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   // Auto-advance carousel
   useEffect(() => {
@@ -227,7 +212,7 @@ const HeroSection = () => {
       role="banner"
     >
       {/* Background Images with Enhanced Loading */}
-      <div className="absolute inset-0 z-0 w-full h-full bg-black">
+      <div className="absolute inset-0 z-0 w-full bg-black">
         <AnimatePresence initial={false}>
           <motion.div
             key={currentSlide}
@@ -238,13 +223,13 @@ const HeroSection = () => {
             className="absolute inset-0 w-full h-full"
           >
             <Image
-              src={isMobile && currentSlideData.mobileImage ? currentSlideData.mobileImage : currentSlideData.image}
+              src={currentSlideData.image}
               alt="Hero image"
               fill
               priority={true} // Critical for LCP
               fetchPriority="high"
               onLoad={() => handleImageLoad(currentSlide)}
-              className="object-cover w-full h-full"
+              className="object-cover"
               sizes="100vw"
             />
 
@@ -320,19 +305,18 @@ const HeroSection = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
                     className="inline-flex items-center px-4 py-2 bg-gold-400/20 backdrop-blur-sm 
-                             border border-gold-400/30 rounded-full text-sm font-semibold text-gold-300 my-2 pt-2
+                             border border-gold-400/30 rounded-full text-sm font-semibold text-gold-300 mb-6
                              max-w-full"
                   >
                     <Star className="w-4 h-4 mr-2 flex-shrink-0" />
                     <span className="truncate">{currentSlideData.subtitle}</span>
                   </motion.div>
 
-                    {/* Main Title - Responsive text sizing with fixed height */}
+                  {/* Main Title - Responsive text sizing */}
                   <h1
                     id="hero-heading"
                     className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight
-                             w-full max-w-full break-words min-h-[3.5rem] sm:min-h-[4rem] md:min-h-[4.5rem]
-                             lg:min-h-[6rem] xl:min-h-[7rem] flex items-center justify-center lg:justify-start"
+                             w-full max-w-full break-words"
                   >
                     <span className="block text-white text-shadow-lg">
                       {currentSlideData.title}
@@ -354,7 +338,7 @@ const HeroSection = () => {
                       whileTap={{ scale: 0.95 }}
                       className="group inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4
                         border-2 border-white/80 
-                             bg-gradient-to-r from-gold-400 to-gold-700 text-white
+                               bg-gradient-to-r from-gold-600 to-gold-700 text-white
                                rounded-xl font-semibold text-base sm:text-lg transition-all duration-300
                                shadow-xl hover:shadow-2xl hover:shadow-gold-400/25 w-full sm:w-auto
                                min-w-0 max-w-full"
@@ -463,7 +447,7 @@ const HeroSection = () => {
                       alt="Goldmine Communications and Construction"
                       fill
                       className="object-contain p-6"
-                      priority
+                    // priority
                     />
                   </div>
                 </div>
@@ -473,7 +457,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.8, delay: 0.7 }}
-                  className="mt-4"
+                  className="mt-6"
                 >
                   <h2 className="text-4xl xl:text-5xl font-bold text-gold-400 mb-3 text-shadow">
                     Goldmine Communications

@@ -247,7 +247,7 @@ const ConstructionSection = () => {
                          rounded-xl transition-colors
                          focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-800"
               >
-                Get Free Estimate
+                Get an Estimate
               </motion.a>
             </div>
 

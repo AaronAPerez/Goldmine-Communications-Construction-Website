@@ -529,7 +529,7 @@ export default function ProjectShowcase() {
           </motion.div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" role="tabpanel">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8" role="tabpanel">
             <AnimatePresence mode="wait">
               {filteredProjects.map((project, index) => (
                 <ProjectCard

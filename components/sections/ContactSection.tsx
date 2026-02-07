@@ -155,12 +155,31 @@ export default function ContactSection() {
   }, [submitStatus, resetForm]);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="bg-gray-900" 
+      className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-24 md:py-32"
       aria-labelledby="contact-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Gradient Overlay with Gold Accent */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#a68729]/10 via-transparent to-[#a68729]/10" />
+
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0"
+             style={{
+               backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+               backgroundSize: '60px 60px'
+             }}
+        />
+      </div>
+
+      {/* Decorative Gold Lines & Edge Glow */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#a68729] to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#a68729]/10 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#a68729] to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#a68729]/10 to-transparent" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -168,17 +187,17 @@ export default function ContactSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 
+          <h2
             id="contact-heading"
             className="text-4xl md:text-5xl font-bold text-white mb-6"
           >
             Get In
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600">
+            <span className="text-[#a68729]">
               {' '}Touch
             </span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Ready to start your project? Contact us today for a free consultation 
+            Ready to start your project? Contact us today to schedule a consultation
             and let&apos;s bring your vision to life.
           </p>
         </motion.div>
@@ -191,7 +210,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-2"
           >
-            <div className="bg-white rounded-2xl shadow-xl p-8 h-fit">
+            <div className="bg-white rounded-2xl shadow-xl p-8 h-fit border-t-4 border-[#a68729]">
               <h3 className="text-2xl font-bold text-gray-900 mb-8">
                 Contact Information
               </h3>
@@ -291,7 +310,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="lg:col-span-3"
           >
-            <div className="bg-white rounded-2xl shadow-xl p-8">
+            <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-[#a68729]">
               <h3 className="text-2xl font-bold text-gray-900 mb-8">
                 Send Us a Message
               </h3>

@@ -478,7 +478,7 @@ const ConstructionPage = () => {
                                rounded-xl  hover:bg-gold-500 
                          font-medium transition-colors shadow-lg"
               >
-                Get Free Estimate
+                Get an Estimate
                 <ArrowRight className="w-5 h-5 ml-2" />
               </motion.a>
               <motion.a
@@ -634,7 +634,7 @@ const ConstructionPage = () => {
                 className="inline-flex items-center px-8 py-4 bg-white text-gold-600 
                          hover:bg-gray-50 font-medium rounded-xl transition-colors shadow-lg"
               >
-                Get Free Estimate
+                Get an Estimate
                 <ArrowRight className="w-5 h-5 ml-2" />
               </motion.a>
               <motion.a

@@ -195,7 +195,7 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
       <div className={`p-6 bg-gradient-to-r ${service.color} text-white`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-white/20 rounded-xl">
+            <div className="p-3 bg-white/20 rounded-lg">
               {service.icon}
             </div>
             <div>
@@ -207,7 +207,7 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
             onClick={onToggle}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="p-2 bg-white/20 rounded-xl hover:bg-white/30 transition-colors"
+            className="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-colors"
             aria-expanded={isExpanded}
             aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${service.title} details`}
           >
@@ -268,36 +268,34 @@ const CommunicationsPage = () => {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <section
+      <section 
         ref={heroRef}
         className="relative py-24 bg-gradient-to-r from-gray-900 to-gray-800 overflow-hidden"
       >
          <Image
                         src="/images/projects/communications-tower2.png"
-                        alt="Communications tower with wireless infrastructure equipment"
+                        alt="Construction Hero Image"
                         fill
-                        className="absolute inset-0 object-cover opacity-40 z-0"
+                        className="absolute inset-0 object-cover opacity-30 z-0"
                         />
-        {/* Enhanced dark overlay for better text contrast */}
-        <div className="absolute inset-0 bg-black/40 z-[1]" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-10 z-[2]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-[3]">
+        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
             className="text-center text-white"
           >
-
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+            
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 z-30">
               Advanced
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600 drop-shadow-lg">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600">
                 {' '}Communications
               </span>
               <br />Solutions
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 drop-shadow-md">
-              Cutting-edge telecommunications infrastructure, network solutions, and smart
+            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8">
+              Cutting-edge telecommunications infrastructure, network solutions, and smart 
               technology services for the connected world.
             </p>
             <motion.div
@@ -310,12 +308,10 @@ const CommunicationsPage = () => {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-8 py-3   border-2 border-white/80 
-                             bg-gradient-to-r from-gold-400 to-gold-700 text-white
-                               rounded-xl  hover:bg-gold-500 
-                         font-medium transition-colors shadow-lg"
+                className="inline-flex items-center px-8 py-3 bg-gold-400 hover:bg-gold-500 
+                         text-white font-medium rounded-lg transition-colors shadow-lg"
               >
-                Get Free Consultation
+                Get a Quote
                 <ArrowRight className="w-5 h-5 ml-2" />
               </motion.a>
               <motion.a
@@ -324,7 +320,7 @@ const CommunicationsPage = () => {
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-3 border-2 border-white
                          text-white hover:bg-white hover:text-gray-900 font-medium 
-                         rounded-xl transition-colors"
+                         rounded-lg transition-colors"
               >
                 Explore Services
               </motion.a>
@@ -394,7 +390,7 @@ const CommunicationsPage = () => {
                          hover:shadow-lg transition-all duration-300"
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-gold-100 rounded-xl text-gold-600">
+                  <div className="p-3 bg-gold-100 rounded-lg text-gold-600">
                     {service.icon}
                   </div>
                   <h3 className="text-xl font-bold text-gray-900">{service.title}</h3>
@@ -478,7 +474,7 @@ const CommunicationsPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-3 bg-gold-400 hover:bg-gold-500 
-                         text-white font-medium rounded-xl transition-colors shadow-lg"
+                         text-white font-medium rounded-lg transition-colors shadow-lg"
               >
                 Learn About Training
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -509,7 +505,7 @@ const CommunicationsPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-3 bg-white text-gold-600 
-                         hover:bg-gray-50 font-medium rounded-xl transition-colors shadow-lg"
+                         hover:bg-gray-50 font-medium rounded-lg transition-colors shadow-lg"
               >
                 Get Started Today
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -520,7 +516,7 @@ const CommunicationsPage = () => {
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-3 border-2 border-white
                          text-white hover:bg-white hover:text-gold-600 font-medium 
-                         rounded-xl transition-colors"
+                         rounded-lg transition-colors"
               >
                 View Our Work
               </motion.a>
