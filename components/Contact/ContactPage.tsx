@@ -30,8 +30,8 @@ const contactMethods = [
     id: 'address',
     icon: <MapPin className="w-6 h-6" />,
     title: 'Office Location',
-    primary: '946 Lincoln Avenue',
-    secondary: 'San Jose, California 95125',
+    primary: '1161 Brick and Tile Circle',
+    secondary: 'Stockton, California 95206',
     description: 'Main Office & Headquarters',
     action: {
       label: 'Get Directions',

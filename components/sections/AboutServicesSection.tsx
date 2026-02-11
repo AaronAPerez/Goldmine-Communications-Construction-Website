@@ -288,8 +288,7 @@ export default function AboutServicesSection() {
                 className="flex items-center gap-6 shadow-sm 
                          border border-gray-100 hover:shadow-md transition-shadow"
               >
-                <div className="w-10 h-10 bg-gradient-to-r from-gold-400 to-gold-600
-                              rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-gold-400 to-gold-600 rounded-l-xl flex items-center justify-center">
                   <CheckCircle2 className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-gray-700 font-medium">{commitment}</span>

@@ -59,7 +59,7 @@ export default function TopContactBar() {
               {/* Address and Hours on medium and large screens */}
               <div className="hidden md:flex items-center">
                 <MapPin className="w-4 h-4 mr-2" />
-                <span>946 Lincoln Ave, San Jose, CA 95125</span>
+                <span>NECA Stockton Division 595E</span>
               </div>
               <div className="hidden lg:flex items-center">
                 <Clock className="w-4 h-4 mr-2" />

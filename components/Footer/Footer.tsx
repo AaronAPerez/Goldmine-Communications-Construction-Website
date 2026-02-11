@@ -181,7 +181,7 @@ export default function Footer() {
                 <div className="flex items-center group">
                   <MapPin className="text-gold-400 mr-3 flex-shrink-0" size={20} />
                   <span className="text-gray-300 group-hover:text-white transition-colors">
-                    946 Lincoln Avenue, San Jose, CA 95125
+                    1161 Brick and Tile Circle, Stockton, California 95206
                   </span>
                 </div>
                 <div className="flex items-center group">
