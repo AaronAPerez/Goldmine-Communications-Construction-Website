@@ -8,7 +8,12 @@ import Footer from '../components/Footer/Footer';
 import { Analytics } from "@vercel/analytics/react";
 import { ScrollToTop } from '../components/Navigation/ScrollToTop';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  fallback: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+});
 
 export const metadata: Metadata = {
   title: 'Goldmine Communications & Construction',
@@ -48,25 +53,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-      />
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preload LCP hero image to reduce resource load delay */}
+        <link
+          rel="preload"
+          href="/images/projects/Oregon-AV-Station/AV-station/Oregon-AvStations-hero.jpg"
+          as="image"
+          type="image/jpeg"
+          fetchPriority="high"
+        />
         <link rel="icon" href="/favicon.ico" />
-        {/* <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" /> */}
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        {/* <meta name="theme-color" content="#D4AF37" />
-        <link
-          rel="preload"
-          href="/images/WorkOregonPics/image16.jpeg"
-          as="image"
-          type="image/jpeg"
-        /> */}
       </head>
       <body className={`${inter.className} overflow-x-hidden`}>
         {/* Skip link for accessibility */}

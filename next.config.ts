@@ -1,22 +1,20 @@
 import type { NextConfig } from "next";
 
-// const isDev = process.env.NODE_ENV === 'development';
-
 const nextConfig: NextConfig = {
-  /* config options here */
-     devIndicators: false,
-   reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // Disable dev indicators overlay
+  devIndicators: false,
+
+  // Enable React strict mode
+  reactStrictMode: true,
+
+  // TypeScript - ignore build errors (handle via IDE/CI instead)
   typescript: {
     ignoreBuildErrors: true,
   },
+
+  // Image optimization configuration
   images: {
-    // Disable optimization in development for faster builds
-    // unoptimized: isDev,
     formats: ['image/webp', 'image/avif'],
-    // Domains for external images (use remotePatterns for Next.js 13+)
     remotePatterns: [
       {
         protocol: 'https',
@@ -31,13 +29,15 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     // Image sizes for different breakpoints
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Minimize automatic static optimization impact
-    minimumCacheTTL: 31536000, // 1 year
-    // Enable SVG support
+    // Cache images for 1 year
+    minimumCacheTTL: 31536000,
+    // Enable SVG support with security restrictions
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+
+  // Custom headers for caching and security
   async headers() {
     return [
       {
@@ -53,7 +53,7 @@ const nextConfig: NextConfig = {
           }
         ],
       },
-      // Specific headers for images
+      // Cache static images
       {
         source: '/images/:path*',
         headers: [
@@ -63,7 +63,7 @@ const nextConfig: NextConfig = {
           }
         ],
       },
-      // Headers for optimized images
+      // Cache optimized images
       {
         source: '/_next/image',
         headers: [
@@ -73,18 +73,33 @@ const nextConfig: NextConfig = {
           }
         ],
       },
+      // Cache self-hosted fonts (from next/font)
+      {
+        source: '/_next/static/media/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ],
+      },
+      // Cache static fonts in public folder
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ],
+      },
     ];
   },
-  //  devIndicators: false, // Disable development indicators
-    
-  // Enable React strict mode for development
-  // Valid experimental features for current Next.js versions
+
+  // Experimental features
   experimental: {
     optimizePackageImports: ['lodash', 'date-fns']
   },
-  // compiler: {
-  //   removeConsole: process.env.NODE_ENV === 'production'
-  // }
-}
+};
 
 export default nextConfig;
