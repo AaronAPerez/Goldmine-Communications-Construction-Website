@@ -1,6 +1,6 @@
 {
-  "name": "My App",
-  "short_name": "App",
+  "name": "Goldmine Communications & Construction",
+  "short_name": "Goldmine",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -19,7 +19,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#6366F1",
+  "theme_color": "#D4AF37",
   "background_color": "#ffffff",
   "display": "standalone",
   "start_url": "/"
