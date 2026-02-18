@@ -207,4 +207,5 @@ if (require.main === module) {
   });
 }
 
-export default { generateSitemap, validateSitemap };
+const sitemapGenerator = { generateSitemap, validateSitemap };
+export default sitemapGenerator;
