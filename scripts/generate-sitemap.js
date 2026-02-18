@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import { writeFileSync, readFileSync } from 'fs';
+import { join } from 'path';
 
 // Configuration
 const SITE_URL = 'https://goldminecomm.net';
-const OUTPUT_PATH = path.join(process.cwd(), 'public', 'sitemap.xml');
+const OUTPUT_PATH = join(process.cwd(), 'public', 'sitemap.xml');
 
 // Static routes configuration
 const staticRoutes = [
@@ -126,13 +126,13 @@ async function generateSitemap() {
     const sitemapXML = generateSitemapXML(allRoutes);
     
     // Write sitemap.xml
-    fs.writeFileSync(OUTPUT_PATH, sitemapXML);
+    writeFileSync(OUTPUT_PATH, sitemapXML);
     console.log(`✅ Sitemap generated successfully: ${OUTPUT_PATH}`);
     
     // Generate robots.txt
     const robotsTxt = generateRobotsTxt();
-    const robotsPath = path.join(process.cwd(), 'public', 'robots.txt');
-    fs.writeFileSync(robotsPath, robotsTxt);
+    const robotsPath = join(process.cwd(), 'public', 'robots.txt');
+    writeFileSync(robotsPath, robotsTxt);
     console.log(`✅ Robots.txt generated successfully: ${robotsPath}`);
     
     // Generate sitemap index if needed (for large sites)
@@ -158,15 +158,15 @@ function generateSitemapIndex() {
   </sitemap>
 </sitemapindex>`;
   
-  const indexPath = path.join(process.cwd(), 'public', 'sitemap-index.xml');
-  fs.writeFileSync(indexPath, sitemapIndex);
+  const indexPath = join(process.cwd(), 'public', 'sitemap-index.xml');
+  writeFileSync(indexPath, sitemapIndex);
   console.log(`✅ Sitemap index generated: ${indexPath}`);
 }
 
 // Validate sitemap
 function validateSitemap() {
   try {
-    const sitemapContent = fs.readFileSync(OUTPUT_PATH, 'utf8');
+    const sitemapContent = readFileSync(OUTPUT_PATH, 'utf8');
     
     // Basic validation
     if (!sitemapContent.includes('<?xml')) {
@@ -207,4 +207,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { generateSitemap, validateSitemap };
+export default { generateSitemap, validateSitemap };
