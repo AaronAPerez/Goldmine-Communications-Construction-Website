@@ -1,6 +1,6 @@
 import HomePage from '@/components/landing/HomePage';
 import { Metadata } from 'next';
-import JsonLd, { localBusinessSchema } from '@/components/SEO/JsonLd';
+import JsonLd, { localBusinessSchema } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Telecommunications & Construction Contractor | Stockton, Central Valley, Bay Area',

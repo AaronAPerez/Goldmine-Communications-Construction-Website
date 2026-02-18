@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import CommunicationsPage from '@/components/pages/CommunicationsPage';
-import JsonLd, { communicationsServiceSchema } from '@/components/SEO/JsonLd';
+import JsonLd, { communicationsServiceSchema } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Telecommunications Services | Fiber Optics, 5G, Wireless Infrastructure',

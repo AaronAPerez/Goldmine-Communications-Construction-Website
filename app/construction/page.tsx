@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import ConstructionPage from '@/components/pages/ConstructionPage';
-import JsonLd, { constructionServiceSchema } from '@/components/SEO/JsonLd';
+import JsonLd, { constructionServiceSchema } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Commercial Construction Services | Site Development & Infrastructure',

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import ContactPage from '@/components/Contact/ContactPage';
-import JsonLd, { localBusinessSchema } from '@/components/SEO/JsonLd';
+import JsonLd, { localBusinessSchema } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Contact Us | Get a Free Quote',

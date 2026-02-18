@@ -1,4 +1,3 @@
-import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Image from 'next/image';
