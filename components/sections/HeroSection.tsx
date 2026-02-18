@@ -408,7 +408,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="hidden lg:flex flex-col items-center justify-center lg:col-span-5"
+              className="hidden lg:flex flex-col items-center justify-center lg:col-span-5 pt-2"
             >
               <div className="relative text-center">
                 {/* Decorative animated rings */}
@@ -447,7 +447,7 @@ const HeroSection = () => {
                       alt="Goldmine Communications and Construction"
                       fill
                       className="object-contain p-6"
-                    // priority
+                      priority
                     />
                   </div>
                 </div>

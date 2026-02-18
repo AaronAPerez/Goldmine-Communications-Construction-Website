@@ -67,11 +67,12 @@ export default function FloatingNavigation() {
                 className="flex-shrink-0 relative group"
                 aria-label="Home"
               >
-                <div className="relative w-48 h-14">
+                <div className="relative">
                   <Image
                     src="/images/logo/logo-banner.jpg"
                     alt="Goldmine Communications and Construction"
-                    fill
+                    width={148}
+                    height={60}                   
                     className="object-contain"
                     priority
                   />

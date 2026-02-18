@@ -35,7 +35,7 @@ const contactMethods = [
     description: 'Main Office & Headquarters',
     action: {
       label: 'Get Directions',
-      href: 'https://maps.google.com/?q=946+Lincoln+Avenue,+San+Jose,+CA+95125',
+      href: 'https://maps.google.com/?q=1161+Brick+and+Tile+Circle,+Stockton,+CA+95206',
       external: true
     }
   },
@@ -321,19 +321,9 @@ const ContactPage = () => {
                   ))}
                 </div>
               </section>
-              {/* <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 
-                  id="contact-form-heading"
-                  className="text-2xl font-bold text-gray-900 mb-6"
-                >
-                  Send Us a Message
-                </h2>
-              </motion.div> */}
+
+              {/* Contact Form */}
+              {/* <ContactForm /> */}
             </section>
 
             {/* Sidebar Content */}

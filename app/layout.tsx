@@ -7,6 +7,7 @@ import FloatingNavigation from '../components/Navigation/FloatingNavigation';
 import Footer from '../components/Footer/Footer';
 import { Analytics } from "@vercel/analytics/react";
 import { ScrollToTop } from '../components/Navigation/ScrollToTop';
+import JsonLd, { localBusinessSchema, organizationSchema } from '../components/seo/JsonLd';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -16,27 +17,100 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Goldmine Communications & Construction',
-  description: 'Leading provider of communications and construction solutions in Northern California',
-  keywords: 'communications, construction, fiber optics, network infrastructure, commercial construction',
+  metadataBase: new URL('https://www.goldminecomm.net'),
+  title: {
+    default: 'Goldmine Communications & Construction | Licensed Telecommunications Contractor Northern California',
+    template: '%s | Goldmine Communications & Construction',
+  },
+  description: 'Licensed, bonded & insured telecommunications and construction company serving Northern California, Central Valley, and the Bay Area. Specializing in fiber optics, 5G infrastructure, EV charging stations, and commercial construction. CA License #1099543.',
+  keywords: [
+    // Primary Services
+    'telecommunications contractor',
+    'fiber optic installation',
+    '5G infrastructure',
+    'EV charging station installation',
+    'commercial construction',
+    'network infrastructure',
+    // Location Keywords - Central Valley
+    'Stockton telecommunications',
+    'Modesto fiber optics',
+    'Central Valley construction',
+    'Tracy network services',
+    'Manteca contractor',
+    'Lodi telecommunications',
+    'Fresno communications',
+    // Location Keywords - Bay Area
+    'San Jose telecommunications',
+    'Oakland fiber optics',
+    'San Francisco network contractor',
+    'Hayward construction',
+    'Fremont telecommunications',
+    'Palo Alto infrastructure',
+    'Bay Area contractor',
+    // Location Keywords - Sacramento
+    'Sacramento telecommunications',
+    'Northern California contractor',
+    // Service Keywords
+    'wireless infrastructure',
+    'data center services',
+    'DAS installation',
+    'small cell installation',
+    'commercial electrical',
+    'bonded contractor California',
+    'licensed contractor',
+    'NECA member contractor',
+  ],
+  authors: [{ name: 'Goldmine Communications & Construction' }],
+  creator: 'Goldmine Communications & Construction',
+  publisher: 'Goldmine Communications & Construction',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'Goldmine Communications & Construction',
-    description: 'Leading provider of communications and construction solutions',
-    url: 'https://goldminecomm.net',
+    title: 'Goldmine Communications & Construction | Licensed Contractor Northern California',
+    description: 'Licensed, bonded & insured telecommunications and construction company serving Northern California, Central Valley, and Bay Area. Fiber optics, 5G, EV charging, commercial construction. CA Lic #1099543.',
+    url: 'https://www.goldminecomm.net',
     siteName: 'Goldmine Communications & Construction',
     images: [
       {
         url: '/images/logo-banner.png',
         width: 1200,
         height: 630,
-        alt: 'Goldmine Communications & Construction',
+        alt: 'Goldmine Communications & Construction - Licensed Contractor Northern California',
       },
     ],
     locale: 'en_US',
     type: 'website',
   },
-  // viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
-  robots: 'index, follow',
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Goldmine Communications & Construction | Northern California',
+    description: 'Licensed telecommunications & construction contractor serving Northern California, Central Valley & Bay Area. Fiber optics, 5G, EV charging stations.',
+    images: ['/images/logo-banner.png'],
+  },
+  alternates: {
+    canonical: 'https://www.goldminecomm.net',
+  },
+  category: 'Construction & Telecommunications',
+  verification: {
+    // Add your verification codes when available
+    // google: 'your-google-verification-code',
+    // yandex: 'your-yandex-verification-code',
+  },
+  other: {
+    'geo.region': 'US-CA',
+    'geo.placename': 'Stockton, California',
+    'geo.position': '37.9352;-121.2767',
+    'ICBM': '37.9352, -121.2767',
+  },
 };
 
 export const viewport = {
@@ -54,14 +128,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* JSON-LD Structured Data for SEO */}
+        <JsonLd schema={[localBusinessSchema, organizationSchema]} />
         {/* Preload LCP hero image to reduce resource load delay */}
-        <link
-          rel="preload"
-          href="/images/projects/Oregon-AV-Station/AV-station/Oregon-AvStations-hero.jpg"
-          as="image"
-          type="image/jpeg"
-          fetchPriority="high"
-        />
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />

@@ -20,7 +20,7 @@ import ProjectShowcase from '../Projects/ProjectShowcase';
  */
 export default function HomePage() {
   return (
-    <div className='mt-8'>
+    <div className='mt-6'>
       {/* Hero Section - Full viewport with proper spacing */}
       <section className="relative">
         <HeroSection />
