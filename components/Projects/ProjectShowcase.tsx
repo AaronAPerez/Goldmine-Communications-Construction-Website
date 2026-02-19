@@ -44,6 +44,53 @@ interface Project {
  */
 const projects: Project[] = [
   {
+    id: 'antioch-ca-ev-charging',
+    title: 'Antioch EV Charging Infrastructure',
+    description: 'Complete EV charging station installation in Antioch, CA featuring underground trenching, conduit installation, and charging equipment deployment for sustainable transportation infrastructure.',
+    category: 'Infrastructure',
+    location: 'Antioch, CA',
+    thumbnailUrl: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-20.webp',
+    galleryImages: [
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-1.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-3.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-4.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-7.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-9.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-16.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-17.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-20.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-25.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-29.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-31.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-33.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-39.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-41.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-43.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-45.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-49.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-55.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-61.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-66.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-71.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-76.webp',
+      '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-81.webp',
+    ],
+    features: [
+      'Underground trenching and conduit installation',
+      'EV charging station deployment',
+      'Electrical infrastructure integration',
+      'Safety compliance and site preparation',
+      'Multi-phase construction documentation',
+      'Commercial-grade charging equipment'
+    ],
+    specifications: {
+      'Project Type': 'EV Charging Infrastructure',
+      'Installation Type': 'Commercial Grade',
+      'Safety Standards': 'UL Listed & Code Compliant',
+      'Documentation': '85+ timestamped progress photos'
+    }
+  },
+  {
     id: 'av-charging-oregon',
     title: 'Oregon AV Charging Infrastructure',
     description: 'Comprehensive implementation of EV charging stations with advanced infrastructure support and safety systems for sustainable transportation.',
@@ -240,7 +287,7 @@ const ProjectCard = ({ project, index, onViewDetails }: ProjectCardProps) => {
     >
       {/* Project Image with Enhanced Overlay */}
       <div
-        className="relative aspect-[4/3] cursor-pointer overflow-hidden"
+        className="relative aspect-[4/3] cursor-pointer overflow-hidden bg-gray-100"
         onClick={() => onViewDetails(project)}
         role="button"
         tabIndex={0}
@@ -256,7 +303,7 @@ const ProjectCard = ({ project, index, onViewDetails }: ProjectCardProps) => {
           src={project.thumbnailUrl}
           alt={project.title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          className="object-contain transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority={index < 2}
         />
@@ -529,7 +576,7 @@ export default function ProjectShowcase() {
           </motion.div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8" role="tabpanel">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" role="tabpanel">
             <AnimatePresence mode="wait">
               {filteredProjects.map((project, index) => (
                 <ProjectCard
@@ -665,7 +712,7 @@ export default function ProjectShowcase() {
                   </div>
 
                   {/* Image Gallery */}
-                  <div className="relative aspect-video rounded-xl overflow-hidden mb-8 bg-gray-100 border-2 border-gold-200/50 shadow-inner">
+                  <div className="relative aspect-video rounded-xl overflow-hidden mb-8 bg-black/90 backdrop-blur-md border-2 border-gold-200/50 shadow-inner">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={currentImageIndex}
@@ -679,7 +726,7 @@ export default function ProjectShowcase() {
                           src={selectedProject.galleryImages[currentImageIndex]}
                           alt={`${selectedProject.title} - Image ${currentImageIndex + 1} of ${selectedProject.galleryImages.length}`}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           sizes="(max-width: 600px) 100vw, 600px"
                         />
                       </motion.div>

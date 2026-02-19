@@ -50,7 +50,7 @@ const heroSlides: HeroSlide[] = [
   {
     id: 'ev-charging',
     image: '/images/projects/Oregon-AV-Station/AV-station/Oregon-AvStations-hero.jpg',
-    title: 'Future-Ready EV Infrastructure',
+    title: 'EV Charging Infrastructure',
     subtitle: 'Clean Energy Technology',
     description: 'Advanced electric vehicle charging solutions and smart technology integration for sustainable transportation networks.',
     cta: {
@@ -255,12 +255,12 @@ const HeroSection = () => {
               {/* Mobile Logo */}
               <div className="relative w-44 h-44 sm:w-52 sm:h-52 mx-auto my-2">
                 <div className="absolute inset-0 bg-gradient-to-r from-gold-400/30 to-gold-600/30 rounded-full blur-xl" />
-                <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border-3 border-gold-400/60 bg-white/10 backdrop-blur-sm">
+                <div className="relative w-full h-full rounded-full shadow-2xl border-4 border-gold-400/60 bg-white/10 backdrop-blur-sm overflow-visible">
                   <Image
                     src="/images/logo/logo-circular.jpg"
                     alt="Goldmine Communications and Construction"
                     fill
-                    className="object-contain p-4"
+                    className="object-contain p-2"
                     // priority
                     sizes="(max-width: 640px) 128px, 144px"
                   />
@@ -269,10 +269,10 @@ const HeroSection = () => {
 
               {/* Mobile Company Name */}
               <div className="text-center max-w-full">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gold-400 mb-1 text-shadow break-words">
+                <h2 className="text-4xl sm:text-5xl font-bold text-gold-400 mb-1 text-shadow-lg break-words">
                   Goldmine Communications
                 </h2>
-                <div className="text-xl sm:text-3xl text-gray-100 text-shadow-sm">
+                <div className="text-3xl sm:text-4xl text-gray-100 text-shadow-md">
                   & Construction
                 </div>
               </div>
@@ -440,13 +440,13 @@ const HeroSection = () => {
                 {/* Desktop Logo */}
                 <div className="relative w-72 h-72 xl:w-80 xl:h-80 mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-r from-gold-400/40 to-gold-600/40 rounded-full blur-3xl" />
-                  <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl 
+                  <div className="relative w-full h-full rounded-full overflow-visible shadow-2xl 
                                 border-4 border-gold-400/60 bg-white/10 backdrop-blur-sm">
                     <Image
                       src="/images/logo/logo-circular.jpg"
                       alt="Goldmine Communications and Construction"
                       fill
-                      className="object-contain p-6"
+                      className="object-contain p-2"
                       priority
                     />
                   </div>
@@ -457,12 +457,12 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.8, delay: 0.7 }}
-                  className="mt-6"
+                  className="mt-2"
                 >
-                  <h2 className="text-4xl xl:text-5xl font-bold text-gold-400 mb-3 text-shadow">
+                  <h2 className="text-4xl xl:text-5xl font-bold text-gold-400 mb-3 text-shadow-lg">
                     Goldmine Communications
                   </h2>
-                  <div className="text-3xl xl:text-4xl text-gray-100 text-shadow-sm">
+                  <div className="text-3xl xl:text-4xl text-gray-100 text-shadow-md">
                     & Construction
                   </div>
                   <div className="mt-4 text-lg text-gray-300">
