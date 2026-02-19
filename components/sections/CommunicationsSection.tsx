@@ -110,7 +110,7 @@ const serviceGroups: ServiceGroup[] = [
     ],
     projectLocation: 'Antioch, CA & Oregon',
     images: [
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-15.webp', alt: 'EV charging station installation' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-39.webp', alt: 'EV charging station installation' },
       { src: '/images/projects/Oregon-AV-Station/AV-station.jpg', alt: 'Oregon AV station completed project' },
       { src: '/images/projects/Ripon-CA/ripon-ev-station-trench-13.webp', alt: 'Multiple EV charging units installed' },
       { src: '/images/projects/Ripon-CA/ripon-ev-station-trench-11.webp', alt: 'AV station with EV infrastructure' },
