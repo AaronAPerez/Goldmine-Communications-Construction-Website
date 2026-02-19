@@ -1,30 +1,40 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import {
   HardHat,
   Shield,
   CheckCircle,
   ArrowRight,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   Truck,
   Target,
   Building,
   Wrench,
+  MapPin,
+  Maximize2,
+  X
 } from 'lucide-react';
-import Image from 'next/image';
 
 /**
- * Construction Page Component
- * 
+ * Enhanced Construction Page Component
+ *
  * Comprehensive showcase of all construction services with:
  * - Real project images and detailed galleries
  * - Interactive service exploration with expandable sections
  * - Professional safety emphasis with actual project examples
- * - Quality assurance highlights with specifications
+ * - Premium gold accent styling
  */
+
+interface ProjectImage {
+  src: string;
+  alt: string;
+}
 
 interface ConstructionService {
   id: string;
@@ -33,8 +43,8 @@ interface ConstructionService {
   icon: React.ReactNode;
   services: string[];
   color: string;
-  // projectImages: string[];
-  // projectName: string;
+  images: ProjectImage[];
+  projectLocation?: string;
   specifications?: {
     [key: string]: string;
   };
@@ -47,15 +57,14 @@ const constructionServices: ConstructionService[] = [
     description: 'Comprehensive site preparation, excavation, grading, and access development for all types of construction projects.',
     icon: <Building className="w-8 h-8" />,
     color: 'from-blue-500 to-blue-600',
-    // projectName: 'Large-Scale Site Development',
-    // projectImages: [
-    //   '/images/projects/IMG_20250522_183647 (1).jpg',
-    //   '/images/projects/IMG_20250522_183647 (2).jpg',
-    //   '/images/projects/IMG_20250522_183647 (3).jpg',
-    //   '/images/projects/IMG_20250522_183647 (4).jpg',
-    //   '/images/projects/IMG_20250522_183648 (2).jpg',
-    //   '/images/projects/IMG_20250522_183648 (3).jpg'
-    // ],
+    projectLocation: 'Bodega Bay, CA',
+    images: [
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-1.jpg', alt: 'Bulldozer grading work' },
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-2.jpg', alt: 'Site excavation' },
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-3.jpg', alt: 'Heavy equipment operations' },
+      { src: '/images/projects/Bodega-Bay-CA/construction-dozer.jpg', alt: 'Construction site work' },
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-trench.jpg', alt: 'Trenching operations' }
+    ],
     services: [
       'Multi-phase site excavation and grading',
       'Access road and pathway construction',
@@ -71,7 +80,6 @@ const constructionServices: ConstructionService[] = [
       'Excavation Volume': '500,000+ cubic yards',
       'Access Roads': 'Multi-lane construction',
       'Environmental Standards': 'Full regulatory compliance',
-      'Completion Timeline': '12-24 months',
       'Safety Record': 'Zero incidents across all phases'
     }
   },
@@ -81,15 +89,14 @@ const constructionServices: ConstructionService[] = [
     description: 'Advanced infrastructure installation including telecommunications, utilities, and specialized systems integration.',
     icon: <Target className="w-8 h-8" />,
     color: 'from-green-500 to-green-600',
-    // projectName: 'Infrastructure Systems Installation',
-    // projectImages: [
-    //   '/images/projects/IMG_20250522_183648 (8).jpg',
-    //   '/images/projects/IMG_20250522_183648 (10).jpg',
-    //   '/images/projects/IMG_20250522_183648 (11).jpg',
-    //   '/images/projects/IMG_20250522_183648 (12).jpg',
-    //   '/images/projects/IMG_20250522_183649 (1).jpg',
-    //   '/images/projects/IMG_20250522_183649 (2).jpg'
-    // ],
+    projectLocation: 'Oregon',
+    images: [
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-pipes.jpg', alt: 'Utility pipe installation' },
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-1.jpg', alt: 'Underground infrastructure' },
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-5.jpg', alt: 'Trenching work' },
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-10.jpg', alt: 'Infrastructure systems' },
+      { src: '/images/projects/Oregon-AV-Station/site/site-1.jpg', alt: 'Site infrastructure' }
+    ],
     services: [
       'Telecommunications tower installation and integration',
       'Advanced utility system planning and installation',
@@ -105,9 +112,7 @@ const constructionServices: ConstructionService[] = [
       'Equipment Handling': '100+ ton capacity',
       'Underground Systems': '50+ mile networks',
       'Power Systems': '1MW+ installations',
-      'Communications': 'Multi-carrier infrastructure',
-      'Precision Tolerance': '±2mm accuracy',
-      'System Reliability': '99.99% uptime guarantee'
+      'Precision Tolerance': '±2mm accuracy'
     }
   },
   {
@@ -116,15 +121,14 @@ const constructionServices: ConstructionService[] = [
     description: 'Expert concrete construction including foundations, structural elements, and specialized high-strength applications.',
     icon: <Shield className="w-8 h-8" />,
     color: 'from-orange-500 to-orange-600',
-    // projectName: 'Advanced Concrete Construction',
-    // projectImages: [
-    //   '/images/projects/IMG_20250522_183649 (11).jpg',
-    //   '/images/projects/IMG_20250522_183649 (12).jpg',
-    //   '/images/projects/IMG_20250522_183649 (13).jpg',
-    //   '/images/projects/IMG_20250522_183649 (14).jpg',
-    //   '/images/projects/IMG_20250522_183649 (15).jpg',
-    //   '/images/projects/IMG_20250522_183649 (16).jpg'
-    // ],
+    projectLocation: 'Antioch, CA',
+    images: [
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-10.webp', alt: 'Foundation concrete work' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-12.webp', alt: 'Concrete installation' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-15.webp', alt: 'Structural concrete' },
+      { src: '/images/projects/PouringConcrete.jpg', alt: 'Concrete pouring' },
+      { src: '/images/projects/TractorConcrete.jpg', alt: 'Concrete equipment work' }
+    ],
     services: [
       'Deep foundation design and installation',
       'Structural concrete placement and finishing',
@@ -140,26 +144,22 @@ const constructionServices: ConstructionService[] = [
       'Concrete Strength': '6000+ PSI high-strength',
       'Reinforcement': 'Grade 80 rebar systems',
       'Load Capacity': '1000+ tons per foundation',
-      'Surface Finish': 'Architectural grade quality',
-      'Quality Standards': 'Continuous monitoring and testing',
-      'Curing Methods': 'Controlled environment processes'
+      'Surface Finish': 'Architectural grade quality'
     }
   },
   {
     id: 'equipment-installation',
-    title: 'Heavy Equipment & Specialized Installation',
+    title: 'Heavy Equipment & Transport',
     description: 'Specialized heavy equipment transportation, rigging, and precision installation for complex industrial projects.',
     icon: <Truck className="w-8 h-8" />,
     color: 'from-purple-500 to-purple-600',
-    // projectName: 'Equipment Installation & Transport',
-    // projectImages: [
-    //   '/images/projects/IMG_20250522_183649 (23).jpg',
-    //   '/images/projects/IMG_20250522_183649 (24).jpg',
-    //   '/images/projects/IMG_20250522_183649 (25).jpg',
-    //   '/images/projects/IMG_20250522_183649 (26).jpg',
-    //   '/images/projects/IMG_20250522_183649 (27).jpg',
-    //   '/images/projects/IMG_20250522_183649.jpg'
-    // ],
+    projectLocation: 'Bodega Bay, CA',
+    images: [
+      { src: '/images/projects/Bodega-Bay-CA/transport-1.jpg', alt: 'Equipment transport' },
+      { src: '/images/projects/Bodega-Bay-CA/transport-2.jpg', alt: 'Heavy machinery transport' },
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-transport.jpg', alt: 'Bulldozer transport' },
+      { src: '/images/projects/Bodega-Bay-CA/case-1.jpg', alt: 'Equipment operations' }
+    ],
     services: [
       'Heavy machinery transport and logistics coordination',
       'Precision equipment placement using advanced rigging',
@@ -175,8 +175,6 @@ const constructionServices: ConstructionService[] = [
       'Crane Operations': '1000-ton mobile cranes',
       'Placement Precision': '±1mm final positioning',
       'Transport Capability': '1000+ mile range',
-      'Equipment Diversity': '50+ different system types',
-      'Safety Certifications': 'All current and maintained',
       'Success Rate': '100% successful installations'
     }
   },
@@ -186,15 +184,14 @@ const constructionServices: ConstructionService[] = [
     description: 'Technical construction services including precision cutting, drilling, demolition, and specialized installation work.',
     icon: <Wrench className="w-8 h-8" />,
     color: 'from-red-500 to-red-600',
-    // projectName: 'Specialized Technical Work',
-    // projectImages: [
-    //   '/images/projects/IMG_20250522_183649 (17).jpg',
-    //   '/images/projects/IMG_20250522_183649 (18).jpg',
-    //   '/images/projects/IMG_20250522_183649 (19).jpg',
-    //   '/images/projects/IMG_20250522_183649 (20).jpg',
-    //   '/images/projects/IMG_20250522_183649 (21).jpg',
-    //   '/images/projects/IMG_20250522_183649 (22).jpg'
-    // ],
+    projectLocation: 'Winnemucca, NV',
+    images: [
+      { src: '/images/projects/Winnemucca-NV/trench-1.jpg', alt: 'Precision trenching' },
+      { src: '/images/projects/Winnemucca-NV/trench-3.jpg', alt: 'Utility trenching work' },
+      { src: '/images/projects/Winnemucca-NV/trench-5.jpg', alt: 'Specialized excavation' },
+      { src: '/images/projects/Winnemucca-NV/trench-8.jpg', alt: 'Completed trench' },
+      { src: '/images/projects/Bodega-Bay-CA/jack-hammer-1.jpg', alt: 'Concrete cutting' }
+    ],
     services: [
       'Diamond blade concrete cutting and precision sawing',
       'Core drilling for utilities and structural penetrations',
@@ -209,10 +206,8 @@ const constructionServices: ConstructionService[] = [
       'Cutting Capacity': '36+ inch concrete',
       'Core Drilling': '48+ inch diameter capability',
       'Precision Level': '±0.5mm accuracy',
-      'Demolition': 'Controlled and environmentally safe',
       'Response Time': '24/7 emergency availability',
-      'Equipment': 'Latest diamond technology',
-      'Dust Control': 'HEPA filtration systems'
+      'Equipment': 'Latest diamond technology'
     }
   }
 ];
@@ -245,6 +240,198 @@ const safetyFeatures = [
 ];
 
 /**
+ * Project Image Gallery Component
+ */
+interface ImageGalleryProps {
+  images: ProjectImage[];
+  projectLocation?: string;
+}
+
+const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  return (
+    <>
+      <div className="relative group rounded-xl overflow-hidden bg-gray-900 shadow-xl">
+        {/* Main Image */}
+        <div className="aspect-video relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={images[currentIndex].src}
+                alt={images[currentIndex].alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 600px"
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent
+                        opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          {/* Location Badge */}
+          {projectLocation && (
+            <div className="absolute bottom-3 left-3 flex items-center gap-1.5
+                          bg-black/60 backdrop-blur-sm text-white text-sm px-3 py-1.5 rounded-full">
+              <MapPin className="w-4 h-4 text-gold-400" />
+              <span>{projectLocation}</span>
+            </div>
+          )}
+
+          {/* Navigation */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={handlePrev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full
+                         bg-black/50 text-white hover:bg-gold-500 backdrop-blur-sm
+                         opacity-0 group-hover:opacity-100 transition-all duration-300"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full
+                         bg-black/50 text-white hover:bg-gold-500 backdrop-blur-sm
+                         opacity-0 group-hover:opacity-100 transition-all duration-300"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </>
+          )}
+
+          {/* Fullscreen Button */}
+          <button
+            onClick={() => setIsLightboxOpen(true)}
+            className="absolute top-3 right-3 p-2 rounded-full
+                     bg-black/50 text-white hover:bg-gold-500 backdrop-blur-sm
+                     opacity-0 group-hover:opacity-100 transition-all duration-300"
+            aria-label="View fullscreen"
+          >
+            <Maximize2 className="w-4 h-4" />
+          </button>
+
+          {/* Counter */}
+          {images.length > 1 && (
+            <div className="absolute top-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-sm
+                          text-white text-sm rounded-full">
+              {currentIndex + 1} / {images.length}
+            </div>
+          )}
+        </div>
+
+        {/* Thumbnails */}
+        {images.length > 1 && (
+          <div className="flex gap-1 p-2 bg-black/40">
+            {images.slice(0, 5).map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`relative flex-1 aspect-[3/2] rounded overflow-hidden transition-all ${
+                  idx === currentIndex
+                    ? 'ring-2 ring-gold-400'
+                    : 'opacity-60 hover:opacity-100'
+                }`}
+              >
+                <Image
+                  src={img.src}
+                  alt={`Thumbnail ${idx + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="100px"
+                />
+              </button>
+            ))}
+            {images.length > 5 && (
+              <button
+                onClick={() => setIsLightboxOpen(true)}
+                className="flex-1 aspect-[3/2] rounded bg-gray-800 flex items-center justify-center
+                         text-white text-sm hover:bg-gold-500 transition-colors"
+              >
+                +{images.length - 5}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {isLightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            onClick={() => setIsLightboxOpen(false)}
+          >
+            <button
+              onClick={() => setIsLightboxOpen(false)}
+              className="absolute top-4 right-4 p-3 rounded-full bg-white/10 text-white
+                       hover:bg-gold-500 transition-colors z-10"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div
+              className="relative w-full h-full max-w-5xl max-h-[80vh] mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={images[currentIndex].src}
+                alt={images[currentIndex].alt}
+                fill
+                className="object-contain"
+                sizes="100vw"
+              />
+            </div>
+
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full
+                           bg-white/10 text-white hover:bg-gold-500 transition-colors"
+                >
+                  <ChevronLeft className="w-8 h-8" />
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full
+                           bg-white/10 text-white hover:bg-gold-500 transition-colors"
+                >
+                  <ChevronRight className="w-8 h-8" />
+                </button>
+              </>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+/**
  * Expandable Service Card Component with Project Gallery
  */
 interface ServiceCardProps {
@@ -257,7 +444,6 @@ interface ServiceCardProps {
 const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true });
-  // const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   return (
     <motion.div
@@ -265,7 +451,7 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300"
+      className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all"
     >
       {/* Service Header */}
       <div className={`p-6 bg-gradient-to-r ${service.color} text-white`}>
@@ -285,7 +471,6 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
             whileTap={{ scale: 0.9 }}
             className="p-2 bg-white/20 rounded-xl hover:bg-white/30 transition-colors"
             aria-expanded={isExpanded}
-            aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${service.title} details`}
           >
             <motion.div
               animate={{ rotate: isExpanded ? 180 : 0 }}
@@ -307,110 +492,47 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
         transition={{ duration: 0.3 }}
         className="overflow-hidden"
       >
-        {/* <div className="p-6"> */}
-        {/* Project Gallery */}
-        {/* <div className="mb-6">
-            <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
-              <Eye className="w-5 h-5 text-gold-500 mr-2" />
-              {service.projectName} - Project Gallery
-            </h4> */}
-
-        {/* Main Image */}
-        {/* <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-gray-100">
-              <OptimizedImage
-                src={service.projectImages[selectedImageIndex]}
-                alt={`${service.projectName} - Image ${selectedImageIndex + 1}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 600px"
-              /> */}
-
-        {/* Image Navigation */}
-        {/* {service.projectImages.length > 1 && (
-                <>
-                  <button
-                    onClick={() => setSelectedImageIndex((prev) => 
-                      prev === 0 ? service.projectImages.length - 1 : prev - 1
-                    )}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full 
-                             bg-black/50 text-white hover:bg-black/70 transition-colors"
-                  >
-                    <ChevronDown className="w-4 h-4 rotate-90" />
-                  </button>
-                  <button
-                    onClick={() => setSelectedImageIndex((prev) => 
-                      (prev + 1) % service.projectImages.length
-                    )}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full 
-                             bg-black/50 text-white hover:bg-black/70 transition-colors"
-                  >
-                    <ChevronDown className="w-4 h-4 -rotate-90" />
-                  </button>
-                  
-                  {/* Image Counter */}
-        {/* <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">
-                    {selectedImageIndex + 1} / {service.projectImages.length}
-                  </div>
-                </>
-              )}
-            </div> */}
-
-        {/* Thumbnail Navigation */}
-        {/* {service.projectImages.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto">
-                {service.projectImages.map((image, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedImageIndex(idx)}
-                    className={`relative flex-shrink-0 w-16 h-12 rounded overflow-hidden border-2 transition-colors ${
-                      idx === selectedImageIndex ? 'border-gold-400' : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <OptimizedImage
-                      src={image}
-                      alt={`Thumbnail ${idx + 1}`}
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
-                  </button>
-                ))}
-              </div>
-            )} */}
-        {/* </div> */}
-
-        {/* Services List */}
-        <h4 className="font-semibold text-gray-900 mb-4">Services Included:</h4>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-          {service.services.map((item, idx) => (
-            <motion.li
-              key={idx}
-              initial={{ opacity: 0, x: -20 }}
-              animate={isExpanded ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ delay: idx * 0.05 }}
-              className="flex items-start gap-3 text-gray-600"
-            >
-              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-              <span className="text-sm">{item}</span>
-            </motion.li>
-          ))}
-        </ul>
-
-        {/* Specifications */}
-        {service.specifications && (
-          <div className="bg-gray-50 rounded-xl p-4">
-            <h4 className="font-semibold text-gray-900 mb-3">Technical Specifications:</h4>
-            <dl className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {Object.entries(service.specifications).map(([key, value]) => (
-                <div key={key} className="text-sm">
-                  <dt className="font-medium text-gray-900">{key}:</dt>
-                  <dd className="text-gray-600">{value}</dd>
-                </div>
-              ))}
-            </dl>
+        <div className="p-6">
+          {/* Project Gallery */}
+          <div className="mb-6">
+            <ImageGallery
+              images={service.images}
+              projectLocation={service.projectLocation}
+            />
           </div>
-        )}
-        {/* </div> */}
+
+          {/* Services List */}
+          <h4 className="font-semibold text-gray-900 mb-4">Services Included:</h4>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+            {service.services.map((item, idx) => (
+              <motion.li
+                key={idx}
+                initial={{ opacity: 0, x: -20 }}
+                animate={isExpanded ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ delay: idx * 0.03 }}
+                className="flex items-start gap-3 text-gray-600"
+              >
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                <span className="text-sm">{item}</span>
+              </motion.li>
+            ))}
+          </ul>
+
+          {/* Specifications */}
+          {service.specifications && (
+            <div className="bg-gray-50 rounded-xl p-4">
+              <h4 className="font-semibold text-gray-900 mb-3">Technical Specifications:</h4>
+              <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {Object.entries(service.specifications).map(([key, value]) => (
+                  <div key={key} className="text-sm">
+                    <dt className="font-medium text-gray-900">{key}:</dt>
+                    <dd className="text-gray-600">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
+        </div>
       </motion.div>
     </motion.div>
   );
@@ -435,15 +557,15 @@ const ConstructionPage = () => {
         ref={heroRef}
         className="relative py-24 bg-gradient-to-r from-gray-900 to-gray-800 overflow-hidden"
       >
-          <Image
-                                src="/images/projects/maintenance.jpg"
-                                alt="Construction services including road work and site development"
-                                fill
-                                className="absolute inset-0 object-cover opacity-40 z-0"
-                                />
-        {/* Enhanced dark overlay for better text contrast */}
+        <Image
+          src="/images/projects/Bodega-Bay-CA/bulldozer-1.jpg"
+          alt="Construction services including site development"
+          fill
+          className="absolute inset-0 object-cover opacity-40 z-0"
+        />
         <div className="absolute inset-0 bg-black/40 z-[1]" />
         <div className="absolute inset-0 bg-grid-pattern opacity-10 z-[2]" />
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-[3]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -453,15 +575,15 @@ const ConstructionPage = () => {
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
               Professional
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600 drop-shadow-lg">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600">
                 {' '}Construction
               </span>
               <br />Excellence
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 drop-shadow-md">
               From large-scale site development to precision equipment installation,
-              we deliver comprehensive construction solutions with proven expertise,
-              safety excellence, and exceptional results across all project types.
+              we deliver comprehensive construction solutions. View our real project work
+              from California, Nevada, and Oregon.
             </p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -473,10 +595,8 @@ const ConstructionPage = () => {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-8 py-3   border-2 border-white/80 
-                             bg-gradient-to-r from-gold-400 to-gold-700 text-white
-                               rounded-xl  hover:bg-gold-500 
-                         font-medium transition-colors shadow-lg"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gold-400 to-gold-600
+                         text-white font-medium rounded-xl transition-all shadow-lg"
               >
                 Get an Estimate
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -485,8 +605,8 @@ const ConstructionPage = () => {
                 href="#services"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-8 py-3 border-2 border-white
-                         text-white hover:bg-white hover:text-gray-900 font-medium 
+                className="inline-flex items-center px-8 py-4 border-2 border-white
+                         text-white hover:bg-white hover:text-gray-900 font-medium
                          rounded-xl transition-colors"
               >
                 View Services
@@ -522,7 +642,7 @@ const ConstructionPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl 
+                className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl
                          transition-shadow duration-300"
               >
                 <div className="text-gold-400 mb-4">{feature.icon}</div>
@@ -631,7 +751,7 @@ const ConstructionPage = () => {
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-8 py-4 bg-white text-gold-600 
+                className="inline-flex items-center px-8 py-4 bg-white text-gold-600
                          hover:bg-gray-50 font-medium rounded-xl transition-colors shadow-lg"
               >
                 Get an Estimate
@@ -642,7 +762,7 @@ const ConstructionPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-4 border-2 border-white
-                         text-white hover:bg-white hover:text-gold-600 font-medium 
+                         text-white hover:bg-white hover:text-gold-600 font-medium
                          rounded-xl transition-colors"
               >
                 View Our Projects
@@ -650,7 +770,7 @@ const ConstructionPage = () => {
             </div>
             <div className="mt-8 text-white/80">
               <p className="text-lg font-semibold">License #1099543 | Bonded & Insured</p>
-              <p className="text-sm mt-2">946 Lincoln Ave, San Jose, CA 95125 | (925) 305-5980</p>
+              <p className="text-sm mt-2">1161 Brick and Tile Circle, Stockton, CA 95206 | (925) 305-5980</p>
             </div>
           </motion.div>
         </div>
