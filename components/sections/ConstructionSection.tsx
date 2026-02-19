@@ -16,13 +16,8 @@ import {
 } from 'lucide-react';
 
 /**
- * Enhanced Construction Section Component for Homepage
- *
- * Premium showcase of construction services with:
- * - 2 service cards paired with each image gallery
- * - Real project images from actual construction work
- * - Professional presentation with gold accents
- * - Smooth animations and transitions
+ * Construction Section Component for Homepage
+ * Uses unique images not repeated in ConstructionPage
  */
 
 interface ConstructionService {
@@ -74,11 +69,11 @@ const serviceGroups: ServiceGroup[] = [
     ],
     projectLocation: 'Bodega Bay, CA',
     images: [
-      { src: '/images/projects/Bodega-Bay-CA/bulldozer-1.jpg', alt: 'Heavy bulldozer grading work' },
-      { src: '/images/projects/Bodega-Bay-CA/construction-dozer.jpg', alt: 'Site development excavation' },
-      { src: '/images/projects/Bodega-Bay-CA/trench-1.jpg', alt: 'Trenching for utilities' },
-      { src: '/images/projects/Bodega-Bay-CA/jack-hammer-1.jpg', alt: 'Concrete demolition work' },
-      { src: '/images/projects/Bodega-Bay-CA/bulldozer-transport.jpg', alt: 'Equipment mobilization' }
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-1.jpg', alt: 'Heavy bulldozer site grading' },
+      { src: '/images/projects/Bodega-Bay-CA/jack-hammer.jpg', alt: 'Construction equipment at work' },
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-4.jpg', alt: 'Bulldozer trenching operations' },
+      { src: '/images/projects/Bodega-Bay-CA/trench-1.jpg', alt: 'Site trenching for utilities' },
+      { src: '/images/projects/PouringConcrete.jpg', alt: 'Professional concrete pouring' }
     ]
   },
   {
@@ -111,13 +106,13 @@ const serviceGroups: ServiceGroup[] = [
         color: 'from-orange-500 to-orange-600'
       }
     ],
-    projectLocation: 'Winnemucca, NV & Oregon',
+    projectLocation: 'Ripon, CA & Winnemucca, NV',
     images: [
-      { src: '/images/projects/Winnemucca-NV/trench-1.jpg', alt: 'Precision trenching operations' },
-      { src: '/images/projects/Winnemucca-NV/trench-5.jpg', alt: 'Underground utility installation' },
-      { src: '/images/projects/Oregon-AV-Station/trench/trench-pipes.jpg', alt: 'Pipe installation in trench' },
-      { src: '/images/projects/Oregon-AV-Station/site/site-1.jpg', alt: 'Construction site preparation' },
-      { src: '/images/projects/Winnemucca-NV/trench-10.jpg', alt: 'Completed trench work' }
+      { src: '/images/projects/Ripon-CA/ripon-ev-station-trench-1.webp', alt: 'EV station trenching Ripon' },
+      { src: '/images/projects/Ripon-CA/ripon-ev-station-trench-5.webp', alt: 'Precision utility trenching' },
+      { src: '/images/projects/Winnemucca-NV/trench-1.jpg', alt: 'Underground utility installation' },
+      { src: '/images/projects/Winnemucca-NV/trench-5.jpg', alt: 'Trenching operations Winnemucca' },
+      { src: '/images/projects/Bodega-Bay-CA/transport-1.jpg', alt: 'Heavy equipment transport' }
     ]
   }
 ];
@@ -143,7 +138,6 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
 
   return (
     <div className="relative group rounded-2xl overflow-hidden bg-gray-900 shadow-2xl h-full">
-      {/* Main Image */}
       <div className="aspect-[4/3] lg:aspect-auto lg:h-full relative min-h-[300px]">
         <AnimatePresence mode="wait">
           <motion.div
@@ -164,10 +158,8 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
           </motion.div>
         </AnimatePresence>
 
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
-        {/* Location Badge */}
         {projectLocation && (
           <div className="absolute bottom-4 left-4 flex items-center gap-1.5
                         bg-black/60 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full">
@@ -176,7 +168,6 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
           </div>
         )}
 
-        {/* Navigation */}
         {images.length > 1 && (
           <>
             <button
@@ -200,7 +191,6 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
           </>
         )}
 
-        {/* Image Counter */}
         {images.length > 1 && (
           <div className="absolute top-3 right-3 px-3 py-1.5 bg-black/60 backdrop-blur-sm
                         text-white text-sm rounded-full">
@@ -209,7 +199,6 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
         )}
       </div>
 
-      {/* Thumbnail Strip */}
       {images.length > 1 && (
         <div className="absolute bottom-0 left-0 right-0 flex gap-1 p-2 bg-gradient-to-t from-black/80 to-transparent pt-8">
           {images.slice(0, 5).map((img, idx) => (
@@ -258,7 +247,6 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       className="bg-white rounded-xl shadow-lg hover:shadow-xl
                  transition-all duration-300 overflow-hidden border border-gray-100"
     >
-      {/* Service Header */}
       <div className={`p-4 bg-gradient-to-r ${service.color} text-white`}>
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-white/20 rounded-lg">
@@ -271,7 +259,6 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
         </div>
       </div>
 
-      {/* Service Features */}
       <div className="p-4">
         <ul className="space-y-2">
           {service.features.map((feature, idx) => (
@@ -313,14 +300,12 @@ const ServiceGroupRow = ({ group, index, isReversed }: ServiceGroupRowProps) => 
       transition={{ duration: 0.6, delay: index * 0.2 }}
       className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch"
     >
-      {/* Service Cards Column */}
       <div className={`flex flex-col gap-4 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
         {group.services.map((service, idx) => (
           <ServiceCard key={service.id} service={service} index={idx} />
         ))}
       </div>
 
-      {/* Image Gallery Column */}
       <div className={`${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
         <ServiceImageGallery
           images={group.images}
@@ -345,7 +330,6 @@ const ConstructionSection = () => {
       aria-labelledby="construction-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -364,11 +348,10 @@ const ConstructionSection = () => {
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             From site preparation to complex infrastructure systems, we deliver comprehensive
-            construction solutions. View our real project work from California, Nevada, and Oregon.
+            construction solutions. View our real project work from California and Nevada.
           </p>
         </motion.div>
 
-        {/* Service Groups */}
         <div className="space-y-12 lg:space-y-16">
           {serviceGroups.map((group, index) => (
             <ServiceGroupRow
@@ -380,7 +363,6 @@ const ConstructionSection = () => {
           ))}
         </div>
 
-        {/* Enhanced Call to Action */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -435,7 +417,6 @@ const ConstructionSection = () => {
               </motion.a>
             </div>
 
-            {/* License Information */}
             <div className="mt-8 pt-6 border-t border-white/20">
               <p className="text-white/80 text-sm">
                 <span className="font-semibold">Licensed & Insured</span> • License #1099543 •

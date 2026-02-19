@@ -22,13 +22,8 @@ import {
 } from 'lucide-react';
 
 /**
- * Enhanced Construction Page Component
- *
- * Comprehensive showcase of all construction services with:
- * - Real project images and detailed galleries
- * - Interactive service exploration with expandable sections
- * - Professional safety emphasis with actual project examples
- * - Premium gold accent styling
+ * Construction Page Component
+ * Uses different images than ConstructionSection (homepage)
  */
 
 interface ProjectImage {
@@ -45,25 +40,21 @@ interface ConstructionService {
   color: string;
   images: ProjectImage[];
   projectLocation?: string;
-  specifications?: {
-    [key: string]: string;
-  };
 }
 
 const constructionServices: ConstructionService[] = [
   {
     id: 'site-development',
     title: 'Site Development & Preparation',
-    description: 'Comprehensive site preparation, excavation, grading, and access development for all types of construction projects.',
+    description: 'Comprehensive site preparation, excavation, grading, and access development.',
     icon: <Building className="w-8 h-8" />,
     color: 'from-blue-500 to-blue-600',
     projectLocation: 'Bodega Bay, CA',
     images: [
-      { src: '/images/projects/Bodega-Bay-CA/bulldozer-1.jpg', alt: 'Bulldozer grading work' },
-      { src: '/images/projects/Bodega-Bay-CA/bulldozer-2.jpg', alt: 'Site excavation' },
-      { src: '/images/projects/Bodega-Bay-CA/bulldozer-3.jpg', alt: 'Heavy equipment operations' },
-      { src: '/images/projects/Bodega-Bay-CA/construction-dozer.jpg', alt: 'Construction site work' },
-      { src: '/images/projects/Bodega-Bay-CA/bulldozer-trench.jpg', alt: 'Trenching operations' }
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-2.jpg', alt: 'Heavy equipment grading' },
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-3.jpg', alt: 'Site excavation work' },
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-4.jpg', alt: 'Land clearing operations' },
+      { src: '/images/projects/Bodega-Bay-CA/case-1.jpg', alt: 'Equipment at work site' }
     ],
     services: [
       'Multi-phase site excavation and grading',
@@ -74,28 +65,20 @@ const constructionServices: ConstructionService[] = [
       'Site preparation for multiple structures',
       'Soil stabilization and compaction',
       'Safety protocol management throughout all phases'
-    ],
-    specifications: {
-      'Site Capacity': '100+ acre developments',
-      'Excavation Volume': '500,000+ cubic yards',
-      'Access Roads': 'Multi-lane construction',
-      'Environmental Standards': 'Full regulatory compliance',
-      'Safety Record': 'Zero incidents across all phases'
-    }
+    ]
   },
   {
     id: 'infrastructure-systems',
     title: 'Infrastructure & Utility Systems',
-    description: 'Advanced infrastructure installation including telecommunications, utilities, and specialized systems integration.',
+    description: 'Advanced infrastructure installation including telecommunications and utilities.',
     icon: <Target className="w-8 h-8" />,
     color: 'from-green-500 to-green-600',
     projectLocation: 'Oregon',
     images: [
-      { src: '/images/projects/Oregon-AV-Station/trench/trench-pipes.jpg', alt: 'Utility pipe installation' },
-      { src: '/images/projects/Oregon-AV-Station/trench/trench-1.jpg', alt: 'Underground infrastructure' },
-      { src: '/images/projects/Oregon-AV-Station/trench/trench-5.jpg', alt: 'Trenching work' },
-      { src: '/images/projects/Oregon-AV-Station/trench/trench-10.jpg', alt: 'Infrastructure systems' },
-      { src: '/images/projects/Oregon-AV-Station/site/site-1.jpg', alt: 'Site infrastructure' }
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-3.jpg', alt: 'Utility trenching' },
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-7.jpg', alt: 'Underground systems' },
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-10.jpg', alt: 'Infrastructure installation' },
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-12.jpg', alt: 'Completed infrastructure' }
     ],
     services: [
       'Telecommunications tower installation and integration',
@@ -106,28 +89,20 @@ const constructionServices: ConstructionService[] = [
       'Power system installation with backup capabilities',
       'Environmental monitoring system integration',
       'Complete system commissioning and certification'
-    ],
-    specifications: {
-      'Tower Installations': '200+ feet capacity',
-      'Equipment Handling': '100+ ton capacity',
-      'Underground Systems': '50+ mile networks',
-      'Power Systems': '1MW+ installations',
-      'Precision Tolerance': '±2mm accuracy'
-    }
+    ]
   },
   {
     id: 'concrete-construction',
     title: 'Concrete Foundations & Structures',
-    description: 'Expert concrete construction including foundations, structural elements, and specialized high-strength applications.',
+    description: 'Expert concrete construction including foundations and high-strength applications.',
     icon: <Shield className="w-8 h-8" />,
     color: 'from-orange-500 to-orange-600',
-    projectLocation: 'Antioch, CA',
+    projectLocation: 'California',
     images: [
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-10.webp', alt: 'Foundation concrete work' },
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-12.webp', alt: 'Concrete installation' },
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-15.webp', alt: 'Structural concrete' },
-      { src: '/images/projects/PouringConcrete.jpg', alt: 'Concrete pouring' },
-      { src: '/images/projects/TractorConcrete.jpg', alt: 'Concrete equipment work' }
+      { src: '/images/projects/TractorConcrete.jpg', alt: 'Concrete equipment operations' },
+      { src: '/images/projects/PoolConcrete.jpg', alt: 'Concrete pool construction' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-17.webp', alt: 'Foundation work' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-20.webp', alt: 'Concrete installation' }
     ],
     services: [
       'Deep foundation design and installation',
@@ -138,27 +113,20 @@ const constructionServices: ConstructionService[] = [
       'Comprehensive quality control and testing',
       'Seismic resistance engineering and implementation',
       'Load-bearing structural element construction'
-    ],
-    specifications: {
-      'Foundation Depth': '20+ feet deep foundations',
-      'Concrete Strength': '6000+ PSI high-strength',
-      'Reinforcement': 'Grade 80 rebar systems',
-      'Load Capacity': '1000+ tons per foundation',
-      'Surface Finish': 'Architectural grade quality'
-    }
+    ]
   },
   {
     id: 'equipment-installation',
     title: 'Heavy Equipment & Transport',
-    description: 'Specialized heavy equipment transportation, rigging, and precision installation for complex industrial projects.',
+    description: 'Specialized heavy equipment transportation, rigging, and precision installation.',
     icon: <Truck className="w-8 h-8" />,
     color: 'from-purple-500 to-purple-600',
     projectLocation: 'Bodega Bay, CA',
     images: [
-      { src: '/images/projects/Bodega-Bay-CA/transport-1.jpg', alt: 'Equipment transport' },
-      { src: '/images/projects/Bodega-Bay-CA/transport-2.jpg', alt: 'Heavy machinery transport' },
-      { src: '/images/projects/Bodega-Bay-CA/bulldozer-transport.jpg', alt: 'Bulldozer transport' },
-      { src: '/images/projects/Bodega-Bay-CA/case-1.jpg', alt: 'Equipment operations' }
+      { src: '/images/projects/Bodega-Bay-CA/transport-2.jpg', alt: 'Equipment transport' },
+      { src: '/images/projects/Bodega-Bay-CA/bulldozer-transport.jpg', alt: 'Heavy machinery moving' },
+      { src: '/images/projects/Bodega-Bay-CA/Bulldozer.jpg', alt: 'Construction equipment' },
+      { src: '/images/projects/transport-hero.jpg', alt: 'Transport operations' }
     ],
     services: [
       'Heavy machinery transport and logistics coordination',
@@ -169,28 +137,20 @@ const constructionServices: ConstructionService[] = [
       'Site preparation specifically for heavy installations',
       'Load calculation and structural engineering verification',
       'Post-installation testing and performance verification'
-    ],
-    specifications: {
-      'Maximum Load': '500+ tons capacity',
-      'Crane Operations': '1000-ton mobile cranes',
-      'Placement Precision': '±1mm final positioning',
-      'Transport Capability': '1000+ mile range',
-      'Success Rate': '100% successful installations'
-    }
+    ]
   },
   {
     id: 'specialized-services',
     title: 'Specialized Construction Services',
-    description: 'Technical construction services including precision cutting, drilling, demolition, and specialized installation work.',
+    description: 'Technical construction services including precision cutting and drilling.',
     icon: <Wrench className="w-8 h-8" />,
     color: 'from-red-500 to-red-600',
     projectLocation: 'Winnemucca, NV',
     images: [
-      { src: '/images/projects/Winnemucca-NV/trench-1.jpg', alt: 'Precision trenching' },
-      { src: '/images/projects/Winnemucca-NV/trench-3.jpg', alt: 'Utility trenching work' },
-      { src: '/images/projects/Winnemucca-NV/trench-5.jpg', alt: 'Specialized excavation' },
-      { src: '/images/projects/Winnemucca-NV/trench-8.jpg', alt: 'Completed trench' },
-      { src: '/images/projects/Bodega-Bay-CA/jack-hammer-1.jpg', alt: 'Concrete cutting' }
+      { src: '/images/projects/Winnemucca-NV/trench-2.jpg', alt: 'Precision trenching' },
+      { src: '/images/projects/Winnemucca-NV/trench-7.jpg', alt: 'Utility installation' },
+      { src: '/images/projects/Winnemucca-NV/trench-10.jpg', alt: 'Excavation work' },
+      { src: '/images/projects/Bodega-Bay-CA/jack-hammer.jpg', alt: 'Concrete cutting' }
     ],
     services: [
       'Diamond blade concrete cutting and precision sawing',
@@ -201,39 +161,32 @@ const constructionServices: ConstructionService[] = [
       'Utility trenching and backfill operations',
       'Surface preparation and finishing work',
       'Emergency repair and restoration services'
-    ],
-    specifications: {
-      'Cutting Capacity': '36+ inch concrete',
-      'Core Drilling': '48+ inch diameter capability',
-      'Precision Level': '±0.5mm accuracy',
-      'Response Time': '24/7 emergency availability',
-      'Equipment': 'Latest diamond technology'
-    }
+    ]
   }
 ];
 
 const safetyFeatures = [
   {
     title: 'Comprehensive Planning',
-    description: 'Every project begins with detailed safety planning, risk assessment, and environmental compliance review.',
+    description: 'Every project begins with detailed safety planning and risk assessment.',
     icon: <Shield className="w-8 h-8" />,
     stat: { value: '100%', label: 'Projects Safety Planned' }
   },
   {
     title: 'Expert Teams',
-    description: 'Certified professionals with decades of experience and continuous safety training.',
+    description: 'Certified professionals with decades of experience.',
     icon: <HardHat className="w-8 h-8" />,
     stat: { value: '15+', label: 'Years Average Experience' }
   },
   {
     title: 'Quality Standards',
-    description: 'Exceeding industry standards with comprehensive quality control and testing protocols.',
+    description: 'Exceeding industry standards with comprehensive QC.',
     icon: <CheckCircle className="w-8 h-8" />,
     stat: { value: '99.9%', label: 'Quality Score' }
   },
   {
     title: 'Timely Execution',
-    description: 'Projects completed on schedule without compromising safety or quality standards.',
+    description: 'Projects completed on schedule without compromise.',
     icon: <Clock className="w-8 h-8" />,
     stat: { value: '98%', label: 'On-Time Delivery' }
   }
@@ -262,7 +215,6 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
   return (
     <>
       <div className="relative group rounded-xl overflow-hidden bg-gray-900 shadow-xl">
-        {/* Main Image */}
         <div className="aspect-video relative">
           <AnimatePresence mode="wait">
             <motion.div
@@ -283,11 +235,9 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
             </motion.div>
           </AnimatePresence>
 
-          {/* Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent
                         opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-          {/* Location Badge */}
           {projectLocation && (
             <div className="absolute bottom-3 left-3 flex items-center gap-1.5
                           bg-black/60 backdrop-blur-sm text-white text-sm px-3 py-1.5 rounded-full">
@@ -296,7 +246,6 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
             </div>
           )}
 
-          {/* Navigation */}
           {images.length > 1 && (
             <>
               <button
@@ -320,7 +269,6 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
             </>
           )}
 
-          {/* Fullscreen Button */}
           <button
             onClick={() => setIsLightboxOpen(true)}
             className="absolute top-3 right-3 p-2 rounded-full
@@ -331,7 +279,6 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
             <Maximize2 className="w-4 h-4" />
           </button>
 
-          {/* Counter */}
           {images.length > 1 && (
             <div className="absolute top-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-sm
                           text-white text-sm rounded-full">
@@ -340,10 +287,9 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
           )}
         </div>
 
-        {/* Thumbnails */}
         {images.length > 1 && (
           <div className="flex gap-1 p-2 bg-black/40">
-            {images.slice(0, 5).map((img, idx) => (
+            {images.map((img, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
@@ -362,20 +308,10 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
                 />
               </button>
             ))}
-            {images.length > 5 && (
-              <button
-                onClick={() => setIsLightboxOpen(true)}
-                className="flex-1 aspect-[3/2] rounded bg-gray-800 flex items-center justify-center
-                         text-white text-sm hover:bg-gold-500 transition-colors"
-              >
-                +{images.length - 5}
-              </button>
-            )}
           </div>
         )}
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {isLightboxOpen && (
           <motion.div
@@ -432,7 +368,7 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
 };
 
 /**
- * Expandable Service Card Component with Project Gallery
+ * Expandable Service Card Component
  */
 interface ServiceCardProps {
   service: ConstructionService;
@@ -453,7 +389,6 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all"
     >
-      {/* Service Header */}
       <div className={`p-6 bg-gradient-to-r ${service.color} text-white`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -482,7 +417,6 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
         </div>
       </div>
 
-      {/* Expandable Content */}
       <motion.div
         initial={false}
         animate={{
@@ -493,7 +427,6 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
         className="overflow-hidden"
       >
         <div className="p-6">
-          {/* Project Gallery */}
           <div className="mb-6">
             <ImageGallery
               images={service.images}
@@ -501,9 +434,8 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
             />
           </div>
 
-          {/* Services List */}
           <h4 className="font-semibold text-gray-900 mb-4">Services Included:</h4>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {service.services.map((item, idx) => (
               <motion.li
                 key={idx}
@@ -517,21 +449,6 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
               </motion.li>
             ))}
           </ul>
-
-          {/* Specifications */}
-          {service.specifications && (
-            <div className="bg-gray-50 rounded-xl p-4">
-              <h4 className="font-semibold text-gray-900 mb-3">Technical Specifications:</h4>
-              <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {Object.entries(service.specifications).map(([key, value]) => (
-                  <div key={key} className="text-sm">
-                    <dt className="font-medium text-gray-900">{key}:</dt>
-                    <dd className="text-gray-600">{value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          )}
         </div>
       </motion.div>
     </motion.div>
@@ -558,13 +475,12 @@ const ConstructionPage = () => {
         className="relative py-24 bg-gradient-to-r from-gray-900 to-gray-800 overflow-hidden"
       >
         <Image
-          src="/images/projects/Bodega-Bay-CA/bulldozer-1.jpg"
-          alt="Construction services including site development"
+          src="/images/projects/Bodega-Bay-CA/construction-dozer.jpg"
+          alt="Construction services"
           fill
           className="absolute inset-0 object-cover opacity-40 z-0"
         />
         <div className="absolute inset-0 bg-black/40 z-[1]" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-10 z-[2]" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-[3]">
           <motion.div
@@ -582,8 +498,7 @@ const ConstructionPage = () => {
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 drop-shadow-md">
               From large-scale site development to precision equipment installation,
-              we deliver comprehensive construction solutions. View our real project work
-              from California, Nevada, and Oregon.
+              we deliver comprehensive construction solutions across California, Nevada, and Oregon.
             </p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -629,8 +544,8 @@ const ConstructionPage = () => {
               Safety & Quality Excellence
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our construction services are built on an unwavering foundation of safety excellence,
-              quality assurance, and proven results demonstrated across hundreds of successful projects.
+              Our construction services are built on an unwavering foundation of safety excellence
+              and quality assurance.
             </p>
           </motion.div>
 
@@ -642,8 +557,7 @@ const ConstructionPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl
-                         transition-shadow duration-300"
+                className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
               >
                 <div className="text-gold-400 mb-4">{feature.icon}</div>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">{feature.title}</h3>
@@ -672,7 +586,7 @@ const ConstructionPage = () => {
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               From site development to specialized equipment installation, our comprehensive
-              service portfolio covers every aspect of modern construction with proven results.
+              service portfolio covers every aspect of modern construction.
             </p>
           </motion.div>
 
@@ -703,8 +617,7 @@ const ConstructionPage = () => {
               Licensed, Bonded & Insured
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
-              Your confidence and project protection are our highest priorities. We maintain
-              all necessary licenses, comprehensive bonding, and full insurance coverage.
+              Your confidence and project protection are our highest priorities.
             </p>
 
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
@@ -712,17 +625,17 @@ const ConstructionPage = () => {
                 <div>
                   <Shield className="w-16 h-16 text-gold-400 mx-auto mb-4" />
                   <h3 className="text-xl font-bold text-white mb-2">License #1099543</h3>
-                  <p className="text-gray-300">Fully licensed California contractor with proven compliance record</p>
+                  <p className="text-gray-300">Fully licensed California contractor</p>
                 </div>
                 <div>
                   <CheckCircle className="w-16 h-16 text-gold-400 mx-auto mb-4" />
                   <h3 className="text-xl font-bold text-white mb-2">Bonded & Insured</h3>
-                  <p className="text-gray-300">Comprehensive coverage and bonding for complete project protection</p>
+                  <p className="text-gray-300">Comprehensive coverage for your protection</p>
                 </div>
                 <div>
                   <Target className="w-16 h-16 text-gold-400 mx-auto mb-4" />
                   <h3 className="text-xl font-bold text-white mb-2">We Beat Estimates</h3>
-                  <p className="text-gray-300">Forward your estimate - we&apos;ll provide a competitive alternative!</p>
+                  <p className="text-gray-300">Forward your estimate - we&apos;ll compete!</p>
                 </div>
               </div>
             </div>
@@ -743,8 +656,7 @@ const ConstructionPage = () => {
             </h2>
             <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
               From comprehensive site development to precision equipment installation,
-              our proven expertise and extensive project portfolio demonstrate our ability
-              to deliver exceptional results across all construction disciplines.
+              our proven expertise delivers exceptional results.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a

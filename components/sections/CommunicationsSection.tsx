@@ -18,13 +18,8 @@ import {
 } from 'lucide-react';
 
 /**
- * Enhanced Communications Section Component for Homepage
- *
- * Premium showcase of communication services with:
- * - 2 service cards paired with each image gallery
- * - Real project images from actual installations
- * - Professional presentation with gold accents
- * - Smooth animations and transitions
+ * Communications Section Component for Homepage
+ * Uses unique images not repeated in CommunicationsPage
  */
 
 interface CommunicationService {
@@ -77,10 +72,10 @@ const serviceGroups: ServiceGroup[] = [
     projectLocation: 'Sparks, NV',
     images: [
       { src: '/images/projects/Sparks-NV/tree-tower-network.jpg', alt: 'Completed cell tower with network equipment' },
-      { src: '/images/projects/Sparks-NV/tower-base.jpg', alt: 'Tower foundation and base construction' },
       { src: '/images/projects/Sparks-NV/tower-tree-install.jpg', alt: 'Tower installation in progress' },
+      { src: '/images/projects/Sparks-NV/tower-base.jpg', alt: 'Tower foundation construction' },
       { src: '/images/projects/Sparks-NV/tree-post.jpg', alt: 'Utility post installation' },
-      { src: '/images/projects/Sparks-NV/tower-tree-7.jpg', alt: 'Tower rigging and equipment mounting' }
+      { src: '/images/projects/Sparks-NV/tower-tree-1.jpg', alt: 'Cell tower camouflage design' }
     ]
   },
   {
@@ -115,11 +110,11 @@ const serviceGroups: ServiceGroup[] = [
     ],
     projectLocation: 'Antioch, CA & Oregon',
     images: [
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-1.webp', alt: 'EV charging station front view' },
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-15.webp', alt: 'EV charging infrastructure installation' },
-      { src: '/images/projects/Oregon-AV-Station/AV-station.jpg', alt: 'AV station completed project' },
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-35.webp', alt: 'Multiple EV charging units' },
-      { src: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-6.jpg', alt: 'AV station parking area setup' }
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-15.webp', alt: 'EV charging station installation' },
+      { src: '/images/projects/Oregon-AV-Station/AV-station.jpg', alt: 'Oregon AV station completed project' },
+      { src: '/images/projects/Ripon-CA/ripon-ev-station-trench-13.webp', alt: 'Multiple EV charging units installed' },
+      { src: '/images/projects/Ripon-CA/ripon-ev-station-trench-11.webp', alt: 'AV station with EV infrastructure' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-49.webp', alt: 'Smart charging infrastructure' }
     ]
   }
 ];
@@ -145,7 +140,6 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
 
   return (
     <div className="relative group rounded-2xl overflow-hidden bg-gray-900 shadow-2xl h-full">
-      {/* Main Image */}
       <div className="aspect-[4/3] lg:aspect-auto lg:h-full relative min-h-[300px]">
         <AnimatePresence mode="wait">
           <motion.div
@@ -166,10 +160,8 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
           </motion.div>
         </AnimatePresence>
 
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
-        {/* Location Badge */}
         {projectLocation && (
           <div className="absolute bottom-4 left-4 flex items-center gap-1.5
                         bg-black/60 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full">
@@ -178,7 +170,6 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
           </div>
         )}
 
-        {/* Navigation */}
         {images.length > 1 && (
           <>
             <button
@@ -202,7 +193,6 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
           </>
         )}
 
-        {/* Image Counter */}
         {images.length > 1 && (
           <div className="absolute top-3 right-3 px-3 py-1.5 bg-black/60 backdrop-blur-sm
                         text-white text-sm rounded-full">
@@ -211,7 +201,6 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
         )}
       </div>
 
-      {/* Thumbnail Strip */}
       {images.length > 1 && (
         <div className="absolute bottom-0 left-0 right-0 flex gap-1 p-2 bg-gradient-to-t from-black/80 to-transparent pt-8">
           {images.slice(0, 5).map((img, idx) => (
@@ -260,7 +249,6 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       className="bg-white rounded-xl shadow-lg hover:shadow-xl
                  transition-all duration-300 overflow-hidden border border-gray-100"
     >
-      {/* Service Header */}
       <div className={`p-4 bg-gradient-to-r ${service.color} text-white`}>
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-white/20 rounded-lg">
@@ -273,7 +261,6 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
         </div>
       </div>
 
-      {/* Service Features */}
       <div className="p-4">
         <ul className="space-y-2">
           {service.features.map((feature, idx) => (
@@ -315,14 +302,12 @@ const ServiceGroupRow = ({ group, index, isReversed }: ServiceGroupRowProps) => 
       transition={{ duration: 0.6, delay: index * 0.2 }}
       className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch"
     >
-      {/* Service Cards Column */}
       <div className={`flex flex-col gap-4 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
         {group.services.map((service, idx) => (
           <ServiceCard key={service.id} service={service} index={idx} />
         ))}
       </div>
 
-      {/* Image Gallery Column */}
       <div className={`${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
         <ServiceImageGallery
           images={group.images}
@@ -347,7 +332,6 @@ const CommunicationsSection = () => {
       aria-labelledby="communications-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -370,7 +354,6 @@ const CommunicationsSection = () => {
           </p>
         </motion.div>
 
-        {/* Service Groups */}
         <div className="space-y-12 lg:space-y-16">
           {serviceGroups.map((group, index) => (
             <ServiceGroupRow
@@ -382,7 +365,6 @@ const CommunicationsSection = () => {
           ))}
         </div>
 
-        {/* Additional Capabilities */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -414,7 +396,6 @@ const CommunicationsSection = () => {
           </div>
         </motion.div>
 
-        {/* Call to Action */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}

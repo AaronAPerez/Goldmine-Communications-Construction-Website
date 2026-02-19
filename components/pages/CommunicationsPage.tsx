@@ -24,13 +24,8 @@ import {
 } from 'lucide-react';
 
 /**
- * Enhanced Communications Page Component
- *
- * Comprehensive showcase of all communication services with:
- * - Real project image galleries
- * - Interactive service exploration
- * - Professional presentation with premium styling
- * - Lightbox view for project images
+ * Communications Page Component
+ * Uses different images than CommunicationsSection (homepage)
  */
 
 interface ProjectImage {
@@ -58,10 +53,11 @@ const communicationServices: ServiceDetail[] = [
     color: 'from-blue-500 to-blue-600',
     projectLocation: 'Sparks, NV',
     images: [
-      { src: '/images/projects/Sparks-NV/tower-tree-1.jpg', alt: 'Cell tower installation' },
-      { src: '/images/projects/Sparks-NV/tower-tree-2.jpg', alt: 'Network tower work' },
-      { src: '/images/projects/Sparks-NV/tower-base.jpg', alt: 'Tower base installation' },
-      { src: '/images/projects/Sparks-NV/tree-tower-network.jpg', alt: 'Network infrastructure' }
+      { src: '/images/projects/Sparks-NV/tower-tree-2.jpg', alt: 'Tower installation infrastructure' },
+      { src: '/images/projects/Sparks-NV/tower-tree-3.jpg', alt: 'Network equipment mounting' },
+      { src: '/images/projects/Sparks-NV/tower-base-1.jpg', alt: 'Tower base construction' },
+      { src: '/images/projects/Sparks-NV/tree-tower.jpg', alt: 'Camouflage cell tower' },
+      { src: '/images/projects/Sparks-NV/tree-post-hero.jpg', alt: 'Utility infrastructure' }
     ],
     services: [
       'Radio Installation & Remote Monitoring',
@@ -82,11 +78,11 @@ const communicationServices: ServiceDetail[] = [
     color: 'from-green-500 to-green-600',
     projectLocation: 'Sparks, NV',
     images: [
-      { src: '/images/projects/Sparks-NV/tower-tree-install.jpg', alt: 'Tower installation' },
-      { src: '/images/projects/Sparks-NV/tree-tower.jpg', alt: 'Camouflage tower' },
-      { src: '/images/projects/Sparks-NV/tower-tree-4.jpg', alt: 'Wireless installation' },
-      { src: '/images/projects/Sparks-NV/tower-tree-6.jpg', alt: 'Cell tower' },
-      { src: '/images/projects/Sparks-NV/tower-tree-7.jpg', alt: 'Tower equipment' }
+      { src: '/images/projects/Sparks-NV/tower-tree-4.jpg', alt: 'Wireless tower installation' },
+      { src: '/images/projects/Sparks-NV/tower-tree-6.jpg', alt: '5G equipment installation' },
+      { src: '/images/projects/Sparks-NV/tower-tree-7.jpg', alt: 'Antenna mounting' },
+      { src: '/images/projects/communications-tower.png', alt: 'Communications tower' },
+      { src: '/images/projects/TowerSky.png', alt: 'Tower against sky' }
     ],
     services: [
       'Installation & Maintenance for Verizon, T-Mobile, AT&T, Dish Networks',
@@ -109,10 +105,11 @@ const communicationServices: ServiceDetail[] = [
     color: 'from-purple-500 to-purple-600',
     projectLocation: 'Oregon',
     images: [
-      { src: '/images/projects/Oregon-AV-Station/trench/trench-pipes.jpg', alt: 'Infrastructure cables' },
-      { src: '/images/projects/Oregon-AV-Station/trench/trench-1.jpg', alt: 'Underground infrastructure' },
-      { src: '/images/projects/Oregon-AV-Station/trench/trench-5.jpg', alt: 'Cable installation' },
-      { src: '/images/projects/Oregon-AV-Station/trench/trench-card.jpg', alt: 'Network infrastructure' }
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-pipes.jpg', alt: 'Infrastructure cabling' },
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-2.jpg', alt: 'Underground conduit installation' },
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-6.jpg', alt: 'Fiber pathway trenching' },
+      { src: '/images/projects/Oregon-AV-Station/trench/trench-card.jpg', alt: 'Network infrastructure trench' },
+      { src: '/images/projects/Oregon-AV-Station/site/site-1.jpg', alt: 'Data infrastructure site' }
     ],
     services: [
       'Data Centers/CO Rack and Stack',
@@ -132,11 +129,11 @@ const communicationServices: ServiceDetail[] = [
     color: 'from-orange-500 to-orange-600',
     projectLocation: 'Antioch, CA',
     images: [
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-1.webp', alt: 'EV charging station' },
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-3.webp', alt: 'EV charger installation' },
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-5.webp', alt: 'Smart charging point' },
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-8.webp', alt: 'EV infrastructure' },
-      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-12.webp', alt: 'Charging station' }
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-3.webp', alt: 'EV charger close-up' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-7.webp', alt: 'Smart charging system' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-16.webp', alt: 'EV charging infrastructure' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-25.webp', alt: 'Clean energy station' },
+      { src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-41.webp', alt: 'IoT-enabled charger' }
     ],
     services: [
       'EV Charging Stations & Clean Energy Solutions',
@@ -155,10 +152,11 @@ const communicationServices: ServiceDetail[] = [
     color: 'from-red-500 to-red-600',
     projectLocation: 'Oregon',
     images: [
-      { src: '/images/projects/Oregon-AV-Station/AV-station.jpg', alt: 'AV station' },
-      { src: '/images/projects/Oregon-AV-Station/AV-station/AvStation2.jpg', alt: 'AV equipment' },
-      { src: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-1.jpg', alt: 'AV installation' },
-      { src: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-2.jpg', alt: 'Completed AV system' }
+      { src: '/images/projects/Oregon-AV-Station/AV-station/AvStation2.jpg', alt: 'AV station equipment' },
+      { src: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-1.jpg', alt: 'AV installation area' },
+      { src: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-6.jpg', alt: 'Completed AV system' },
+      { src: '/images/projects/Oregon-AV-Station/AV-station/Oregon-AvStations-hero.jpg', alt: 'Oregon AV stations' },
+      { src: '/images/projects/Oregon-AV-Station/AV-station/AvStation-card.jpg', alt: 'AV control systems' }
     ],
     services: [
       'Control System Programming',
@@ -240,7 +238,6 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
   return (
     <>
       <div className="relative group rounded-xl overflow-hidden bg-gray-900 shadow-xl">
-        {/* Main Image */}
         <div className="aspect-video relative">
           <AnimatePresence mode="wait">
             <motion.div
@@ -261,11 +258,9 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
             </motion.div>
           </AnimatePresence>
 
-          {/* Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent
                         opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-          {/* Location Badge */}
           {projectLocation && (
             <div className="absolute bottom-3 left-3 flex items-center gap-1.5
                           bg-black/60 backdrop-blur-sm text-white text-sm px-3 py-1.5 rounded-full">
@@ -274,7 +269,6 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
             </div>
           )}
 
-          {/* Navigation */}
           {images.length > 1 && (
             <>
               <button
@@ -298,7 +292,6 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
             </>
           )}
 
-          {/* Fullscreen Button */}
           <button
             onClick={() => setIsLightboxOpen(true)}
             className="absolute top-3 right-3 p-2 rounded-full
@@ -309,7 +302,6 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
             <Maximize2 className="w-4 h-4" />
           </button>
 
-          {/* Counter */}
           {images.length > 1 && (
             <div className="absolute top-3 left-3 px-3 py-1 bg-black/60 backdrop-blur-sm
                           text-white text-sm rounded-full">
@@ -318,7 +310,6 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
           )}
         </div>
 
-        {/* Thumbnails */}
         {images.length > 1 && (
           <div className="flex gap-1 p-2 bg-black/40">
             {images.slice(0, 5).map((img, idx) => (
@@ -340,20 +331,10 @@ const ImageGallery = ({ images, projectLocation }: ImageGalleryProps) => {
                 />
               </button>
             ))}
-            {images.length > 5 && (
-              <button
-                onClick={() => setIsLightboxOpen(true)}
-                className="flex-1 aspect-[3/2] rounded bg-gray-800 flex items-center justify-center
-                         text-white text-sm hover:bg-gold-500 transition-colors"
-              >
-                +{images.length - 5}
-              </button>
-            )}
           </div>
         )}
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {isLightboxOpen && (
           <motion.div
@@ -431,7 +412,6 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all"
     >
-      {/* Service Header */}
       <div className={`p-6 bg-gradient-to-r ${service.color} text-white`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -460,7 +440,6 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
         </div>
       </div>
 
-      {/* Expandable Content */}
       <motion.div
         initial={false}
         animate={{
@@ -471,7 +450,6 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
         className="overflow-hidden"
       >
         <div className="p-6">
-          {/* Image Gallery */}
           <div className="mb-6">
             <ImageGallery
               images={service.images}
@@ -479,7 +457,6 @@ const ServiceCard = ({ service, index, isExpanded, onToggle }: ServiceCardProps)
             />
           </div>
 
-          {/* Services List */}
           <h4 className="font-semibold text-gray-900 mb-4">Services Included:</h4>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {service.services.map((item, idx) => (
@@ -521,13 +498,12 @@ const CommunicationsPage = () => {
         className="relative py-24 bg-gradient-to-r from-gray-900 to-gray-800 overflow-hidden"
       >
         <Image
-          src="/images/projects/Sparks-NV/tree-tower-network.jpg"
+          src="/images/projects/communications-tower2.png"
           alt="Communications Infrastructure"
           fill
           className="absolute inset-0 object-cover opacity-30 z-0"
         />
         <div className="absolute inset-0 bg-black/40 z-[1]" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-10 z-[2]" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-[3]">
           <motion.div
