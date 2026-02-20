@@ -1512,3 +1512,22 @@
    - Self-hosting (no external requests)
    - font-display: swap
 */
+
+
+
+/* AP Designs Footer Branding */
+.ap-credit {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #A5ACAF;
+}
+
+.ap-credit a {
+  color: #B8941F;
+  text-decoration: none;
+}
+
+.ap-credit a:hover {
+  text-decoration: underline;
+}
