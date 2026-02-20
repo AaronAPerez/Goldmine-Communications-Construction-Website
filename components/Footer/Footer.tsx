@@ -3,15 +3,16 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
+import {
+  Phone,
+  Mail,
+  MapPin,
   Clock,
-  Shield,
+ 
   Award,
   Star,
-  ExternalLink
+  ExternalLink,
+  Shield
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -44,7 +45,7 @@ const footerSections: FooterSection[] = [
     title: 'Quick Links',
     links: [
       { label: 'Home', href: '/' },
-      { label: 'Communications', href: '//communications' },
+      { label: 'Communications', href: '/communications' },
       { label: 'Construction', href: '/construction' },
       { label: 'Projects', href: '/projects' },
       { label: 'Contact', href: '/contact' },
@@ -129,7 +130,7 @@ export default function Footer() {
     <footer className="bg-[#1a1a1a] text-white relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div 
+        <div
           className="w-full h-full"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23B3995D' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -151,14 +152,14 @@ export default function Footer() {
             className="space-y-6"
           >
             <Link href="/" className="inline-block group">
-              <div className="flex items-center space-x-4">
-                <div className="relative w-24 h-24 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border-2 border-gold-400/30">
+              <div className="flex items-center space-x-2">
+                <div className="relative w-28 h-28 backdrop-blur-sm 0">
                   <Image
                     src="/images/logo/logo-circular.jpg"
                     alt="Goldmine Communications and Construction"
-                    fill
-                    className="object-contain p-1"
-                    sizes="64px"
+                    width={100}
+                    height={100}
+                    className="object-cover rounded-full border-4 border-gold-400 group-hover:border-gold-300 transition-colors overflow-visible"
                   />
                 </div>
                 <div>
@@ -172,7 +173,7 @@ export default function Footer() {
 
             <div className="space-y-4">
               <p className="text-gray-300 leading-relaxed max-w-md">
-                Excellence in communications and construction services. Building tomorrow&apos;s 
+                Excellence in communications and construction services. Building tomorrow&apos;s
                 infrastructure with over 15 years of specialized experience in Northern California.
               </p>
 
@@ -364,51 +365,35 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-700 bg-gray-900/80 backdrop-blur-sm">
+      <div className="border-t border-gray-700 bg-black/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <motion.div 
-              className="text-center md:text-left"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-gray-400 text-sm mb-2">
-                © {currentYear} Goldmine Communications and Construction Inc. All rights reserved.
-              </p>
-              <p className="text-xs text-gray-500">
-                Building tomorrow&apos;s infrastructure with excellence and integrity.
-              </p>
-            </motion.div>
-            
-            <div className="flex flex-wrap justify-center gap-6">
-              <Link
-                href="/privacy-policy"
-                className="text-gray-400 hover:text-gold-400 text-sm transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms"
-                className="text-gray-400 hover:text-gold-400 text-sm transition-colors"
-              >
-                Terms of Service
-              </Link>
-              <Link
-                href="/accessibility"
-                className="text-gray-400 hover:text-gold-400 text-sm transition-colors"
-              >
-                Accessibility
-              </Link>
-              <Link
-                href="/sitemap"
-                className="text-gray-400 hover:text-gold-400 text-sm transition-colors"
-              >
-                Sitemap
-              </Link>
-            </div>
+          <div className="text-center">
+            <p className="text-gray-400 text-sm mb-2">
+              © {currentYear} Goldmine Communications and Construction Inc. All rights reserved.
+            </p>
+            <p className="text-xs text-gray-500">
+              Building tomorrow&apos;s infrastructure with excellence and integrity.
+            </p>
           </div>
+        </div>
+                     {/* AP Designs Credit */}
+        <div className="py-8 px-4 flex items-center justify-center gap-2 text-sm text-[#A5ACAF] dark:text-gray-400">
+          <span>Website by</span>
+          <a
+            href="https://www.aaronaperez.dev/?utm_source=footer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-medium hover:text-gold-400 transition-colors focus:outline-none focus:text-gold-400"
+          >
+            <Image
+              src="/icons/AP-Designs-Icon-48x48.svg"
+              alt="AP Designs Logo"
+              width={20}
+              height={20}
+              className="w-5 h-5 inline-flex items-center justify-center backdrop-blur-lg rounded-full transition-colors group-hover:border-gold-400 overflow-visible"
+            />
+            AP Designs
+          </a>
         </div>
       </div>
 

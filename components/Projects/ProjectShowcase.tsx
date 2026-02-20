@@ -577,7 +577,7 @@ export default function ProjectShowcase() {
 
           {/* Projects Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" role="tabpanel">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, index) => (
                 <ProjectCard
                   key={project.id}

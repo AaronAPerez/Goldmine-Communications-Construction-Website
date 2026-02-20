@@ -335,7 +335,7 @@ export default function AboutServicesSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               <div className="absolute bottom-6 left-6 text-white">
-                <span className="bg-gold-400/90 px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="bg-gold-400/90 px-3 py-1 rounded-full text-xs sm:text-sm font-semibold">
                   Professional Excellence
                 </span>
               </div>
@@ -383,7 +383,7 @@ export default function AboutServicesSection() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ delay: 1.0 }}
-            className="absolute -top-6 -right-6  bg-gradient-to-r from-gold-400 to-[#B3995D] rounded-2xl shadow-2xl p-4"
+            className="absolute -top-10 -right-3  bg-gradient-to-r from-gold-400 to-[#B3995D] rounded-2xl shadow-2xl p-4"
           >
             <div className="text-center text-white">
               <div className="text-2xl font-bold mb-1 text-shadow-lg">Lic# 1099543</div>
