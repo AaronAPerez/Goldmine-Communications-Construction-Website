@@ -273,7 +273,7 @@ export default function ProjectsPage() {
           <div className="text-white/80">
             <p className="text-lg font-semibold mb-2">Ready to discuss your next project?</p>
             <p className="text-sm">
-              946 Lincoln Avenue, San Jose, CA 95125 | (925) 305-5980 | info@goldminecomm.net
+              1161 Brick and Tile Circle, Stockton, CA 95206 | <a href="tel:+19253055980" className="hover:text-white transition-colors">(925) 305-5980</a> | <a href="mailto:a.lopez@goldminecomm.net" className="hover:text-white transition-colors">a.lopez@goldminecomm.net</a>
             </p>
           </div>
         </div>

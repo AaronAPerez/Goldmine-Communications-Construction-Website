@@ -2,10 +2,9 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { 
-  Phone, 
-  Mail, 
-  ArrowRight, 
+import {
+  Phone,
+  Mail,
   Shield,
   Award
 } from 'lucide-react';
@@ -32,22 +31,22 @@ interface CTAAction {
 
 const ctaActions: CTAAction[] = [
   {
-    id: 'consultation',
-    title: 'Schedule Consultation',
-    description: 'Get expert advice tailored to your project needs',
+    id: 'call',
+    title: 'Call Us Now',
+    description: '(925) 305-5980',
     icon: <Phone className="w-6 h-6" />,
-    href: '/contact',
+    href: 'tel:+19253055980',
     type: 'primary',
-    ariaLabel: 'Schedule a consultation'
+    ariaLabel: 'Call us at (925) 305-5980'
   },
   {
-    id: 'quote',
-    title: 'Request Quote',
-    description: 'Get a detailed estimate for your project',
+    id: 'email',
+    title: 'Email Us',
+    description: 'a.lopez@goldminecomm.net',
     icon: <Mail className="w-6 h-6" />,
-    href: '/quote',
+    href: 'mailto:a.lopez@goldminecomm.net',
     type: 'secondary',
-    ariaLabel: 'Request a project quote'
+    ariaLabel: 'Email us at a.lopez@goldminecomm.net'
   }
 ];
 
@@ -121,9 +120,6 @@ const CTAButton = ({ action, index }: CTAButtonProps) => {
         </span>
       </span>
 
-      {/* Arrow Icon */}
-      <ArrowRight className="w-5 h-5 ml-3 transition-transform duration-300 
-                           group-hover:translate-x-1" />
 
       {/* Hover Effect */}
       <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 

@@ -26,12 +26,12 @@ export default function TopContactBar() {
                   <span>(925) 305-5980</span>
                 </a>
                 <a 
-                  href="mailto:info@goldminecomm.net"
+                  href="mailto:a.lopez@goldminecomm.net"
                   className="flex items-center hover:text-white transition-colors"
-                  aria-label="Email us at info@goldminecomm.net"
+                  aria-label="Email us at a.lopez@goldminecomm.net"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  <span>info@goldminecomm.net</span>
+                  <span>a.lopez@goldminecomm.net</span>
                 </a>
               </div>
             </div>
@@ -48,9 +48,9 @@ export default function TopContactBar() {
                   <Phone className="w-4 h-4" />
                 </a>
                 <a 
-                  href="mailto:info@goldminecomm.net"
+                  href="mailto:a.lopez@goldminecomm.net"
                   className="flex items-center hover:text-white transition-colors"
-                  aria-label="Email us at info@goldminecomm.net"
+                  aria-label="Email us at a.lopez@goldminecomm.net"
                 >
                   <Mail className="w-4 h-4" />
                 </a>

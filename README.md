@@ -187,7 +187,7 @@ npm run test
 - **License**: #1099543 (California)
 - **Status**: Licensed, Bonded & Insured
 - **Phone**: (925) 305-5980
-- **Email**: info@goldminecomm.net
+- **Email**: a.lopez@goldminecomm.net
 - **Address**: 946 Lincoln Avenue, San Jose, CA 95125
 
 ### **Service Areas**
@@ -295,7 +295,7 @@ Update your production environment with:
 
 ### **Business Inquiries**
 - 📞 **Phone**: (925) 305-5980
-- 📧 **Email**: info@goldminecomm.net
+- 📧 **Email**: a.lopez@goldminecomm.net
 - 🌐 **Website**: [goldminecomm.net](https://goldminecomm.net)
 - 📍 **Address**: 946 Lincoln Avenue, San Jose, CA 95125
 

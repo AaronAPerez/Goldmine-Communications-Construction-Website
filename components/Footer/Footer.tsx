@@ -197,10 +197,10 @@ export default function Footer() {
                 <div className="flex items-center group">
                   <Mail className="text-gold-400 mr-3 flex-shrink-0" size={20} />
                   <a
-                    href="mailto:info@goldminecomm.net"
+                    href="mailto:a.lopez@goldminecomm.net"
                     className="text-gray-300 hover:text-gold-400 transition-colors"
                   >
-                    info@goldminecomm.net
+                    a.lopez@goldminecomm.net
                   </a>
                 </div>
                 <div className="flex items-center group">

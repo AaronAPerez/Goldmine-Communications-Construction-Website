@@ -295,8 +295,8 @@ export default function AccessibilityPage() {
                   <Mail className="w-5 h-5 text-gold-400 mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <p className="font-semibold mb-1">Email</p>
-                    <a href="mailto:info@goldminecomm.net" className="text-gold-400 hover:text-gold-300 transition-colors">
-                      info@goldminecomm.net
+                    <a href="mailto:a.lopez@goldminecomm.net" className="text-gold-400 hover:text-gold-300 transition-colors">
+                      a.lopez@goldminecomm.net
                     </a>
                     <p className="text-sm text-gray-400 mt-1">We aim to respond within 2 business days</p>
                   </div>
