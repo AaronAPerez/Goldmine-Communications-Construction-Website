@@ -71,8 +71,8 @@ const contactInfo = [
   {
     icon: <Mail className="text-gold-400" size={20} />,
     title: 'Email Address',
-    content: 'info@goldminecomm.net',
-    href: 'mailto:info@goldminecomm.net',
+    content: 'a.lopez@goldminecomm.net',
+    href: 'mailto:a.lopez@goldminecomm.net',
     description: 'Send us an email anytime'
   },
   {
@@ -112,7 +112,7 @@ export default function ContactSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...values,
-          to: 'info@goldminecomm.net',
+          to: 'a.lopez@goldminecomm.net',
           subject: `Website Contact: ${values.service || 'General Inquiry'}`
         }),
       });

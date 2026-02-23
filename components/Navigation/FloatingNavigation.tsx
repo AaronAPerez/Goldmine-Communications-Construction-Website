@@ -4,23 +4,22 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, NetworkIcon, Phone, X, Menu, HardHatIcon, Building } from 'lucide-react';
+import { X, Menu } from 'lucide-react';
 import Image from 'next/image';
 
 
 interface NavItem {
   label: string;
   href: string;
-  icon: React.ReactNode;
 }
 
 // Navigation items array moved outside component to prevent re-creation
 const navItems: NavItem[] = [
-  { label: 'Home', href: '/', icon: <Home className="w-5 h-5" /> },
-  { label: 'Communications', href: '/communications', icon: <NetworkIcon className="w-5 h-5" /> },
-  { label: 'Construction', href: '/construction', icon: <HardHatIcon className="w-5 h-5" /> },
-  { label: 'Projects', href: '/projects', icon: <Building className="w-5 h-5" /> },
-  { label: 'Contact', href: '/contact', icon: <Phone className="w-5 h-5" /> },
+  { label: 'Home', href: '/' },
+  { label: 'Communications', href: '/communications' },
+  { label: 'Construction', href: '/construction' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 
@@ -85,7 +84,7 @@ export default function FloatingNavigation() {
                       href={item.href}
                       className={`
                         relative px-3 py-2 rounded-lg transition-all duration-300
-                        group flex items-center gap-2
+                        group
                         text-shadow hover:text-shadow-lg
                         focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-black
                         ${isActive
@@ -102,7 +101,6 @@ export default function FloatingNavigation() {
                           transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                         />
                       )}
-                      <span className="relative">{item.icon}</span>
                       <span className="relative font-medium">{item.label}</span>
                     </Link>
                   );
@@ -159,7 +157,7 @@ export default function FloatingNavigation() {
                     key={item.href}
                     href={item.href}
                     className={`
-                      flex items-center gap-3 px-4 py-3
+                      block px-4 py-3
                       transition-colors duration-200
                       focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gold-400
                       ${pathname === item.href
@@ -169,7 +167,6 @@ export default function FloatingNavigation() {
                     `}
                     aria-current={pathname === item.href ? 'page' : undefined}
                   >
-                    {item.icon}
                     <span className="font-medium">{item.label}</span>
                   </Link>
                 ))}

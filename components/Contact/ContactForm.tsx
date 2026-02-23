@@ -58,10 +58,10 @@ const serviceOptions = [
 //     title: 'Email',
 //     content: (
 //       <a
-//         href="mailto:info@goldminecomm.net"
+//         href="mailto:a.lopez@goldminecomm.net"
 //         className="hover:text-gold-400 transition-colors"
 //       >
-//         info@goldminecomm.net
+//         a.lopez@goldminecomm.net
 //       </a>
 //     ),
 //   },
@@ -194,7 +194,7 @@ export default function ContactForm() {
           service: formState.service.value || 'Not specified',
           message: formState.message.value,
           // Add recipient email
-          to: 'info@goldminecomm.net',
+          to: 'a.lopez@goldminecomm.net',
           subject: `Website Contact Form: ${formState.service.value || 'General Inquiry'}`
         }),
       });

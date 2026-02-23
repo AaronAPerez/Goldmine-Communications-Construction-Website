@@ -56,12 +56,12 @@ const contactMethods = [
     id: 'email',
     icon: <Mail className="w-6 h-6" />,
     title: 'Email Address',
-    primary: 'info@goldminecomm.net',
+    primary: 'a.lopez@goldminecomm.net',
     secondary: 'Fast Response Guaranteed',
     description: 'General Inquiries & Support',
     action: {
       label: 'Send Email',
-      href: 'mailto:info@goldminecomm.net',
+      href: 'mailto:a.lopez@goldminecomm.net',
       external: false
     }
   },
@@ -140,8 +140,26 @@ const ContactCard = ({ method, index }: ContactCardProps) => {
 
         {/* Contact Details */}
         <div className="space-y-2 mb-4">
-          <p className="text-gray-900 font-medium">{method.primary}</p>
-          <p className="text-gray-600 text-sm">{method.secondary}</p>
+          {method.id === 'phone' || method.id === 'email' ? (
+            <a
+              href={method.action.href}
+              className="text-gray-900 font-medium hover:text-gold-500 transition-colors block"
+            >
+              {method.primary}
+            </a>
+          ) : (
+            <p className="text-gray-900 font-medium">{method.primary}</p>
+          )}
+          {method.id === 'phone' ? (
+            <a
+              href="tel:+15106953177"
+              className="text-gray-600 text-sm hover:text-gold-500 transition-colors block"
+            >
+              {method.secondary}
+            </a>
+          ) : (
+            <p className="text-gray-600 text-sm">{method.secondary}</p>
+          )}
         </div>
 
         {/* Action Button */}
