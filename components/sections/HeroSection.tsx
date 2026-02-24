@@ -226,8 +226,9 @@ const HeroSection = () => {
               src={currentSlideData.image}
               alt="Hero image"
               fill
-              priority={true} // Critical for LCP
+              priority={true}
               fetchPriority="high"
+              quality={70}
               onLoad={() => handleImageLoad(currentSlide)}
               className="object-cover"
               sizes="100vw"

@@ -159,7 +159,7 @@ export default function Footer() {
                     alt="Goldmine Communications and Construction"
                     width={100}
                     height={100}
-                    className="object-cover rounded-full border-4 border-gold-400 group-hover:border-gold-300 transition-colors overflow-visible"
+                    className="object-cover rounded-full border-4 border-gold-400 group-hover:border-gold-300 transition-colors"
                   />
                 </div>
                 <div>
