@@ -67,9 +67,11 @@ export default function FloatingNavigation() {
                     src="/images/logo/logo-banner.jpg"
                     alt="Goldmine Communications and Construction"
                     width={148}
-                    height={60}                   
+                    height={60}
+                    quality={75}
                     className="object-contain"
                     priority
+                    sizes="148px"
                   />
                 </div>
               </Link>
@@ -120,8 +122,9 @@ export default function FloatingNavigation() {
                   src="/images/logo/logo-banner.jpg"
                   alt="Goldmine Communications and Construction"
                   fill
+                  quality={75}
                   className="object-contain"
-                  // priority
+                  sizes="128px"
                 />
               </div>
             </Link>

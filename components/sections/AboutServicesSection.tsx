@@ -330,8 +330,9 @@ export default function AboutServicesSection() {
                 src="/images/projects/Sparks-NV/tree-tower-network.jpg"
                 alt="Goldmine team working on telecommunications tree tower"
                 fill
-                className="object-fill"
-                sizes="(max-width: 768px) 100vw, 400px"
+                quality={60}
+                className="object-cover"
+                sizes="(max-width: 768px) 50vw, 280px"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               <div className="absolute bottom-6 left-6 text-white">
@@ -348,8 +349,9 @@ export default function AboutServicesSection() {
                   src="/images/projects/Oregon-AV-Station/trench/trench-pipes.jpg"
                   alt="Advanced technology implementation"
                   fill
+                  quality={60}
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 300px"
+                  sizes="(max-width: 768px) 50vw, 250px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>
@@ -358,8 +360,9 @@ export default function AboutServicesSection() {
                   src="/images/projects/Bodega-Bay-CA/bulldozer-4.jpg"
                   alt="EV charging infrastructure"
                   fill
+                  quality={60}
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 300px"
+                  sizes="(max-width: 768px) 50vw, 250px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>
