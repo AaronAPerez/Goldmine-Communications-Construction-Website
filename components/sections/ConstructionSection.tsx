@@ -137,15 +137,23 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
   };
 
   return (
-    <div className="relative group rounded-2xl overflow-hidden bg-gray-900 shadow-2xl h-full">
+    <div className="relative group rounded-2xl overflow-hidden h-full
+                    bg-gradient-to-br from-gray-800 to-gray-900
+                    shadow-2xl shadow-black/50
+                    border border-white/10 hover:border-gold-400/30
+                    transition-all duration-500">
+      {/* Glow effect on hover */}
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-gold-400/20 via-amber-500/20 to-gold-400/20
+                      rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500 -z-10" />
+
       <div className="aspect-[4/3] lg:aspect-auto lg:h-full relative min-h-[300px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4 }}
             className="absolute inset-0"
           >
             <Image
@@ -158,32 +166,40 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
           </motion.div>
         </AnimatePresence>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+        {/* Enhanced gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10" />
 
+        {/* Location badge with improved styling */}
         {projectLocation && (
-          <div className="absolute bottom-4 left-4 flex items-center gap-1.5
-                        bg-black/60 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full">
+          <div className="absolute bottom-16 left-4 flex items-center gap-2
+                        bg-black/70 backdrop-blur-md text-white text-sm px-4 py-2.5
+                        rounded-xl border border-white/10 shadow-lg">
             <MapPin className="w-4 h-4 text-gold-400" />
-            <span>{projectLocation}</span>
+            <span className="font-medium">{projectLocation}</span>
           </div>
         )}
 
+        {/* Navigation buttons with improved styling */}
         {images.length > 1 && (
           <>
             <button
               onClick={handlePrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full
-                       bg-black/50 text-white hover:bg-gold-500 backdrop-blur-sm
-                       opacity-0 group-hover:opacity-100 transition-all duration-300"
+              className="absolute left-3 top-1/2 -translate-y-1/2 p-3 rounded-xl
+                       bg-black/60 text-white hover:bg-gold-500 backdrop-blur-md
+                       opacity-0 group-hover:opacity-100 transition-all duration-300
+                       border border-white/10 hover:border-gold-400 shadow-lg
+                       hover:scale-110"
               aria-label="Previous image"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full
-                       bg-black/50 text-white hover:bg-gold-500 backdrop-blur-sm
-                       opacity-0 group-hover:opacity-100 transition-all duration-300"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-3 rounded-xl
+                       bg-black/60 text-white hover:bg-gold-500 backdrop-blur-md
+                       opacity-0 group-hover:opacity-100 transition-all duration-300
+                       border border-white/10 hover:border-gold-400 shadow-lg
+                       hover:scale-110"
               aria-label="Next image"
             >
               <ChevronRight className="w-5 h-5" />
@@ -191,24 +207,27 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
           </>
         )}
 
+        {/* Image counter with improved styling */}
         {images.length > 1 && (
-          <div className="absolute top-3 right-3 px-3 py-1.5 bg-black/60 backdrop-blur-sm
-                        text-white text-sm rounded-full">
-            {currentIndex + 1}/{images.length}
+          <div className="absolute top-4 right-4 px-4 py-2 bg-black/70 backdrop-blur-md
+                        text-white text-sm rounded-xl border border-white/10 font-medium">
+            {currentIndex + 1} / {images.length}
           </div>
         )}
       </div>
 
+      {/* Thumbnail strip with improved styling */}
       {images.length > 1 && (
-        <div className="absolute bottom-0 left-0 right-0 flex gap-1 p-2 bg-gradient-to-t from-black/80 to-transparent pt-8">
+        <div className="absolute bottom-0 left-0 right-0 flex gap-1.5 p-3
+                        bg-gradient-to-t from-black/90 via-black/70 to-transparent pt-10">
           {images.slice(0, 5).map((img, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`relative flex-1 aspect-[3/2] rounded-lg overflow-hidden transition-all duration-200 ${
+              className={`relative flex-1 aspect-[3/2] rounded-lg overflow-hidden transition-all duration-300 ${
                 idx === currentIndex
-                  ? 'ring-2 ring-gold-400 scale-105'
-                  : 'opacity-60 hover:opacity-100'
+                  ? 'ring-2 ring-gold-400 scale-105 shadow-lg shadow-gold-400/30'
+                  : 'opacity-50 hover:opacity-90 hover:scale-102'
               }`}
             >
               <Image
@@ -244,33 +263,41 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-white rounded-xl shadow-lg hover:shadow-xl
-                 transition-all duration-300 overflow-hidden border border-gray-100"
+      className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl hover:shadow-gold-500/10
+                 transition-all duration-500 overflow-hidden border border-white/10
+                 hover:border-gold-400/30 hover:bg-white/15 hover:-translate-y-1"
     >
-      <div className={`p-4 bg-gradient-to-r ${service.color} text-white`}>
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-white/20 rounded-lg">
+      {/* Gradient header with glow effect */}
+      <div className={`relative p-5 bg-gradient-to-r ${service.color} text-white overflow-hidden`}>
+        {/* Subtle shine effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0
+                        translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+        <div className="relative flex items-center gap-4">
+          <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm shadow-inner">
             {service.icon}
           </div>
           <div>
-            <h3 className="text-lg font-bold">{service.title}</h3>
-            <p className="text-white/90 text-xs mt-0.5 line-clamp-1">{service.description}</p>
+            <h3 className="text-lg font-bold tracking-tight">{service.title}</h3>
+            <p className="text-white/80 text-sm mt-1 line-clamp-1">{service.description}</p>
           </div>
         </div>
       </div>
 
-      <div className="p-4">
-        <ul className="space-y-2">
+      {/* Features list with enhanced styling */}
+      <div className="p-5 bg-gradient-to-b from-white/5 to-transparent">
+        <ul className="space-y-3">
           {service.features.map((feature, idx) => (
             <motion.li
               key={idx}
               initial={{ opacity: 0, x: -10 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
               transition={{ delay: (index * 0.1) + (idx * 0.05) }}
-              className="flex items-center gap-2 text-gray-600 text-sm"
+              className="flex items-center gap-3 text-gray-200 text-sm group/item"
             >
-              <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-              <span>{feature}</span>
+              <div className="p-1 rounded-full bg-green-500/20 group-hover/item:bg-green-500/30 transition-colors">
+                <CheckCircle className="w-3.5 h-3.5 text-green-400" />
+              </div>
+              <span className="group-hover/item:text-white transition-colors">{feature}</span>
             </motion.li>
           ))}
         </ul>
@@ -326,10 +353,42 @@ const ConstructionSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-20 bg-gradient-to-b from-gray-50 to-white"
+      className="relative py-20 overflow-hidden"
       aria-labelledby="construction-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Dynamic Background with Construction Theme */}
+      <div className="absolute inset-0" aria-hidden="true">
+        {/* Base gradient - dark sophisticated look */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900" />
+
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, white 1px, transparent 1px),
+              linear-gradient(to bottom, white 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px'
+          }}
+        />
+
+        {/* Accent gradient overlays for depth */}
+        <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-to-br from-gold-500/10 to-transparent" />
+        <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-tl from-amber-500/8 to-transparent" />
+
+        {/* Glowing orbs for visual interest */}
+        <div className="absolute top-20 right-20 w-72 h-72 rounded-full bg-gold-400/5 blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-96 h-96 rounded-full bg-amber-500/5 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gold-500/3 blur-3xl" />
+
+        {/* Blueprint-style corner accents */}
+        <div className="absolute top-10 left-10 w-32 h-32 border-l-2 border-t-2 border-gold-500/20" />
+        <div className="absolute bottom-10 right-10 w-32 h-32 border-r-2 border-b-2 border-gold-500/20" />
+        <div className="absolute top-1/4 right-1/4 w-16 h-16 border border-gold-500/10 rotate-45" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -338,15 +397,15 @@ const ConstructionSection = () => {
         >
           <h2
             id="construction-heading"
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-bold text-white mb-6"
           >
             Professional
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-500">
               {' '}Construction
             </span>
             {' '}Services
           </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             From site preparation to complex infrastructure systems, we deliver comprehensive
             construction solutions. View our real project work from California and Nevada.
           </p>

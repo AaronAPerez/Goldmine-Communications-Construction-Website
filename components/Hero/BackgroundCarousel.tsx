@@ -307,7 +307,7 @@
 //                 transition={{ duration: 0.8, delay: 0.3 }}
 //                 className="text-2xl md:text-3xl font-bold text-gold-400 mb-2"
 //               >
-//                 Goldmine Communications & Construction
+//                 Goldmine Construction Services
 //               </motion.h1>
 //             </div>
 //           </motion.div>

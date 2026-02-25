@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -156,7 +155,7 @@ export default function Footer() {
                 <div className="relative w-28 h-28 backdrop-blur-sm 0">
                   <Image
                     src="/images/logo/logo-circular.jpg"
-                    alt="Goldmine Communications and Construction"
+                    alt="Goldmine and Construction"
                     width={100}
                     height={100}
                     className="object-cover rounded-full border-4 border-gold-400 group-hover:border-gold-300 transition-colors"
@@ -164,9 +163,9 @@ export default function Footer() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-gold-400 group-hover:text-gold-300 transition-colors">
-                    Goldmine Communications
+                    Goldmine Construction
                   </h2>
-                  <p className="text-lg text-gray-300">& Construction</p>
+                  <p className="text-xl text-gray-300">Services</p>
                 </div>
               </div>
             </Link>
@@ -299,7 +298,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 * index }}
             >
-              <h3 className="text-lg font-semibold mb-6 text-white">{section.title}</h3>
+              <h3 className="text-xl font-semibold mb-6 text-white">{section.title}</h3>
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.label}>
@@ -369,7 +368,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center">
             <p className="text-gray-400 text-sm mb-2">
-              © {currentYear} Goldmine Communications and Construction Inc. All rights reserved.
+              © {currentYear} Goldmine Construction Services Inc. All rights reserved.
             </p>
             <p className="text-xs text-gray-500">
               Building tomorrow&apos;s infrastructure with excellence and integrity.

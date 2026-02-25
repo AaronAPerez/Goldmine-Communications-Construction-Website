@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     'C-Band solutions',
   ],
   openGraph: {
-    title: 'Telecommunications Services | Goldmine Communications & Construction',
+    title: 'Telecommunications Services | Goldmine Construction Services',
     description: 'Fiber optics, 5G infrastructure, wireless solutions, EV charging stations. Serving Northern California, Central Valley & Bay Area. Licensed & insured.',
     url: 'https://www.goldminecomm.net/communications',
     type: 'website',

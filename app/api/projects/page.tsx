@@ -7,11 +7,11 @@ import ProjectShowcase from '@/components/Projects/ProjectShowcase';
 
 // Generate metadata for the projects page
 export const metadata: Metadata = {
-  title: 'Our Projects | Goldmine Communications & Construction',
+  title: 'Our Projects | Goldmine Construction Services',
   description: 'Explore our portfolio of completed communications and construction projects showcasing our expertise and quality workmanship.',
   keywords: ['projects', 'portfolio', 'communications', 'construction', 'infrastructure', 'case studies'],
   openGraph: {
-    title: 'Our Projects | Goldmine Communications & Construction',
+    title: 'Our Projects | Goldmine Construction Services',
     description: 'Explore our portfolio of completed communications and construction projects.',
     type: 'website',
   },

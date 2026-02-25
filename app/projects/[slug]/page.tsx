@@ -136,13 +136,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   if (!project) {
     return {
-      title: 'Project Not Found | Goldmine Communications & Construction',
+      title: 'Project Not Found | Goldmine Construction Services',
       description: 'The requested project could not be found.',
     };
   }
   
   return {
-    title: `${project.title} | Goldmine Communications & Construction`,
+    title: `${project.title} | Goldmine Construction Services`,
     description: project.description,
     keywords: [project.category, ...project.tags],
     openGraph: {

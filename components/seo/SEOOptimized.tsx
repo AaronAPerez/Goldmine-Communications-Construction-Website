@@ -50,9 +50,9 @@ export default function SEOOptimized({
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'Goldmine Communications & Construction',
+            name: 'Goldmine Construction Services',
             url: 'https://goldminecomm.net',
-            logo: 'https://goldminecomm.net/images/logo.png',
+            logo: 'https://goldminecomm.net/images/logo/logo-circular.jpg',
             sameAs: [
               // Social media URLs
             ],

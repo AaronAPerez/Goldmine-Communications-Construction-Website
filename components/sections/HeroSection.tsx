@@ -271,10 +271,10 @@ const HeroSection = () => {
               {/* Mobile Company Name */}
               <div className="text-center max-w-full">
                 <h2 className="text-4xl sm:text-5xl font-bold text-gold-400 mb-1 text-shadow-lg break-words">
-                  Goldmine Communications
+                  Goldmine Construction
                 </h2>
                 <div className="text-3xl sm:text-4xl text-gray-100 text-shadow-md">
-                  & Construction
+                  Services
                 </div>
               </div>
             </div>
@@ -445,7 +445,7 @@ const HeroSection = () => {
                                 border-4 border-gold-400/60 bg-white/10 backdrop-blur-sm">
                     <Image
                       src="/images/logo/logo-circular.jpg"
-                      alt="Goldmine Communications and Construction"
+                      alt="Goldmine Construction Services"
                       fill
                       className="object-contain p-2"
                       priority
@@ -461,10 +461,10 @@ const HeroSection = () => {
                   className="mt-2"
                 >
                   <h2 className="text-4xl xl:text-5xl font-bold text-gold-400 mb-3 text-shadow-lg">
-                    Goldmine Communications
+                    Goldmine Construction
                   </h2>
                   <div className="text-3xl xl:text-4xl text-gray-100 text-shadow-md">
-                    & Construction
+                    Services
                   </div>
                   <div className="mt-4 text-lg text-gray-300">
                     License #1099543 • Bonded & Insured

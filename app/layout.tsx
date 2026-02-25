@@ -19,8 +19,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.goldminecomm.net'),
   title: {
-    default: 'Goldmine Communications & Construction | Licensed Telecommunications Contractor Northern California',
-    template: '%s | Goldmine Communications & Construction',
+    default: 'Goldmine Construction Services | Licensed Telecommunications Contractor Northern California',
+    template: '%s | Goldmine Construction Services',
   },
   description: 'Licensed, bonded & insured telecommunications and construction company serving Northern California, Central Valley, and the Bay Area. Specializing in fiber optics, 5G infrastructure, EV charging stations, and commercial construction. CA License #1099543.',
   keywords: [
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     'licensed contractor',
     'NECA member contractor',
   ],
-  authors: [{ name: 'Goldmine Communications & Construction' }],
-  creator: 'Goldmine Communications & Construction',
-  publisher: 'Goldmine Communications & Construction',
+  authors: [{ name: 'Goldmine Construction Services' }],
+  creator: 'Goldmine Construction Services',
+  publisher: 'Goldmine Construction Services',
   robots: {
     index: true,
     follow: true,
@@ -75,16 +75,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Goldmine Communications & Construction | Licensed Contractor Northern California',
+    title: 'Goldmine Construction Services | Licensed Contractor Northern California',
     description: 'Licensed, bonded & insured telecommunications and construction company serving Northern California, Central Valley, and Bay Area. Fiber optics, 5G, EV charging, commercial construction. CA Lic #1099543.',
     url: 'https://www.goldminecomm.net',
-    siteName: 'Goldmine Communications & Construction',
+    siteName: 'Goldmine Construction Services',
     images: [
       {
-        url: '/images/logo-banner.png',
+        url: '/images/logo/logo-banner.jpg',
         width: 1200,
         height: 630,
-        alt: 'Goldmine Communications & Construction - Licensed Contractor Northern California',
+        alt: 'Goldmine Construction Services - Licensed Contractor Northern California',
       },
     ],
     locale: 'en_US',
@@ -92,9 +92,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Goldmine Communications & Construction | Northern California',
+    title: 'Goldmine Construction Services | Northern California',
     description: 'Licensed telecommunications & construction contractor serving Northern California, Central Valley & Bay Area. Fiber optics, 5G, EV charging stations.',
-    images: ['/images/logo-banner.png'],
+    images: ['/images/logo/logo-banner.jpg'],
   },
   alternates: {
     canonical: 'https://www.goldminecomm.net',
