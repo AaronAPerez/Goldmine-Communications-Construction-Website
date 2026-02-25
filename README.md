@@ -1,4 +1,4 @@
-# Goldmine Communications & Construction
+# Goldmine Construction Services
 ## Professional Website & Social Media Automation Platform
 
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat&logo=next.js)
@@ -7,7 +7,7 @@
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-10.0-FF0055?style=flat&logo=framer)
 
-A comprehensive digital platform for Goldmine Communications & Construction, featuring a professional website with automated social media management, project showcases, and lead generation capabilities.
+A comprehensive digital platform for Goldmine Construction Services, featuring a professional website with automated social media management, project showcases, and lead generation capabilities.
 
 ### Hero Section
 ![Goldmine Communications and Construction Hero Section](public/images/Goldmine-Hero.jpg)
@@ -183,7 +183,7 @@ npm run test
 ## 🎯 Business Information
 
 ### **Company Details**
-- **Name**: Goldmine Communications & Construction
+- **Name**: Goldmine Construction Services
 - **License**: #1099543 (California)
 - **Status**: Licensed, Bonded & Insured
 - **Phone**: (925) 305-5980
@@ -301,10 +301,10 @@ Update your production environment with:
 
 ## 📄 License
 
-This project is proprietary software owned by Goldmine Communications & Construction. All rights reserved.
+This project is proprietary software owned by Goldmine Construction Services. All rights reserved.
 
 ### **Usage Rights**
-- ✅ **Internal Use** - Goldmine Communications & Construction
+- ✅ **Internal Use** - Goldmine Construction Services
 - ❌ **Commercial Distribution** - Not permitted
 - ❌ **Code Reuse** - Contact for licensing inquiries
 

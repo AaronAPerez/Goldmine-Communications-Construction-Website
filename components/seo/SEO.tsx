@@ -10,9 +10,9 @@ interface SEOProps {
   noFollow?: boolean;
 }
 
-const DEFAULT_SITE_NAME = 'Goldmine Communications & Construction';
+const DEFAULT_SITE_NAME = 'Goldmine Construction Services';
 const DEFAULT_SITE_URL = 'https://goldminecomm.net';
-const DEFAULT_IMAGE = '/images/logo-banner.png';
+const DEFAULT_IMAGE = '/images/logo/logo-banner.jpg';
 
 /**
  * Simple SEO Component

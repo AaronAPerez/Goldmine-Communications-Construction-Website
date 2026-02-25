@@ -17,7 +17,7 @@ import ProjectShowcase from '@/components/Projects/ProjectShowcase';
  * Includes comprehensive SEO optimization
  */
 export const metadata: Metadata = {
-  title: 'Our Projects Portfolio | Goldmine Communications & Construction',
+  title: 'Our Projects Portfolio | Goldmine Construction Services',
   description: 'Explore our comprehensive portfolio of completed communications infrastructure and construction projects showcasing quality workmanship, innovative solutions, and client satisfaction.',
   keywords: [
     'construction projects',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     'telecommunications projects'
   ],
   openGraph: {
-    title: 'Our Projects Portfolio | Goldmine Communications & Construction',
+    title: 'Our Projects Portfolio | Goldmine Construction Services',
     description: 'Discover our completed projects demonstrating expertise in communications and construction.',
     type: 'website',
     images: [
@@ -40,13 +40,13 @@ export const metadata: Metadata = {
         url: '/images/projects/IMG_20250522_18_3649 (10).jpg',
         width: 1200,
         height: 630,
-        alt: 'Goldmine Communications & Construction Project Portfolio'
+        alt: 'Goldmine Construction Services Project Portfolio'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Our Projects Portfolio | Goldmine Communications & Construction',
+    title: 'Our Projects Portfolio | Goldmine Construction Services',
     description: 'Discover our completed projects demonstrating expertise in communications and construction.',
     images: ['/images/projects/IMG_20250522_18_3649 (10).jpg']
   }

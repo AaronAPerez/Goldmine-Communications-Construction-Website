@@ -279,15 +279,20 @@ const ProjectCard = ({ project, index, onViewDetails }: ProjectCardProps) => {
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl 
-                 shadow-xl border-2 border-gold-300/60 overflow-hidden 
-                 hover:shadow-2xl hover:-translate-y-2 hover:border-gold-400/80
-                 transition-all duration-300 backdrop-blur-sm
-                 ring-1 ring-white/20"
+      className="group relative bg-white rounded-2xl overflow-hidden
+                 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.2)]
+                 hover:shadow-[0_20px_60px_-15px_rgba(179,153,93,0.3)]
+                 border border-gray-200/80 hover:border-gold-400/60
+                 transition-all duration-500 hover:-translate-y-3"
     >
+      {/* Subtle gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gold-400/0 to-amber-500/0
+                      group-hover:from-gold-400/5 group-hover:to-amber-500/5
+                      transition-all duration-500 pointer-events-none z-10" />
+
       {/* Project Image with Enhanced Overlay */}
       <div
-        className="relative aspect-[4/3] cursor-pointer overflow-hidden bg-gray-100"
+        className="relative aspect-[4/3] cursor-pointer overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200"
         onClick={() => onViewDetails(project)}
         role="button"
         tabIndex={0}
@@ -303,83 +308,86 @@ const ProjectCard = ({ project, index, onViewDetails }: ProjectCardProps) => {
           src={project.thumbnailUrl}
           alt={project.title}
           fill
-          className="object-contain transition-transform duration-500 group-hover:scale-105"
+          className="object-cover transition-all duration-700 group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority={index < 2}
         />
 
         {/* Enhanced Overlay with Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent
+                        opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
 
         {/* View Details Button with Animation */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
           <motion.div
-            initial={{ scale: 0.8 }}
+            initial={{ scale: 0.8, y: 20 }}
             whileHover={{ scale: 1.1 }}
-            className="bg-white/95 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-gold-200"
+            animate={{ scale: 1, y: 0 }}
+            className="bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-gold-200"
           >
-            <Eye className="w-6 h-6 text-gray-700" />
+            <Eye className="w-7 h-7 text-gold-600" />
           </motion.div>
         </div>
 
         {/* Category Badge with Enhanced Styling */}
-        <div className="absolute top-4 left-4">
-          <span className="inline-flex items-center px-3 py-1.5 bg-gold-400/90 backdrop-blur-sm rounded-full text-sm font-semibold text-white shadow-lg">
-            <Tag className="w-3 h-3 mr-1.5" />
+        <div className="absolute top-4 left-4 z-20">
+          <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-gold-500 to-amber-500
+                          backdrop-blur-md rounded-full text-sm font-bold text-white
+                          shadow-lg shadow-gold-500/30 border border-white/20">
+            <Tag className="w-3.5 h-3.5 mr-2" />
             {project.category}
           </span>
         </div>
 
         {/* Gallery Count Badge */}
-        <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm 
-                        rounded-full px-2 py-1 text-white text-xs font-medium
-                        xs:pt-12
-                        ">
+        <div className="absolute top-4 right-4 z-20 bg-black/70 backdrop-blur-md
+                        rounded-full px-3 py-1.5 text-white text-xs font-bold
+                        border border-white/10 shadow-lg">
           {project.galleryImages.length} Photos
+        </div>
+
+        {/* Bottom info overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
+          <div className="flex items-center text-white/90 text-sm">
+            <MapPin className="w-4 h-4 mr-2 text-gold-400" />
+            <span className="font-medium">{project.location}</span>
+          </div>
         </div>
       </div>
 
       {/* Enhanced Project Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-gold-700 transition-colors">
+      <div className="relative p-6 bg-gradient-to-b from-white to-gray-50/50">
+        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-gold-600 transition-colors duration-300">
           {project.title}
         </h3>
 
-        <p className="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
+        <p className="text-gray-600 text-sm leading-relaxed mb-5 line-clamp-2">
           {project.description}
         </p>
 
-        {/* Enhanced Project Meta */}
-        <div className="space-y-2 mb-6">
-          <div className="flex items-center text-sm text-gray-600">
-            <MapPin className="w-4 h-4 mr-2 text-gold-600 flex-shrink-0" />
-            <span className="truncate">{project.location}</span>
-          </div>
-          {/* <div className="flex items-center text-sm text-gray-600">
-            <Calendar className="w-4 h-4 mr-2 text-gold-600 flex-shrink-0" />
-            <span>Completed {project.completionDate}</span>
-          </div> */}
-          {/* {project.client && (
-            <div className="flex items-center text-sm text-gray-600">
-              <Award className="w-4 h-4 mr-2 text-gold-600 flex-shrink-0" />
-              <span className="truncate">{project.client}</span>
-            </div>
-          )} */}
+        {/* Feature highlights */}
+        <div className="flex flex-wrap gap-2 mb-5">
+          {project.features.slice(0, 2).map((feature, idx) => (
+            <span key={idx} className="inline-flex items-center px-2.5 py-1 bg-gray-100 rounded-md text-xs text-gray-600">
+              <CheckCircle className="w-3 h-3 mr-1 text-green-500" />
+              {feature.length > 25 ? feature.substring(0, 25) + '...' : feature}
+            </span>
+          ))}
         </div>
 
         {/* Enhanced Action Button */}
         <button
           onClick={() => onViewDetails(project)}
-          className="w-full inline-flex items-center justify-center px-4 py-3 
-                     bg-gradient-to-r from-white/90 to-amber-50/90 hover:from-gold-100 hover:to-gold-200 
-                     border-2 border-gold-300/50 hover:border-gold-400/70
-                     text-gray-700 hover:text-gold-800 font-medium rounded-lg
-                     transition-all duration-200 group/btn shadow-md hover:shadow-lg
-                     backdrop-blur-sm ring-1 ring-white/30"
+          className="w-full inline-flex items-center justify-center px-5 py-3.5
+                     bg-gradient-to-r from-gray-900 to-gray-800
+                     hover:from-gold-500 hover:to-amber-500
+                     text-white font-semibold rounded-xl
+                     transition-all duration-300 group/btn
+                     shadow-lg hover:shadow-xl hover:shadow-gold-500/25"
           aria-label={`View detailed information about ${project.title}`}
         >
           View Project Details
-          <ArrowUpRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+          <ArrowUpRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
         </button>
       </div>
     </motion.div>
@@ -474,68 +482,79 @@ export default function ProjectShowcase() {
   );
 
   return (
-    <section ref={sectionRef} className="relative py-16" aria-labelledby="projects-heading">
-      {/* Enhanced Blueprint Grid Paper Background */}
-      <div className="absolute inset-0 bg-blue-50/70" aria-hidden="true">
-        <div className="absolute inset-0"
+    <section ref={sectionRef} className="relative py-20" aria-labelledby="projects-heading">
+      {/* Modern gradient background with subtle pattern */}
+      <div className="absolute inset-0" aria-hidden="true">
+        {/* Base gradient - warm neutral tones */}
+        <div className="absolute inset-0 bg-gradient-to-br from-stone-100 via-gray-50 to-amber-50/30" />
+
+        {/* Subtle dot pattern */}
+        <div className="absolute inset-0 opacity-[0.4]"
           style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(179, 153, 93, 0.08) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(179, 153, 93, 0.08) 1px, transparent 1px)
-            `,
-            backgroundSize: '20px 20px'
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(179, 153, 93, 0.15) 1px, transparent 0)`,
+            backgroundSize: '24px 24px'
           }}
         />
 
-        <div className="absolute inset-0"
+        {/* Large grid overlay */}
+        <div className="absolute inset-0 opacity-60"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(179, 153, 93, 0.15) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(179, 153, 93, 0.15) 1px, transparent 1px)
+              linear-gradient(to right, rgba(179, 153, 93, 0.2) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(179, 153, 93, 0.2) 1px, transparent 1px)
             `,
-            backgroundSize: '100px 100px'
+            backgroundSize: '120px 120px'
           }}
         />
 
-        {/* Decorative elements */}
-        <div className="absolute left-10 top-20 w-40 h-40 border-2 border-gold-300/25 rounded-full"></div>
-        <div className="absolute right-20 bottom-40 w-60 h-60 border border-dashed border-gold-400/25 rounded-lg transform rotate-3"></div>
-        <div className="absolute left-1/4 bottom-20 w-20 h-20 border border-gold-300/25 rounded-sm rotate-45"></div>
+        {/* Floating gradient orbs */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gold-200/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-amber-200/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-100/20 rounded-full blur-3xl" />
 
-        <div className="absolute right-10 top-10 w-32 h-32 opacity-15 z-30">
+        {/* Blueprint compass - positioned better */}
+        <div className="absolute right-8 top-8 w-24 h-24 opacity-10 md:w-32 md:h-32">
           <BlueprintCompass />
         </div>
 
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-gold-300/12 text-9xl font-bold rotate-[-25deg] select-none pointer-events-none tracking-wider">
-            PORTFOLIO
+        {/* Large watermark text */}
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none">
+          <div className="text-gold-200/10 text-[12rem] md:text-[16rem] font-black rotate-[-15deg] select-none tracking-wider whitespace-nowrap">
+            PROJECTS
           </div>
         </div>
       </div>
 
       {/* Content overlay */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative z-10 py-16 px-6">
+        <div className="relative z-10 py-8">
           {/* Enhanced Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
-            className="text-center backdrop-blur-sm mb-12 p-8 shadow-xl rounded-2xl border border-gold-300/40 bg-gradient-to-br from-amber-50/95 to-orange-50/95 ring-1 ring-white/30"
+            className="text-center mb-16"
           >
+            <motion.span
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5 }}
+              className="inline-block px-4 py-1.5 bg-gold-100 text-gold-700 rounded-full text-sm font-semibold mb-6 border border-gold-200"
+            >
+              Our Work
+            </motion.span>
             <h2
               id="projects-heading"
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+              className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
             >
-              Our
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-500 to-gold-700">
+              Project
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-500 via-amber-500 to-gold-600">
                 {' '}Portfolio
               </span>
-              {' '}Showcase
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Explore our comprehensive portfolio of completed projects demonstrating our expertise
-              in site development, infrastructure systems, concrete construction, and specialized equipment installation.
+              in site development, infrastructure systems, and specialized construction.
             </p>
           </motion.div>
 
@@ -544,21 +563,21 @@ export default function ProjectShowcase() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-3 mb-12"
+            className="flex flex-wrap justify-center gap-2 mb-14 p-2 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50"
             role="tablist"
             aria-label="Project categories"
           >
             {categories.map((category) => (
               <motion.button
                 key={category}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedCategory(category)}
                 className={`
-                  relative px-6 py-3 rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2
+                  relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2
                   ${selectedCategory === category
-                    ? 'bg-gold-400 text-white shadow-lg shadow-gold-400/25 ring-1 ring-white/20'
-                    : 'bg-gradient-to-br from-amber-50/95 to-orange-50/95 text-gray-700 border-2 border-gold-300/50 hover:border-gold-400/70 hover:text-gold-800 shadow-md hover:shadow-lg backdrop-blur-sm ring-1 ring-white/30'}
+                    ? 'bg-gradient-to-r from-gray-900 to-gray-800 text-white shadow-lg'
+                    : 'bg-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-100'}
                 `}
                 role="tab"
                 aria-selected={selectedCategory === category}
@@ -567,7 +586,7 @@ export default function ProjectShowcase() {
                 {selectedCategory === category && (
                   <motion.div
                     layoutId="categoryBackground"
-                    className="absolute inset-0 bg-gold-400 rounded-lg -z-10"
+                    className="absolute inset-0 bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl -z-10"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}

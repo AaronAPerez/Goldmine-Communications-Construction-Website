@@ -364,7 +364,7 @@ const ContactPage = () => {
                   />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Goldmine Communications & Construction
+                  Goldmine Construction Services
                 </h3>
                 <p className="text-gray-600 text-sm">
                   Excellence in communications and construction services throughout

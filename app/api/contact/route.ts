@@ -29,7 +29,7 @@ function createCompanyEmailHtml(data: ContactFormData): string {
         <div style="background: linear-gradient(135deg, #B3995D 0%, #8B7355 100%); padding: 30px; border-radius: 12px 12px 0 0; text-align: center;">
           <img src="https://www.goldminecomm.net/images/logo/logo-circular.jpg" alt="Goldmine Communications" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.3);" />
           <h1 style="color: white; margin: 15px 0 5px; font-size: 24px; font-weight: 600;">New Contact Form Submission</h1>
-          <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 14px;">Goldmine Communications & Construction</p>
+          <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 14px;">Goldmine Construction Services</p>
         </div>
 
         <!-- Content -->
@@ -79,7 +79,7 @@ function createCompanyEmailHtml(data: ContactFormData): string {
         <!-- Footer -->
         <div style="text-align: center; padding: 20px; color: #888; font-size: 12px;">
           <p>This email was sent from the contact form on goldminecomm.net</p>
-          <p>Goldmine Communications & Construction | License #1099543</p>
+          <p>Goldmine Construction Services | License #1099543</p>
         </div>
       </div>
     </body>
@@ -108,7 +108,7 @@ function createAutoReplyHtml(data: ContactFormData): string {
         <!-- Content -->
         <div style="background: white; padding: 35px; border-radius: 0 0 12px 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
           <p style="color: #333; font-size: 16px; line-height: 1.7; margin-bottom: 20px;">
-            Thank you for contacting <strong>Goldmine Communications & Construction</strong>. We appreciate your interest in our services and want you to know that your inquiry is important to us.
+            Thank you for contacting <strong>Goldmine Construction Services</strong>. We appreciate your interest in our services and want you to know that your inquiry is important to us.
           </p>
 
           <div style="background: linear-gradient(135deg, #fdf8f0 0%, #fff9ed 100%); padding: 25px; border-radius: 10px; border: 1px solid #e8dcc8; margin: 25px 0;">
@@ -158,7 +158,7 @@ function createAutoReplyHtml(data: ContactFormData): string {
 
         <!-- Footer -->
         <div style="text-align: center; padding: 25px; color: #888; font-size: 12px;">
-          <p style="margin: 5px 0;"><strong>Goldmine Communications & Construction</strong></p>
+          <p style="margin: 5px 0;"><strong>Goldmine Construction Services</strong></p>
           <p style="margin: 5px 0;">1161 Brick and Tile Circle, Stockton, CA 95206</p>
           <p style="margin: 5px 0;">License #1099543 | Licensed, Bonded & Insured</p>
           <p style="margin: 15px 0 5px;">
@@ -245,13 +245,13 @@ This email was sent from the contact form on goldminecomm.net
 
     // 2. Send auto-reply to customer
     const autoReplyOptions = {
-      from: `"Goldmine Communications & Construction" <${fromEmail}>`,
+      from: `"Goldmine Construction Services" <${fromEmail}>`,
       to: sanitizedData.email,
-      subject: `Thank You for Contacting Goldmine Communications & Construction`,
+      subject: `Thank You for Contacting Goldmine Construction Services`,
       text: `
 Dear ${sanitizedData.name},
 
-Thank you for contacting Goldmine Communications & Construction. We have received your message and appreciate your interest in our services.
+Thank you for contacting Goldmine Construction Services. We have received your message and appreciate your interest in our services.
 
 What happens next?
 - Our team will review your message within 24 business hours
@@ -267,7 +267,7 @@ Primary: (925) 305-5980
 Secondary: (510) 695-3177
 
 ---
-Goldmine Communications & Construction
+Goldmine Construction Services
 1161 Brick and Tile Circle, Stockton, CA 95206
 License #1099543 | Licensed, Bonded & Insured
 www.goldminecomm.net

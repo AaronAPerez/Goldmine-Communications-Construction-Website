@@ -5,11 +5,11 @@
 
 // Company information - single source of truth
 export const companyInfo = {
-  name: 'Goldmine Communications & Construction',
-  legalName: 'Goldmine Communications & Construction Inc.',
+  name: 'Goldmine Construction Services',
+  legalName: 'Goldmine Construction Services Inc.',
   url: 'https://www.goldminecomm.net',
   logo: 'https://www.goldminecomm.net/images/logo/logo-circular.jpg',
-  image: 'https://www.goldminecomm.net/images/logo-banner.png',
+  image: 'https://www.goldminecomm.net/images/logo/logo-banner.jpg',
   description: 'Licensed, bonded and insured telecommunications contractor and construction company serving Northern California, the Central Valley, and the Bay Area. Specializing in fiber optics, 5G infrastructure, EV charging stations, and commercial construction.',
   phonePrimary: '(925) 305-5980',
   phoneSecondary: '(510) 695-3177',

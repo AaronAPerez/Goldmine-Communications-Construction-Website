@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     'commercial electrical contractor',
   ],
   openGraph: {
-    title: 'Commercial Construction Services | Goldmine Communications & Construction',
+    title: 'Commercial Construction Services | Goldmine Construction Services',
     description: 'Site development, infrastructure projects, healthcare facilities, utility construction. Serving Northern California, Central Valley & Bay Area. Licensed & insured.',
     url: 'https://www.goldminecomm.net/construction',
     type: 'website',

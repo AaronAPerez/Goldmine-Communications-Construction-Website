@@ -36,8 +36,8 @@ export default function HomePage() {
         <CommunicationsSection />
       </section>
 
-      {/* Construction Section - Light background */}
-      <section className="bg-gray-50 py-20 relative">
+      {/* Construction Section - Dark background (matches internal component theme) */}
+      <section className="relative">
         <ConstructionSection />
       </section>
 
@@ -46,13 +46,8 @@ export default function HomePage() {
         <ProjectShowcase />
       </section>
 
-      {/* Contact Section - Dark background */}
-      {/* <section className="bg-gray-900 py-24 relative">
-        <ContactSection />
-      </section>
-
-      {/* CTA Section - Gold gradient background */}
-      <section className="bg-gradient-to-r from-gold-400 to-gold-600 py-24 relative">
+      {/* CTA Section - Dark background with gold accents (matches internal component theme) */}
+      <section className="relative">
         <CTASection />
       </section>
     </div>
