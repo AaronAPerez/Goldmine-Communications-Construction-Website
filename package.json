@@ -41,12 +41,11 @@
     "web-vitals": "^5.0.1"
   },
   "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 Firefox versions",
-    "last 2 Safari versions",
-    "last 2 Edge versions",
-    "not dead",
-    "not IE 11"
+    "Chrome >= 90",
+    "Firefox >= 90",
+    "Safari >= 15",
+    "Edge >= 90",
+    "not dead"
   ],
   "devDependencies": {
     "@eslint/eslintrc": "^0.1.0",

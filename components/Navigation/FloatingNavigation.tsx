@@ -68,7 +68,7 @@ export default function FloatingNavigation() {
                     alt="Goldmine Communications and Construction"
                     width={148}
                     height={60}
-                    quality={75}
+                    quality={60}
                     className="object-contain"
                     priority
                     sizes="148px"
@@ -122,7 +122,7 @@ export default function FloatingNavigation() {
                   src="/images/logo/logo-banner.jpg"
                   alt="Goldmine Communications and Construction"
                   fill
-                  quality={75}
+                  quality={60}
                   className="object-contain"
                   sizes="128px"
                 />

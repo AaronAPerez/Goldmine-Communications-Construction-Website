@@ -228,7 +228,7 @@ const HeroSection = () => {
               fill
               priority={true}
               fetchPriority="high"
-              quality={70}
+              quality={60}
               onLoad={() => handleImageLoad(currentSlide)}
               className="object-cover"
               sizes="100vw"
@@ -261,9 +261,9 @@ const HeroSection = () => {
                     src="/images/logo/logo-circular.jpg"
                     alt="Goldmine Communications and Construction"
                     fill
+                    quality={60}
                     className="object-contain p-2"
-                    // priority
-                    sizes="(max-width: 640px) 128px, 144px"
+                    sizes="(max-width: 640px) 176px, 208px"
                   />
                 </div>
               </div>
@@ -447,7 +447,9 @@ const HeroSection = () => {
                       src="/images/logo/logo-circular.jpg"
                       alt="Goldmine Construction Services"
                       fill
+                      quality={60}
                       className="object-contain p-2"
+                      sizes="(max-width: 1280px) 288px, 320px"
                       priority
                     />
                   </div>

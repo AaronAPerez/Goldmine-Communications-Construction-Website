@@ -389,7 +389,7 @@ export default function Footer() {
               alt="AP Designs Logo"
               width={20}
               height={20}
-              className="w-5 h-5 rounded-full transition-colors"
+              className="w-5 h-5 transition-colors"
             />
             AP Designs
           </a>
