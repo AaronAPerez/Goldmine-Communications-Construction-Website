@@ -256,7 +256,7 @@ const HeroSection = () => {
               {/* Mobile Logo */}
               <div className="relative w-44 h-44 sm:w-52 sm:h-52 mx-auto my-2">
                 <div className="absolute inset-0 bg-gradient-to-r from-gold-400/30 to-gold-600/30 rounded-full blur-xl" />
-                <div className="relative w-full h-full rounded-full shadow-2xl border-4 border-gold-400/60 bg-white/10 backdrop-blur-sm overflow-visible">
+                <div className="relative w-full h-full rounded-full shadow-2xl border-4 border-gold-400/60 bg-white/10 backdrop-blur-sm overflow-hidden">
                   <Image
                     src="/images/logo/logo-circular.jpg"
                     alt="Goldmine Communications and Construction"
@@ -441,7 +441,7 @@ const HeroSection = () => {
                 {/* Desktop Logo */}
                 <div className="relative w-72 h-72 xl:w-80 xl:h-80 mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-r from-gold-400/40 to-gold-600/40 rounded-full blur-3xl" />
-                  <div className="relative w-full h-full rounded-full overflow-visible shadow-2xl 
+                  <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl
                                 border-4 border-gold-400/60 bg-white/10 backdrop-blur-sm">
                     <Image
                       src="/images/logo/logo-circular.jpg"

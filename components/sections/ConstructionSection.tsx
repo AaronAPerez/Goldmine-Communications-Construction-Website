@@ -138,7 +138,7 @@ const ServiceImageGallery = ({ images, projectLocation }: ServiceImageGalleryPro
 
   return (
     <div className="relative group rounded-2xl overflow-hidden h-full
-                    bg-gradient-to-br from-gray-800 to-gray-900
+                    bg-gradient-to-br from-gray-800 to-[#1a1a1a]
                     shadow-2xl shadow-black/50
                     border border-white/10 hover:border-gold-400/30
                     transition-all duration-500">
@@ -478,7 +478,7 @@ const ConstructionSection = () => {
 
             <div className="mt-8 pt-6 border-t border-white/20">
               <p className="text-white/80 text-sm">
-                <span className="font-semibold">Licensed & Insured</span> • License #1099543 •
+                <span className="font-semibold">License #1099543</span>  •
                 Bonded & Insured • We Beat Estimates
               </p>
             </div>
