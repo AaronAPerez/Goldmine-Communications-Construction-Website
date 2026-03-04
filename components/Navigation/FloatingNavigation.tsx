@@ -16,9 +16,8 @@ interface NavItem {
 // Navigation items array moved outside component to prevent re-creation
 const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'Communications', href: '/communications' },
-  { label: 'Construction', href: '/construction' },
-  { label: 'Projects', href: '/projects' },
+  { label: 'Services', href: '/services' },
+  { label: 'Gallery', href: '/gallery' },
   { label: 'Contact', href: '/contact' },
 ];
 

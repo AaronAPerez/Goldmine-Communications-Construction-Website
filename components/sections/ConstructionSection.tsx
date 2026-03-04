@@ -439,7 +439,7 @@ const ConstructionSection = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
-                href="/construction"
+                href="/services"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gold-400 to-gold-600
@@ -447,12 +447,12 @@ const ConstructionSection = () => {
                          hover:from-gold-500 hover:to-gold-700
                          focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-800"
               >
-                Explore All Construction Services
+                Explore All Services
                 <ArrowRight className="w-5 h-5 ml-2" />
               </motion.a>
 
               <motion.a
-                href="/projects"
+                href="/gallery"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-4 border-2 border-white
@@ -460,7 +460,7 @@ const ConstructionSection = () => {
                          rounded-xl transition-colors
                          focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
               >
-                View Project Portfolio
+                View Project Gallery
               </motion.a>
 
               <motion.a

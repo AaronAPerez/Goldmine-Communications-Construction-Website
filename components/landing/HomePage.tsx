@@ -3,20 +3,23 @@
 import React from 'react';
 
 import AboutServicesSection from '@/components/sections/AboutServicesSection';
-import CommunicationsSection from '@/components/sections/CommunicationsSection';
-import ConstructionSection from '@/components/sections/ConstructionSection';
+import ServicesPreviewSection from '@/components/sections/ServicesPreviewSection';
+import GalleryPreviewSection from '@/components/sections/GalleryPreviewSection';
 import CTASection from '@/components/sections/CTASection';
 import HeroSection from '../sections/HeroSection';
-import ProjectShowcase from '../Projects/ProjectShowcase';
 
 /**
  * HomePage Component
- * 
+ *
  * Main landing page with improved layout and spacing:
  * - Fixed section spacing and padding
  * - Consistent vertical rhythm
  * - Proper background transitions
  * - Improved accessibility
+ *
+ * Updated structure:
+ * - Replaced CommunicationsSection and ConstructionSection with unified ServicesPreviewSection
+ * - Replaced ProjectShowcase with GalleryPreviewSection
  */
 export default function HomePage() {
   return (
@@ -31,22 +34,17 @@ export default function HomePage() {
         <AboutServicesSection />
       </section>
 
-      {/* Communications Section - Dark background */}
-      <section className="bg-gray-900 py-20 relative">
-        <CommunicationsSection />
-      </section>
-
-      {/* Construction Section - Dark background (matches internal component theme) */}
+      {/* Services Preview Section - Dark background showcasing all NECA services */}
       <section className="relative">
-        <ConstructionSection />
+        <ServicesPreviewSection />
       </section>
 
-      {/* Project Showcase - Blueprint background */}
+      {/* Gallery Preview Section - Light background with featured projects */}
       <section className="relative">
-        <ProjectShowcase />
+        <GalleryPreviewSection />
       </section>
 
-      {/* CTA Section - Dark background with gold accents (matches internal component theme) */}
+      {/* CTA Section - Dark background with gold accents */}
       <section className="relative">
         <CTASection />
       </section>
