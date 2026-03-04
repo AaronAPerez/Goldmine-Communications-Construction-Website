@@ -44,32 +44,29 @@ const footerSections: FooterSection[] = [
     title: 'Quick Links',
     links: [
       { label: 'Home', href: '/' },
-      { label: 'Communications', href: '/communications' },
-      { label: 'Construction', href: '/construction' },
-      { label: 'Projects', href: '/projects' },
+      { label: 'Services', href: '/services' },
+      { label: 'Gallery', href: '/gallery' },
       { label: 'Contact', href: '/contact' },
-      // { label: 'Careers', href: '/careers' }
     ]
   },
   {
     title: 'Our Services',
     links: [
-      { label: 'Communications Infrastructure', href: '/communications' },
-      { label: 'Construction Services', href: '/construction' },
-      { label: 'Network Solutions', href: '/communications' },
-      { label: 'Project Management', href: '/construction' },
-      { label: 'Maintenance & Support', href: '/services' },
-      { label: 'Consulting & Design', href: '/services' }
+      { label: 'EV Charging Stations', href: '/services#electrical-infrastructure' },
+      { label: 'Communications & Networking', href: '/services#commercial-industrial' },
+      { label: 'Data Centers', href: '/services#commercial-industrial' },
+      { label: 'Street Lighting & Traffic', href: '/services#utility-municipal' },
+      { label: 'Electrical Testing', href: '/services#testing-certification' },
+      { label: 'All Services', href: '/services' }
     ]
   },
   {
     title: 'Resources',
     links: [
-      { label: 'Case Studies', href: '/projects' },
+      { label: 'Project Gallery', href: '/gallery' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
       { label: 'Terms of Service', href: '/terms' },
       { label: 'Accessibility', href: '/accessibility' },
-      { label: 'Sitemap', href: '/sitemap' }
     ]
   }
 ];

@@ -430,14 +430,14 @@ const CommunicationsSection = () => {
           className="text-center mt-12"
         >
           <motion.a
-            href="/communications"
+            href="/services"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-gold-400 to-gold-600
                      text-white font-medium transition-all shadow-lg hover:shadow-xl
                      hover:from-gold-500 hover:to-gold-700"
           >
-            Explore All Communications Services
+            Explore All Services
             <ArrowRight className="w-5 h-5 ml-2" />
           </motion.a>
         </motion.div>
