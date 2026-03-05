@@ -1,5 +1,12 @@
 # public/robots.txt
+# Allows all search engines to crawl the entire site
+
 User-agent: *
 Allow: /
 
-Sitemap: https://goldminecomm.net/sitemap.xml
+# Block admin routes from search engines
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://www.goldminecomm.net/sitemap.xml

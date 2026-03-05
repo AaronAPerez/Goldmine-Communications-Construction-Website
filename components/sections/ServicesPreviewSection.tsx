@@ -91,7 +91,7 @@ const serviceCategories = [
       {
         id: 'underground',
         title: 'Underground Utilities',
-        description: 'Trenching, conduit, and cable splicing',
+        description: 'Trenching, grading,conduit, and cable splicing',
         icon: <HardHat className="w-6 h-6" />,
         color: 'from-stone-500 to-stone-600',
         href: '/services#utility-municipal'

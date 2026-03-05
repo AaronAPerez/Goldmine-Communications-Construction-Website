@@ -1,16 +1,32 @@
 {
-  "name": "Goldmine Construction Services",
+  "name": "Goldmine Construction Services - Licensed Telecommunications & Construction Contractor",
   "short_name": "Goldmine",
+  "description": "Licensed, bonded & insured telecommunications and construction company serving Northern California, Central Valley, and Bay Area. Specializing in fiber optics, 5G infrastructure, EV charging stations, and commercial construction.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#D4AF37",
+  "background_color": "#ffffff",
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "productivity",
+    "utilities"
+  ],
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/android-chrome-512x512.png",
@@ -19,8 +35,46 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#D4AF37",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "start_url": "/"
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with Goldmine Construction Services",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Our Services",
+      "short_name": "Services",
+      "description": "View our telecommunications and construction services",
+      "url": "/services",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "description": "View our completed projects and portfolio",
+      "url": "/projects",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
 }
