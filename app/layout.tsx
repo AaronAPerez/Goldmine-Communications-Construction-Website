@@ -163,10 +163,10 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
 
         {/* <!-- Theme color for browser chrome --> */}
-        <meta name="theme-color" content="#6366F1" />
+        <meta name="theme-color" content="#D4AF37" />
 
         {/* <!-- Microsoft Edge/IE config --> */}
-        <meta name="msapplication-TileColor" content="#6366F1" />
+        <meta name="msapplication-TileColor" content="#D4AF37" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
       </head>
 
