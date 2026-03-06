@@ -1,5 +1,6 @@
-// app/sitemap.xml/route.ts
-// Generates XML sitemap for search engine crawlers
+// app/sitemap.ts
+// Generates XML sitemap for search engine crawlers at /sitemap.xml
+// Next.js automatically serves this at the /sitemap.xml route
 // Reference: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
 import { MetadataRoute } from "next";
 
