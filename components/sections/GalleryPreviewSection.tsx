@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -74,17 +74,38 @@ const categories = [
 
 const GalleryPreviewSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const handlePrev = () => {
+  // Navigation handlers with useCallback for performance
+  const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => (prev === 0 ? featuredImages.length - 1 : prev - 1));
-  };
+  }, []);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % featuredImages.length);
-  };
+  }, []);
+
+  // Keyboard navigation for accessibility (arrow keys)
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        handlePrev();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        handleNext();
+      }
+    };
+
+    carousel.addEventListener('keydown', handleKeyDown);
+    return () => carousel.removeEventListener('keydown', handleKeyDown);
+  }, [handlePrev, handleNext]);
 
   return (
     <section
@@ -130,7 +151,7 @@ const GalleryPreviewSection = () => {
             transition={{ duration: 0.5 }}
             className="inline-block px-4 py-1.5 bg-gold-100 text-gold-700 rounded-full text-sm font-semibold mb-4 border border-gold-200"
           >
-            <Camera className="w-4 h-4 inline mr-2" />
+            <Camera className="w-4 h-4 inline mr-2" aria-hidden="true" />
             Our Work
           </motion.span>
           <h2
@@ -155,7 +176,14 @@ const GalleryPreviewSection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-12"
         >
-          <div className="relative group rounded-2xl overflow-hidden bg-gray-900 shadow-2xl">
+          <div
+            ref={carouselRef}
+            className="relative group rounded-2xl overflow-hidden bg-gray-900 shadow-2xl"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Project gallery carousel. Use left and right arrow keys to navigate."
+            tabIndex={0}
+          >
             {/* Main Image */}
             <div className="relative aspect-[16/9] md:aspect-[21/9]">
               <AnimatePresence mode="wait">
@@ -192,7 +220,7 @@ const GalleryPreviewSection = () => {
                       {featuredImages[currentIndex].alt}
                     </h3>
                     <div className="flex items-center text-white/80 mt-2">
-                      <MapPin className="w-4 h-4 mr-2 text-gold-400" />
+                      <MapPin className="w-4 h-4 mr-2 text-gold-400" aria-hidden="true" />
                       <span>{featuredImages[currentIndex].location}</span>
                     </div>
                   </div>
@@ -202,38 +230,49 @@ const GalleryPreviewSection = () => {
                 </div>
               </div>
 
+              {/* Screen reader announcements for slide changes */}
+              <div className="sr-only" aria-live="polite" aria-atomic="true">
+                Showing image {currentIndex + 1} of {featuredImages.length}: {featuredImages[currentIndex].alt} at {featuredImages[currentIndex].location}
+              </div>
+
               {/* Navigation Buttons */}
               <button
                 onClick={handlePrev}
                 className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full
                          bg-black/60 text-white hover:bg-gold-500 backdrop-blur-md
-                         opacity-0 group-hover:opacity-100 transition-all duration-300
-                         border border-white/10 hover:border-gold-400 shadow-lg"
+                         opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-300
+                         border border-white/10 hover:border-gold-400 shadow-lg
+                         focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-900"
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-6 h-6" aria-hidden="true" />
               </button>
               <button
                 onClick={handleNext}
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full
                          bg-black/60 text-white hover:bg-gold-500 backdrop-blur-md
-                         opacity-0 group-hover:opacity-100 transition-all duration-300
-                         border border-white/10 hover:border-gold-400 shadow-lg"
+                         opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-300
+                         border border-white/10 hover:border-gold-400 shadow-lg
+                         focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-900"
                 aria-label="Next image"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-6 h-6" aria-hidden="true" />
               </button>
             </div>
 
             {/* Thumbnail Strip */}
-            <div className="flex gap-2 p-4 bg-gray-900">
+            <div className="flex gap-2 p-4 bg-gray-900" role="tablist" aria-label="Gallery thumbnails">
               {featuredImages.map((image, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentIndex(idx)}
                   onMouseEnter={() => setHoveredIndex(idx)}
                   onMouseLeave={() => setHoveredIndex(null)}
-                  className={`relative flex-1 aspect-video rounded-lg overflow-hidden transition-all duration-300 ${
+                  role="tab"
+                  aria-selected={idx === currentIndex}
+                  aria-label={`View ${image.alt} - ${image.location}`}
+                  className={`relative flex-1 aspect-video rounded-lg overflow-hidden transition-all duration-300
+                             focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-900 ${
                     idx === currentIndex
                       ? 'ring-2 ring-gold-400 scale-105'
                       : 'opacity-60 hover:opacity-100'
@@ -241,13 +280,14 @@ const GalleryPreviewSection = () => {
                 >
                   <Image
                     src={image.src}
-                    alt={`Thumbnail ${idx + 1}`}
+                    alt=""
                     fill
                     className="object-cover"
                     sizes="150px"
+                    aria-hidden="true"
                   />
                   {hoveredIndex === idx && idx !== currentIndex && (
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center" aria-hidden="true">
                       <Eye className="w-5 h-5 text-white" />
                     </div>
                   )}
@@ -300,17 +340,19 @@ const GalleryPreviewSection = () => {
                 <Link
                   href="/gallery"
                   className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gold-400 to-gold-500
-                           text-white font-medium rounded-xl transition-all shadow-lg hover:shadow-xl"
+                           text-white font-medium rounded-xl transition-all shadow-lg hover:shadow-xl
+                           focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2"
                 >
                   View Full Gallery
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   href="/contact"
                   className="inline-flex items-center px-8 py-4 bg-white border-2 border-gold-400
-                           text-gold-700 hover:bg-gold-50 font-medium rounded-xl transition-all"
+                           text-gold-700 hover:bg-gold-50 font-medium rounded-xl transition-all
+                           focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2"
                 >
                   Start Your Project
                 </Link>

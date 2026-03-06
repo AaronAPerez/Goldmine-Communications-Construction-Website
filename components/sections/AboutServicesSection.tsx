@@ -37,7 +37,7 @@ const coreValues: CoreValue[] = [
     id: 'excellence',
     title: 'Excellence',
     description: 'Uncompromising quality standards in every project we undertake.',
-    icon: <Award className="w-6 h-6" />,
+    icon: <Award className="w-6 h-6" aria-hidden="true" />,
     color: 'from-gold-400 to-gold-600',
     highlights: ['Industry-leading standards', 'Quality assurance protocols', 'Continuous improvement']
   },
@@ -45,7 +45,7 @@ const coreValues: CoreValue[] = [
     id: 'innovation',
     title: 'Innovation',
     description: 'Pioneering solutions that set the pace for the industry.',
-    icon: <Lightbulb className="w-6 h-6" />,
+    icon: <Lightbulb className="w-6 h-6" aria-hidden="true" />,
     color: 'from-blue-500 to-blue-600',
     highlights: ['Cutting-edge technology', 'Forward-thinking approach', 'R&D investment']
   },
@@ -53,7 +53,7 @@ const coreValues: CoreValue[] = [
     id: 'integrity',
     title: 'Integrity',
     description: 'Honest, transparent practices that build lasting trust.',
-    icon: <Shield className="w-6 h-6" />,
+    icon: <Shield className="w-6 h-6" aria-hidden="true" />,
     color: 'from-green-500 to-green-600',
     highlights: ['Ethical business practices', 'Transparent communication', 'Reliable partnerships']
   },
@@ -61,7 +61,7 @@ const coreValues: CoreValue[] = [
     id: 'teamwork',
     title: 'Teamwork',
     description: 'Collaborative efforts that amplify our collective strength.',
-    icon: <Users className="w-6 h-6" />,
+    icon: <Users className="w-6 h-6" aria-hidden="true" />,
     color: 'from-purple-500 to-purple-600',
     highlights: ['Cross-functional collaboration', 'Shared expertise', 'Unified goals']
   },
@@ -69,7 +69,7 @@ const coreValues: CoreValue[] = [
     id: 'dedication',
     title: 'Dedication',
     description: 'Relentless commitment to customer satisfaction and success.',
-    icon: <Heart className="w-6 h-6" />,
+    icon: <Heart className="w-6 h-6" aria-hidden="true" />,
     color: 'from-red-500 to-red-600',
     highlights: ['Customer-first approach', '24/7 support', 'Long-term relationships']
   },
@@ -77,7 +77,7 @@ const coreValues: CoreValue[] = [
     id: 'productivity',
     title: 'Productivity',
     description: 'Efficient solutions that maximize value and minimize waste.',
-    icon: <TrendingUp className="w-6 h-6" />,
+    icon: <TrendingUp className="w-6 h-6" aria-hidden="true" />,
     color: 'from-orange-500 to-orange-600',
     highlights: ['Streamlined processes', 'Cost optimization', 'Time efficiency']
   }
@@ -124,9 +124,9 @@ const ValueCard = ({ value, index, isInView }: ValueCardProps) => {
                transition-all duration-500 hover:-translate-y-2 border border-gray-100
                hover:border-gold-200 relative overflow-hidden"
     >
-      {/* Background gradient on hover */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 
-                     group-hover:opacity-5 transition-opacity duration-500`} />
+      {/* Background gradient on hover - decorative */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0
+                     group-hover:opacity-5 transition-opacity duration-500`} aria-hidden="true" />
       
       {/* Icon */}
       <div className='flex justify-start items-center mb-4'>
@@ -165,7 +165,7 @@ const ValueCard = ({ value, index, isInView }: ValueCardProps) => {
           <ul className="space-y-2">
             {value.highlights.map((highlight, idx) => (
               <li key={idx} className="flex items-center text-sm text-gray-600">
-                <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${value.color} mr-3`} />
+                <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${value.color} mr-3`} aria-hidden="true" />
                 {highlight}
               </li>
             ))}
@@ -174,8 +174,8 @@ const ValueCard = ({ value, index, isInView }: ValueCardProps) => {
       </div>
 
       {/* Decorative corner */}
-      <div className="absolute top-0 right-0 w-20 h-20 opacity-10">
-        <div className={`w-full h-full bg-gradient-to-br ${value.color} 
+      <div className="absolute top-0 right-0 w-20 h-20 opacity-10" aria-hidden="true">
+        <div className={`w-full h-full bg-gradient-to-br ${value.color}
                        transform rotate-45 translate-x-10 -translate-y-10`} />
       </div>
     </motion.div>
@@ -212,9 +212,9 @@ export default function AboutServicesSection() {
           className="inline-block mb-6"
           whileHover={{ scale: 1.05 }}
         >
-          <span className="inline-flex items-center px-4 py-2 bg-[#B3995D] text-white shadow-2xl 
+          <span className="inline-flex items-center px-4 py-2 bg-[#B3995D] text-white shadow-2xl
                          rounded-full text-sm font-semibold border border-gold-200">
-            <TrophyIcon className="w-4 h-4 mr-2" />
+            <TrophyIcon className="w-4 h-4 mr-2" aria-hidden="true" />
             Excellence Since 2022
           </span>
         </motion.div>
@@ -288,7 +288,7 @@ export default function AboutServicesSection() {
                 className="flex items-center gap-6 shadow-sm 
                          border border-gray-100 hover:shadow-md transition-shadow"
               >
-                <div className="w-10 h-10 bg-gradient-to-r from-gold-400 to-gold-600 rounded-l-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-gold-400 to-gold-600 rounded-l-xl flex items-center justify-center" aria-hidden="true">
                   <CheckCircle2 className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-gray-700 font-medium">{commitment}</span>
@@ -304,13 +304,13 @@ export default function AboutServicesSection() {
           >
             <a
               href="/contact"
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gold-400 to-[#B3995D] 
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gold-400 to-[#B3995D]
                        text-white font-semibold rounded-xl hover:shadow-xl transition-all duration-300
-                       hover:-translate-y-1"
+                       hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2"
             >
-              <Phone className="w-5 h-5 mr-3" />
+              <Phone className="w-5 h-5 mr-3" aria-hidden="true" />
               Get a Quote
-              <ArrowRight className="w-5 h-5 ml-3" />
+              <ArrowRight className="w-5 h-5 ml-3" aria-hidden="true" />
             </a>
           </motion.div>
         </motion.div>
@@ -467,9 +467,9 @@ export default function AboutServicesSection() {
         className="text-center"
       >
         <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-10 md:p-14 text-white relative overflow-hidden">
-          {/* Background pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div 
+          {/* Background pattern - decorative */}
+          <div className="absolute inset-0 opacity-10" aria-hidden="true">
+            <div
               className="w-full h-full"
               style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -500,8 +500,8 @@ export default function AboutServicesSection() {
           </div>
 
           {/* Decorative elements */}
-          <div className="absolute top-0 right-0 w-40 h-40 bg-gold-400/5 rounded-full -translate-y-20 translate-x-20" />
-          <div className="absolute bottom-0 left-0 w-60 h-60 bg-gold-400/5 rounded-full translate-y-30 -translate-x-30" />
+          <div className="absolute top-0 right-0 w-40 h-40 bg-gold-400/5 rounded-full -translate-y-20 translate-x-20" aria-hidden="true" />
+          <div className="absolute bottom-0 left-0 w-60 h-60 bg-gold-400/5 rounded-full translate-y-30 -translate-x-30" aria-hidden="true" />
         </div>
       </motion.div>
     </section>
