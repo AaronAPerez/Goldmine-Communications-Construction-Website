@@ -34,7 +34,7 @@ const ctaActions: CTAAction[] = [
     id: 'call',
     title: 'Call Us Now',
     description: '(925) 305-5980',
-    icon: <Phone className="w-6 h-6" />,
+    icon: <Phone className="w-6 h-6" aria-hidden="true" />,
     href: 'tel:+19253055980',
     type: 'primary',
     ariaLabel: 'Call us at (925) 305-5980'
@@ -43,7 +43,7 @@ const ctaActions: CTAAction[] = [
     id: 'email',
     title: 'Email Us',
     description: 'a.lopez@goldminecomm.net',
-    icon: <Mail className="w-6 h-6" />,
+    icon: <Mail className="w-6 h-6" aria-hidden="true" />,
     href: 'mailto:a.lopez@goldminecomm.net',
     type: 'secondary',
     ariaLabel: 'Email us at a.lopez@goldminecomm.net'
@@ -52,20 +52,15 @@ const ctaActions: CTAAction[] = [
 
 const trustIndicators = [
   {
-    icon: <Shield className="w-5 h-5" />,
+    icon: <Shield className="w-5 h-5" aria-hidden="true" />,
     text: 'Licensed & Insured',
     detail: 'Lic# 1099543'
   },
   {
-    icon: <Award className="w-5 h-5" />,
+    icon: <Award className="w-5 h-5" aria-hidden="true" />,
     text: '15+ Years Experience',
     detail: 'Proven Track Record'
-  },
-  // {
-  //   icon: <Clock className="w-5 h-5" />,
-  //   text: '24/7 Support',
-  //   detail: 'Always Available'
-  // }
+  }
 ];
 
 /**
@@ -91,6 +86,7 @@ const CTAButton = ({ action, index }: CTAButtonProps) => {
         group relative inline-flex items-center justify-center
         px-8 py-4 rounded-xl font-semibold text-lg
         transition-all duration-300 shadow-lg hover:shadow-xl
+        focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-900
         ${isPrimary
           ? 'bg-[#a68729] text-white hover:bg-[#8a7122]'
           : 'bg-transparent text-white border-2 border-[#a68729] hover:bg-[#a68729] hover:text-white'
@@ -98,8 +94,8 @@ const CTAButton = ({ action, index }: CTAButtonProps) => {
       `}
       aria-label={action.ariaLabel}
     >
-      {/* Shine Effect on Hover */}
-      <div className="absolute inset-0 rounded-xl bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
+      {/* Shine Effect on Hover - decorative */}
+      <div className="absolute inset-0 rounded-xl bg-white/0 group-hover:bg-white/10 transition-all duration-300" aria-hidden="true" />
 
       {/* Button Icon */}
       <span className={`
@@ -120,10 +116,9 @@ const CTAButton = ({ action, index }: CTAButtonProps) => {
         </span>
       </span>
 
-
-      {/* Hover Effect */}
-      <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 
-                    group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Hover Effect - decorative */}
+      <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0
+                    group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
     </motion.a>
   );
 };
@@ -141,24 +136,27 @@ const CTASection = () => {
       className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-24 md:py-32"
       aria-labelledby="cta-heading"
     >
-      {/* Gradient Overlay with Gold Accent */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#a68729]/20 via-transparent to-[#a68729]/20" />
+      {/* Decorative background elements - hidden from screen readers */}
+      <div aria-hidden="true">
+        {/* Gradient Overlay with Gold Accent */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#a68729]/20 via-transparent to-[#a68729]/20" />
 
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0"
-             style={{
-               backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-               backgroundSize: '60px 60px'
-             }}
-        />
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0"
+               style={{
+                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                 backgroundSize: '60px 60px'
+               }}
+          />
+        </div>
+
+        {/* Decorative Gold Lines & Edge Glow */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#a68729] to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#a68729]/10 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#a68729] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#a68729]/10 to-transparent" />
       </div>
-
-      {/* Decorative Gold Lines & Edge Glow */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#a68729] to-transparent" />
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#a68729]/10 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#a68729] to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#a68729]/10 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Main CTA Content */}
@@ -255,7 +253,9 @@ const CTASection = () => {
           </p>
           <a
             href="tel:+19253055980"
-            className="text-2xl font-bold text-[#a68729] hover:text-white transition-colors"
+            className="text-2xl font-bold text-[#a68729] hover:text-white transition-colors
+                     focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded"
+            aria-label="Call us at (925) 305-5980"
           >
             (925) 305-5980
           </a>

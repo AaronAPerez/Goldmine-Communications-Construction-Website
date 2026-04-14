@@ -3,7 +3,7 @@
 import React from 'react';
 
 import AboutServicesSection from '@/components/sections/AboutServicesSection';
-import ServicesPreviewSection from '@/components/sections/ServicesPreviewSection';
+import ServicesPreviewSection from '@/components/sections/ServicesPreview';
 import GalleryPreviewSection from '@/components/sections/GalleryPreviewSection';
 import CTASection from '@/components/sections/CTASection';
 import HeroSection from '../sections/HeroSection';

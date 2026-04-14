@@ -332,9 +332,10 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden"
     >
       <button
+        type="button"
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full p-6 text-left focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gold-400"
-        aria-expanded={isExpanded}
+        aria-expanded={isExpanded ? 'true' : 'false'}
       >
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">

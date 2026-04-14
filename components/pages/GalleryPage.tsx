@@ -105,7 +105,7 @@ const galleryCategories: GalleryCategory[] = [
       { src: '/images/projects/Sparks-NV/tower-tree-1.jpg', alt: 'Tower assembly in progress', location: 'Sparks, NV', description: 'Stealth tower section assembly and rigging', category: 'Telecommunications' },
       { src: '/images/projects/Sparks-NV/tower-tree-install.jpg', alt: 'Crane lifting tower section', location: 'Sparks, NV', description: 'Precision crane operation for tower assembly', category: 'Telecommunications' },
       { src: '/images/projects/Sparks-NV/tower-tree-3.jpg', alt: 'Tower branch installation', location: 'Sparks, NV', description: 'Decorative branch installation for stealth appearance', category: 'Telecommunications' },
-      { src: '/images/projects/Sparks-NV/tower-tree-4.jpg', alt: 'Antenna mounting', location: 'Sparks, NV', description: 'RF antenna mounting and alignment', category: 'Telecommunications' },
+      { src: '/images/projects/Sparks-NV/tower-tree-4.jpg', alt: 'Telecommunications equipment', location: 'Sparks, NV', description: 'Installation of telecommunications hardware', category: 'Telecommunications' },
       { src: '/images/projects/Sparks-NV/tower-tree-6.jpg', alt: 'Completed stealth tower', location: 'Sparks, NV', description: 'Finished mono-pine blending with landscape', category: 'Telecommunications' },
       { src: '/images/projects/Sparks-NV/tower-base-1.jpg', alt: 'Tower foundation', location: 'Sparks, NV', description: 'Reinforced concrete foundation with anchor bolts', category: 'Telecommunications' },
       { src: '/images/projects/Sparks-NV/tree-tower-network.jpg', alt: 'Network equipment shelter', location: 'Sparks, NV', description: 'Ground-level equipment cabinet and power', category: 'Telecommunications' },
@@ -246,6 +246,8 @@ const Lightbox = ({ images, currentIndex, onClose, onNext, onPrev, onIndexChange
         </div>
         <button
           onClick={onClose}
+          type="button"
+          aria-label="Close lightbox"
           className="p-2 hover:bg-white/10 rounded-full transition-colors"
         >
           <X className="w-6 h-6" />
@@ -278,13 +280,17 @@ const Lightbox = ({ images, currentIndex, onClose, onNext, onPrev, onIndexChange
         {images.length > 1 && (
           <>
             <button
+              type="button"
               onClick={(e) => { e.stopPropagation(); onPrev(); }}
+              aria-label="Previous image"
               className="absolute left-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
             >
               <ChevronLeft className="w-8 h-8 text-white" />
             </button>
             <button
+              type="button"
               onClick={(e) => { e.stopPropagation(); onNext(); }}
+              aria-label="Next image"
               className="absolute right-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
             >
               <ChevronRight className="w-8 h-8 text-white" />
@@ -307,6 +313,8 @@ const Lightbox = ({ images, currentIndex, onClose, onNext, onPrev, onIndexChange
             return (
               <button
                 key={actualIndex}
+                type="button"
+                aria-label={`View image ${actualIndex + 1}`}
                 onClick={() => onIndexChange(actualIndex)}
                 className={`relative w-16 h-12 rounded overflow-hidden flex-shrink-0 transition-all ${
                   actualIndex === currentIndex ? 'ring-2 ring-gold-400 scale-110' : 'opacity-50 hover:opacity-100'
@@ -431,20 +439,24 @@ const GalleryPage = () => {
             {/* View Mode Toggle */}
             <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-lg">
               <button
+                type="button"
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded-md transition-colors ${
                   viewMode === 'grid' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
                 }`}
                 title="Grid view"
+                aria-label="Grid view"
               >
                 <Grid3X3 className="w-5 h-5" />
               </button>
               <button
+                type="button"
                 onClick={() => setViewMode('masonry')}
                 className={`p-2 rounded-md transition-colors ${
                   viewMode === 'masonry' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
                 }`}
                 title="Masonry view"
+                aria-label="Masonry view"
               >
                 <LayoutGrid className="w-5 h-5" />
               </button>

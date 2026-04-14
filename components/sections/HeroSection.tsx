@@ -57,7 +57,7 @@ const heroSlides: HeroSlide[] = [
       primary: {
         text: 'Explore EV Solutions',
         href: '/communications',
-        icon: <Zap className="w-5 h-5" />
+        icon: <Zap className="w-5 h-5" aria-hidden="true" />
       },
       secondary: {
         text: 'View Projects',
@@ -76,7 +76,7 @@ const heroSlides: HeroSlide[] = [
       primary: {
         text: 'Communications Services',
         href: '/communications',
-        icon: <ArrowRight className="w-5 h-5" />
+        icon: <ArrowRight className="w-5 h-5" aria-hidden="true" />
       },
       secondary: {
         text: 'Get Quote',
@@ -94,12 +94,12 @@ const heroSlides: HeroSlide[] = [
       primary: {
         text: 'Construction Services',
         href: '/construction',
-        icon: <ArrowRight className="w-5 h-5" />
+        icon: <ArrowRight className="w-5 h-5" aria-hidden="true" />
       },
       secondary: {
         text: 'Get a Quote',
         href: '/contact',
-        icon: <Phone className="w-4 h-4" />
+        icon: <Phone className="w-4 h-4" aria-hidden="true" />
       }
     }
   }
@@ -305,11 +305,11 @@ const HeroSection = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="inline-flex items-center px-4 py-2 bg-gold-400/20 backdrop-blur-sm 
+                    className="inline-flex items-center px-4 py-2 bg-gold-400/20 backdrop-blur-sm
                              border border-gold-400/30 rounded-full text-sm font-semibold text-gold-300 mb-6
                              max-w-full"
                   >
-                    <Star className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <Star className="w-4 h-4 mr-2 flex-shrink-0" aria-hidden="true" />
                     <span className="truncate">{currentSlideData.subtitle}</span>
                   </motion.div>
 
@@ -380,10 +380,10 @@ const HeroSection = () => {
                 className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 w-full max-w-full"
               >
                 {[
-                  { text: 'Licensed & Insured', short: 'Licensed', icon: <Shield className="w-4 h-4 text-gold-400" /> },
-                  { text: '15+ Years Experience', short: '15+ Years', icon: <Clock className="w-4 h-4 text-gold-400" /> },
-                  { text: 'Quality Guarantee', short: 'Quality', icon: <Award className="w-4 h-4 text-gold-400" /> },
-                  { text: 'We Beat Estimates', short: 'Best Price', icon: <Target className="w-4 h-4 text-gold-400" /> }
+                  { text: 'Licensed & Insured', short: 'Licensed', icon: <Shield className="w-4 h-4 text-gold-400" aria-hidden="true" /> },
+                  { text: '15+ Years Experience', short: '15+ Years', icon: <Clock className="w-4 h-4 text-gold-400" aria-hidden="true" /> },
+                  { text: 'Quality Guarantee', short: 'Quality', icon: <Award className="w-4 h-4 text-gold-400" aria-hidden="true" /> },
+                  { text: 'We Beat Estimates', short: 'Best Price', icon: <Target className="w-4 h-4 text-gold-400" aria-hidden="true" /> }
                 ].map(({ text, short, icon }, index) => (
                   <motion.div
                     key={text}
@@ -424,6 +424,7 @@ const HeroSection = () => {
                     left: '50%',
                     top: '50%'
                   }}
+                  aria-hidden="true"
                 />
                 <motion.div
                   className="absolute inset-0 border border-gold-400/10 rounded-full"
@@ -436,6 +437,7 @@ const HeroSection = () => {
                     left: '50%',
                     top: '50%'
                   }}
+                  aria-hidden="true"
                 />
 
                 {/* Desktop Logo */}
@@ -484,26 +486,26 @@ const HeroSection = () => {
           {/* Navigation Buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full 
-                     bg-white/10 backdrop-blur-sm border border-white/20 text-white 
-                     hover:bg-white/20 transition-all duration-300 focus:outline-none 
+            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full
+                     bg-white/10 backdrop-blur-sm border border-white/20 text-white
+                     hover:bg-white/20 transition-all duration-300 focus:outline-none
                      focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-black/50
                      hidden sm:block"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-6 h-6" aria-hidden="true" />
           </button>
 
           <button
             onClick={nextSlide}
-            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full 
-                     bg-white/10 backdrop-blur-sm border border-white/20 text-white 
-                     hover:bg-white/20 transition-all duration-300 focus:outline-none 
+            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full
+                     bg-white/10 backdrop-blur-sm border border-white/20 text-white
+                     hover:bg-white/20 transition-all duration-300 focus:outline-none
                      focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-black/50
                      hidden sm:block"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-6 h-6" aria-hidden="true" />
           </button>
 
           {/* Bottom Controls */}
@@ -514,32 +516,32 @@ const HeroSection = () => {
                 <div className="flex items-center space-x-3 mr-6">
                   <button
                     onClick={prevSlide}
-                    className="p-2 rounded-full bg-white/10 border border-white/20 
+                    className="p-2 rounded-full bg-white/10 border border-white/20
                              text-white hover:bg-white/20 transition-all duration-300
                              focus:outline-none focus:ring-2 focus:ring-gold-400 sm:hidden"
                     aria-label="Previous slide"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-5 h-5" aria-hidden="true" />
                   </button>
 
                   <button
                     onClick={togglePlayPause}
-                    className="p-2 rounded-full bg-white/10 border border-white/20 
+                    className="p-2 rounded-full bg-white/10 border border-white/20
                              text-white hover:bg-white/20 transition-all duration-300
                              focus:outline-none focus:ring-2 focus:ring-gold-400"
                     aria-label={isPlaying ? 'Pause carousel' : 'Play carousel'}
                   >
-                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                    {isPlaying ? <Pause className="w-5 h-5" aria-hidden="true" /> : <Play className="w-5 h-5" aria-hidden="true" />}
                   </button>
 
                   <button
                     onClick={nextSlide}
-                    className="p-2 rounded-full bg-white/10 border border-white/20 
+                    className="p-2 rounded-full bg-white/10 border border-white/20
                              text-white hover:bg-white/20 transition-all duration-300
                              focus:outline-none focus:ring-2 focus:ring-gold-400 sm:hidden"
                     aria-label="Next slide"
                   >
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-5 h-5" aria-hidden="true" />
                   </button>
                 </div>
 
