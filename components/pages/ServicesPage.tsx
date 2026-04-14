@@ -16,18 +16,13 @@ import {
   Cable,
   Camera,
   Speaker,
-  Wrench,
   Car,
-  Factory,
-  Lightbulb,
   Network,
-  Activity,
-  TrafficCone,
-  TreePine,
-  FileCheck,
   MapPin,
   Phone,
-  Mail
+  Mail,
+  GraduationCap,
+  Ruler
 } from 'lucide-react';
 
 /**
@@ -50,260 +45,198 @@ interface ServiceItem {
 }
 
 /**
- * Service Categories Data - NECA Certified Services
+ * Service Categories Data — sourced directly from Goldmine brochure
+ * Six service lines: Wireless, Network Infrastructure, Charging/IoT/5G,
+ * Audio/Visual, Training & Certification, and Design & Drafting (A&E)
  */
 const serviceCategories: ServiceCategory[] = [
   {
-    id: 'commercial-industrial',
-    title: 'Commercial, Industrial & Institutional',
-    description: 'Comprehensive electrical and communication solutions for commercial buildings, industrial facilities, and institutional projects.',
-    icon: <Building2 className="w-8 h-8" />,
+    id: 'wireless',
+    title: 'Wireless',
+    description: 'Site acquisition, project, and construction management services for major wireless carriers. Our team delivers a wide range of customizable options, guaranteed to meet and exceed expectations.',
+    icon: <Radio className="w-8 h-8" />,
     color: 'from-blue-500 to-blue-600',
     services: [
       {
-        title: 'Communications & Networking Systems',
-        description: 'Enterprise-grade communication infrastructure including fiber optics, 5G networks, and wireless solutions.',
+        title: 'Carrier Installation & Maintenance',
+        description: 'Full installation and ongoing maintenance for major wireless carriers including Verizon, T-Mobile, AT&T, and Dish Networks.',
+        icon: <Radio className="w-6 h-6" />,
+        capabilities: [
+          'Installation and Maintenance for Verizon, T-Mobile, and AT&T',
+          'Dish Networks equipment installation',
+          'RF installation, testing and 5G equipment installation',
+          'Installation and Repair of Macro Lines & Tower Equipment',
+          'Small Cell Tower installation',
+          'Install Coax, Hybrid Cabling & RF Equipment',
+          'Troubleshooting and Operational Testing',
+          'PIM, Sweep and OTDR testing',
+          'Cabinet engineering and connections',
+          'Decommission and demolition'
+        ]
+      },
+      {
+        title: 'Network & Backhaul Solutions',
+        description: 'Comprehensive backhaul and RAN solutions for reliable wireless network connectivity.',
         icon: <Network className="w-6 h-6" />,
         capabilities: [
-          'Fiber optic installation and splicing',
-          '5G and wireless network deployment',
-          'DAS (Distributed Antenna Systems)',
-          'VoIP and unified communications',
-          'Network design and implementation'
+          'Internet Backhaul and Wireless Backhaul',
+          'Broadband and C-Band solutions',
+          'RAN Solutions',
+          'Fiber and backhaul services',
+          'ISP Installation and new builds groundwork',
+          'Low Voltage Systems, Generator and Alternative',
+          'Electrical, Hydrogen, power plants and batteries',
+          'Mobile Fleet / Transportation',
+          'Consulting Services'
         ]
       },
       {
-        title: 'Data Centers',
-        description: 'Mission-critical data center infrastructure with redundant power and cooling systems.',
-        icon: <Server className="w-6 h-6" />,
+        title: 'Civil Construction Services',
+        description: 'Civil construction and project management for wireless infrastructure, from site preparation to final commissioning.',
+        icon: <Building2 className="w-6 h-6" />,
         capabilities: [
-          'Server room electrical systems',
-          'UPS and backup power systems',
-          'Cable management and routing',
-          'Environmental monitoring',
-          'Hot/cold aisle containment'
-        ]
-      },
-      {
-        title: 'Structured Wiring & Cabling',
-        description: 'Professional cabling infrastructure for voice, data, and video systems.',
-        icon: <Cable className="w-6 h-6" />,
-        capabilities: [
-          'Cat5e/Cat6/Cat6A installation',
-          'Fiber optic backbone systems',
-          'Cable certification and testing',
-          'Pathway and raceway systems',
-          'Telecommunications rooms'
-        ]
-      },
-      {
-        title: 'Security Systems, CCTV & Access Control',
-        description: 'Integrated security solutions to protect your facilities and assets.',
-        icon: <Camera className="w-6 h-6" />,
-        capabilities: [
-          'IP and analog camera systems',
-          'Access control and card readers',
-          'Intrusion detection systems',
-          'Video management software',
-          'Remote monitoring solutions'
-        ]
-      },
-      {
-        title: 'Sound & Video Systems',
-        description: 'Professional audio-visual systems for conference rooms, auditoriums, and public spaces.',
-        icon: <Speaker className="w-6 h-6" />,
-        capabilities: [
-          'Conference room AV systems',
-          'Public address systems',
-          'Digital signage',
-          'Projection and display systems',
-          'Control system integration'
-        ]
-      },
-      {
-        title: 'Building Renovation',
-        description: 'Electrical upgrades and modernization for existing commercial structures.',
-        icon: <Wrench className="w-6 h-6" />,
-        capabilities: [
-          'Electrical system upgrades',
-          'Panel replacements',
-          'Lighting retrofits',
-          'Code compliance updates',
-          'Energy efficiency improvements'
+          'Civil Construction services',
+          'Construction Management',
+          'Site Act and Project Management',
+          'Decommission and demolition'
         ]
       }
     ]
   },
   {
-    id: 'electrical-infrastructure',
-    title: 'Electrical Infrastructure',
-    description: 'Power generation, distribution, and sustainable energy solutions for modern infrastructure needs.',
+    id: 'network-infrastructure',
+    title: 'Network Infrastructure',
+    description: 'Data center solutions, cabling infrastructure, fiber optics, DAS wireless, and advanced network systems for enterprise and public safety applications.',
+    icon: <Server className="w-8 h-8" />,
+    color: 'from-indigo-500 to-indigo-600',
+    services: [
+      {
+        title: 'Data Centers & CO',
+        description: 'Mission-critical data center infrastructure including rack and stack, power whips, and in-building head-end integration.',
+        icon: <Server className="w-6 h-6" />,
+        capabilities: [
+          'Data Centers / CO rack and stack',
+          'Power whips and distribution',
+          'In-building Head-end Integration',
+          'Cable management and routing',
+          'Environmental monitoring'
+        ]
+      },
+      {
+        title: 'Fiber Optic & Network Services',
+        description: 'Professional fiber optic splicing, terminating, and cabling infrastructure for enterprise and public safety networks.',
+        icon: <Cable className="w-6 h-6" />,
+        capabilities: [
+          'Fiber Optic Splicing and Terminating',
+          'Cabling Infrastructure and Network Services',
+          'DAS Wireless',
+          'Outside Plant Public Safety 5G',
+          'Broadband fiber connections'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'charging-iot-5g',
+    title: 'Charging / IoT / 5G',
+    description: 'EV charging infrastructure, IoT device deployment, video surveillance, and public safety communications for the connected future.',
     icon: <Zap className="w-8 h-8" />,
     color: 'from-amber-500 to-orange-500',
     services: [
       {
-        title: 'Electric Vehicle Charging Stations',
-        description: 'Complete EV charging infrastructure from site preparation to commissioning.',
+        title: 'EV Charging Stations & Clean Energy',
+        description: 'Complete electric vehicle charging station installation and clean energy infrastructure for commercial and fleet applications.',
         icon: <Car className="w-6 h-6" />,
         capabilities: [
+          'EV Charging stations / Clean Energy',
           'Level 2 and DC fast charging',
           'Site assessment and planning',
-          'Trenching and conduit installation',
           'Electrical panel upgrades',
           'Network connectivity setup'
         ]
       },
       {
-        title: 'Power Generation',
-        description: 'Reliable power generation systems for backup and primary power needs.',
-        icon: <Factory className="w-6 h-6" />,
+        title: 'Security, Surveillance & IoT',
+        description: 'Intrusion detection, video surveillance, IoT device deployment, and public safety communications.',
+        icon: <Camera className="w-6 h-6" />,
         capabilities: [
-          'Generator installation',
-          'Automatic transfer switches',
-          'Load bank testing',
-          'Preventive maintenance',
-          'Emergency power systems'
-        ]
-      },
-      {
-        title: 'Substations',
-        description: 'Substation construction, maintenance, and upgrades for utility infrastructure.',
-        icon: <Zap className="w-6 h-6" />,
-        capabilities: [
-          'Substation construction',
-          'Transformer installation',
-          'Switchgear installation',
-          'Protective relay systems',
-          'Grounding systems'
-        ]
-      },
-      {
-        title: 'Transmission & Distribution',
-        description: 'High-voltage transmission and distribution line installation and maintenance.',
-        icon: <Radio className="w-6 h-6" />,
-        capabilities: [
-          'Overhead line construction',
-          'Underground cable installation',
-          'Pole and tower erection',
-          'Line maintenance and repair',
-          'Storm restoration services'
-        ]
-      },
-      {
-        title: 'Smart Grid Solutions',
-        description: 'Advanced grid technologies for improved efficiency and reliability.',
-        icon: <Activity className="w-6 h-6" />,
-        capabilities: [
-          'Smart meter installation',
-          'Grid automation systems',
-          'SCADA integration',
-          'Demand response systems',
-          'Grid monitoring solutions'
-        ]
-      },
-      {
-        title: 'Energy Management & Power Quality',
-        description: 'Monitoring and optimization of electrical systems for peak performance.',
-        icon: <Lightbulb className="w-6 h-6" />,
-        capabilities: [
-          'Power quality analysis',
-          'Energy audits',
-          'Power factor correction',
-          'Harmonic filtering',
-          'Load management systems'
+          'Intrusion Detection and Video Surveillance',
+          'Camera Installation and optimization',
+          'IOT device installation and optimization',
+          'Programming and Commissioning',
+          'Public Safety Private 60 MHZ, CBRS LTE'
         ]
       }
     ]
   },
   {
-    id: 'utility-municipal',
-    title: 'Utility & Municipal Services',
-    description: 'Infrastructure solutions for municipalities, utilities, and public works projects.',
-    icon: <TrafficCone className="w-8 h-8" />,
-    color: 'from-green-500 to-emerald-600',
-    services: [
-      {
-        title: 'Street Lighting & Traffic Control',
-        description: 'Public lighting and traffic management system installation and maintenance.',
-        icon: <Lightbulb className="w-6 h-6" />,
-        capabilities: [
-          'LED street light conversion',
-          'Traffic signal installation',
-          'Intelligent traffic systems',
-          'Pedestrian crossing systems',
-          'Parking lot lighting'
-        ]
-      },
-      {
-        title: 'Underground Utilities',
-        description: 'Underground utility installation with minimal surface disruption.',
-        icon: <Cable className="w-6 h-6" />,
-        capabilities: [
-          'Directional boring',
-          'Trenching and excavation',
-          'Conduit installation',
-          'Duct bank construction',
-          'Utility locating services'
-        ]
-      },
-      {
-        title: 'Cable Splicing',
-        description: 'Expert cable splicing for power and communication systems.',
-        icon: <Cable className="w-6 h-6" />,
-        capabilities: [
-          'Medium voltage splicing',
-          'Fiber optic splicing',
-          'Cable terminations',
-          'Splice testing and certification',
-          'Emergency splice repairs'
-        ]
-      },
-      {
-        title: 'Signage',
-        description: 'Electrical signage installation for commercial and municipal applications.',
-        icon: <Building2 className="w-6 h-6" />,
-        capabilities: [
-          'Illuminated sign installation',
-          'LED display systems',
-          'Wayfinding signage',
-          'Monument signs',
-          'Sign maintenance and repair'
-        ]
-      },
-      {
-        title: 'Tree Trimming & Line Clearance',
-        description: 'Vegetation management for utility right-of-way maintenance.',
-        icon: <TreePine className="w-6 h-6" />,
-        capabilities: [
-          'Utility line clearance',
-          'Right-of-way maintenance',
-          'Storm damage cleanup',
-          'Hazard tree removal',
-          'Vegetation management plans'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'testing-certification',
-    title: 'Testing & Certification',
-    description: 'Comprehensive electrical testing and certification services to ensure safety and compliance.',
-    icon: <FileCheck className="w-8 h-8" />,
+    id: 'audio-visual',
+    title: 'Audio / Visual',
+    description: 'Professional AV systems for corporate boardrooms, command centers, classroom media, churches, and whole smart building control and monitoring.',
+    icon: <Speaker className="w-8 h-8" />,
     color: 'from-purple-500 to-purple-600',
     services: [
       {
-        title: 'Electrical Testing & Certification',
-        description: 'Complete testing services to verify system integrity and compliance.',
-        icon: <FileCheck className="w-6 h-6" />,
+        title: 'AV Systems & Smart Building Integration',
+        description: 'Full-service audio/visual system design, installation, and programming for corporate, educational, and mission-critical environments.',
+        icon: <Speaker className="w-6 h-6" />,
         capabilities: [
-          'Acceptance testing',
-          'Protective relay testing',
-          'Cable testing and fault location',
-          'Thermographic surveys',
-          'Ground resistance testing',
-          'Power quality analysis',
-          'Arc flash studies',
-          'NETA certification testing'
+          'Control System Programming',
+          'Audio DSP Programming',
+          'Audio Systems Evaluation, Balancing, and Calibration',
+          'Broadband Fiber Connections',
+          'Cabling Services – Audio, Broadcast, Control, Data, Voice, Video',
+          'Classroom Media Systems',
+          'Command Centers and Mission Critical',
+          'Control Systems for Audio, Video, Lighting',
+          'Corporate Boardrooms',
+          'Intercom Systems (Production and Wireless)',
+          'Whole SMART Building Control and Monitoring',
+          'Churches and convention centers'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'training-certification',
+    title: 'Training & Certification',
+    description: 'Training classes and certification programs for field technicians and those seeking technical growth in integration, 5G, and structured cabling standards.',
+    icon: <GraduationCap className="w-8 h-8" />,
+    color: 'from-green-500 to-emerald-600',
+    services: [
+      {
+        title: 'Technical Training Programs',
+        description: 'Hands-on training and certification for field technicians covering integration, 5G technologies, and telecom standards.',
+        icon: <GraduationCap className="w-6 h-6" />,
+        capabilities: [
+          'Integration / Installation training',
+          '5G technologies certification',
+          'Structured Cabling and Telecom Standards',
+          'Field technician development programs',
+          'Technical growth certification'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'design-drafting',
+    title: 'Design & Drafting (A&E)',
+    description: 'Architecture, mechanical, electrical, and structural experience in the telecom industry — from conceptual design through permitting, surveys, and as-built documentation.',
+    icon: <Ruler className="w-8 h-8" />,
+    color: 'from-rose-500 to-pink-600',
+    services: [
+      {
+        title: 'Architecture & Engineering Services',
+        description: 'Surveys, as-builts, zoning drawings, and construction drawings. Our clients are our number one priority — we go the extra mile for even the most complex projects.',
+        icon: <Ruler className="w-6 h-6" />,
+        capabilities: [
+          'Conceptual, Permitting and As-builts Drawings',
+          'Survey and Modification Plan Drawings',
+          'FAA application and drawings',
+          'Lease Exhibits',
+          'Pre-Construction Audits and financial',
+          'Electrical, fire, hazard and special permits recovery',
+          'Benchmarking and design'
         ]
       }
     ]
@@ -457,18 +390,17 @@ const ServicesPage = () => {
             className="text-center text-white"
           >
             <span className="inline-block px-4 py-1.5 bg-gold-500/20 text-gold-400 rounded-full text-sm font-semibold mb-6 border border-gold-500/30">
-              NECA Certified Contractor
+              Licensed #1099543 A, B, C-10 · Bonded &amp; Insured
             </span>
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Professional
+              Elevate and Inspire
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600">
-                {' '}Electrical & Communications
+                {' '}to the Next Level
               </span>
-              <br />Services
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-8">
-              Comprehensive solutions for commercial, industrial, and municipal projects.
-              Licensed, bonded, and insured throughout California, Nevada, and Oregon.
+              Full-service telecommunications and construction — Wireless, Network Infrastructure,
+              EV Charging, Audio/Visual, Training, and A&E Design. Serving California, Nevada, and Oregon.
             </p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -544,41 +476,68 @@ const ServicesPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-center">
               <Shield className="w-16 h-16 text-gold-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">CA License #1099543</h3>
-              <p className="text-gray-300">Fully licensed contractor in California with proven compliance record</p>
+              <h3 className="text-xl font-bold text-white mb-2">License #1099543 A, B, C-10</h3>
+              <p className="text-gray-300">Fully licensed contractor in California for general engineering, general building, and electrical work</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-center">
               <CheckCircle className="w-16 h-16 text-gold-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">NECA Member</h3>
-              <p className="text-gray-300">National Electrical Contractors Association certified member</p>
+              <h3 className="text-xl font-bold text-white mb-2">Bond #G121001978153</h3>
+              <p className="text-gray-300">Fully bonded and insured — your project and investment are protected</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-center">
               <Building2 className="w-16 h-16 text-gold-400 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">We Beat Estimates</h3>
-              <p className="text-gray-300">Forward your estimate - we&apos;ll provide a competitive alternative</p>
+              <p className="text-gray-300">Forward your estimate — we&apos;ll provide a competitive cost-efficient alternative</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Service Area */}
+      {/* Previous Clients */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Service Areas</h2>
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Proudly serving Northern California, Central Valley, Bay Area, Nevada, and Oregon.
+              We have proudly served major telecommunications carriers and enterprise clients across the United States.
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {['Stockton', 'Sacramento', 'San Jose', 'Oakland', 'Modesto', 'Fresno', 'Reno', 'Sparks', 'Portland', 'Bay Area'].map((city) => (
+          <div className="flex flex-wrap justify-center items-center gap-4 mb-12">
+            {['Verizon', 'T-Mobile', 'AT&T', 'Ericsson', 'Nokia', 'CenturyLink'].map((client) => (
               <span
-                key={city}
-                className="px-4 py-2 bg-gray-100 rounded-full text-gray-700 font-medium"
+                key={client}
+                className="px-6 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 font-semibold text-base shadow-sm"
               >
-                {city}
+                {client}
               </span>
             ))}
+            <span className="px-6 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-500 font-medium text-base">
+              And others
+            </span>
+          </div>
+
+          {/* Network Family / Partner Companies */}
+          <div className="border-t border-gray-100 pt-10">
+            <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">
+              Network Family &amp; Partner Companies
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {[
+                'Luma Builders',
+                'Salient Global Technologies',
+                'Blackrock A&E Services',
+                'Intellifreight Logistics',
+                'Alpha Services',
+                'Lucas Electric'
+              ].map((partner) => (
+                <span
+                  key={partner}
+                  className="px-4 py-2 bg-gold-50 border border-gold-200 rounded-full text-gold-800 text-sm font-medium"
+                >
+                  {partner}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -627,7 +586,7 @@ const ServicesPage = () => {
               </a>
               <span className="inline-flex items-center gap-2">
                 <MapPin className="w-5 h-5" />
-                Stockton, CA
+                Hayward, CA
               </span>
             </div>
           </motion.div>

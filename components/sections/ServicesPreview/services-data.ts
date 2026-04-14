@@ -11,75 +11,63 @@ import { ServiceCategory, FeaturedService } from './types';
  */
 export const serviceCategories: ServiceCategory[] = [
   {
-    id: 'commercial-industrial',
-    title: 'Commercial / Industrial / Institutional',
-    description: 'Full-service electrical and communications solutions for commercial buildings, industrial facilities, and institutional projects.',
+    id: 'wireless',
+    title: 'Wireless',
+    description: 'Installation and maintenance for Verizon, T-Mobile, AT&T, and Dish Networks — RF, 5G, small cells, backhaul, RAN, and civil construction.',
     icon: Building2,
-    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation-card.jpg',
+    image: '/images/projects/Sparks-NV/tower-tree-install.jpg',
     color: 'from-blue-600 to-blue-800',
     services: [
-      'Building Renovation',
-      'Cable Splicing',
-      'Communications & Networking Systems',
-      'Data Centers',
-      'Electrical Testing',
-      'EV Charging Stations',
-      'Energy Management & Power Quality Monitoring',
-      'Power Generation',
-      'Security Systems, CCTV & Access Control',
-      'Signage',
-      'Smart Grid',
-      'Sound & Video Systems',
-      'Street Lighting & Traffic Control',
-      'Structured Wiring & Cabling',
-      'Substations',
-      'Transmission & Distribution',
-      'Tree Trimming / Line Clearance',
-      'Underground Utilities'
+      'Carrier Installation & Maintenance (Verizon, T-Mobile, AT&T, Dish)',
+      'RF Installation, Testing & 5G Equipment',
+      'Macro Lines & Small Cell Towers',
+      'Internet Backhaul & Wireless Backhaul',
+      'C-Band & Broadband Solutions',
+      'RAN Solutions',
+      'Fiber & Backhaul Services',
+      'PIM, Sweep & OTDR Testing',
+      'ISP Installation & New Builds',
+      'Civil Construction Services',
+      'Decommission & Demolition',
+      'Consulting Services'
     ]
   },
   {
-    id: 'residential',
-    title: 'Residential',
-    description: 'Professional electrical services for residential properties, from new construction to renovations and upgrades.',
+    id: 'network-infrastructure',
+    title: 'Network Infrastructure',
+    description: 'Data centers, fiber optic splicing, DAS wireless, cabling infrastructure, and outside plant public safety 5G.',
     icon: Home,
-    image: '/images/projects/PouringConcrete.jpg',
-    color: 'from-green-600 to-green-800',
+    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation-card.jpg',
+    color: 'from-indigo-600 to-indigo-800',
     services: [
-      'Building Renovation',
-      'Electrical Testing',
-      'Power Generation',
-      'Security Systems, CCTV & Access Control',
-      'Smart Grid Integration',
-      'Sound & Video Systems',
-      'Street Lighting & Traffic Control',
-      'Substations',
-      'Transmission & Distribution',
-      'Tree Trimming / Line Clearance',
-      'Underground Utilities'
+      'Data Centers / CO Rack & Stack',
+      'Power Whips & Distribution',
+      'Cabling Infrastructure & Network Services',
+      'DAS Wireless',
+      'Fiber Optic Splicing & Terminating',
+      'Outside Plant Public Safety 5G',
+      'In-Building Head-end Integration'
     ]
   },
   {
-    id: 'utility-municipal',
-    title: 'Non-Building (Utility, Municipal, etc.)',
-    description: 'Specialized infrastructure services for utilities, municipalities, and public works projects across California, Nevada, and Oregon.',
+    id: 'charging-iot-av',
+    title: 'Charging / IoT / 5G / Audio-Visual',
+    description: 'EV charging stations, IoT devices, intrusion detection, video surveillance, CBRS LTE, and full audio/visual system integration.',
     icon: Landmark,
-    image: '/images/projects/Bodega-Bay-CA/bulldozer-trench.jpg',
+    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-2.jpg',
     color: 'from-amber-600 to-amber-800',
     services: [
-      'Building Renovation',
-      'Cable Splicing',
-      'Electrical Testing',
-      'Power Generation',
-      'Security Systems, CCTV & Access Control',
-      'Signage',
-      'Smart Grid',
-      'Sound & Video Systems',
-      'Street Lighting & Traffic Control',
-      'Substations',
-      'Transmission & Distribution',
-      'Tree Trimming / Line Clearance',
-      'Underground Utilities'
+      'EV Charging Stations / Clean Energy',
+      'Intrusion Detection & Video Surveillance',
+      'IOT Device Installation & Optimization',
+      'Public Safety Private 60 MHZ, CBRS LTE',
+      'Programming & Commissioning',
+      'Control System & Audio DSP Programming',
+      'Smart Building Control & Monitoring',
+      'Corporate Boardrooms & Command Centers',
+      'Classroom Media Systems',
+      'Intercom Systems (Production & Wireless)',
+      'Churches & Convention Centers'
     ]
   }
 ];
@@ -90,27 +78,27 @@ export const serviceCategories: ServiceCategory[] = [
  */
 export const featuredServices: FeaturedService[] = [
   {
-    id: 'ev-charging',
-    title: 'EV Charging Stations',
-    description: 'Commercial and fleet electric vehicle charging infrastructure installation and maintenance.',
-    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-2.jpg'
-  },
-  {
-    id: 'underground',
-    title: 'Underground Utilities',
-    description: 'Trenching, grading, conduit installation, and underground cable infrastructure.',
-    image: '/images/projects/Oregon-AV-Station/trench/trench-card.jpg'
-  },
-  {
-    id: 'telecommunications',
-    title: 'Communications & Networking',
-    description: 'Fiber optics, 5G infrastructure, data centers, and structured cabling systems.',
+    id: 'wireless',
+    title: 'Wireless & 5G',
+    description: 'Installation and maintenance for Verizon, T-Mobile, AT&T, and Dish Networks — small cells, RAN, backhaul, and 5G equipment.',
     image: '/images/projects/Sparks-NV/tower-tree-install.jpg'
   },
   {
-    id: 'construction',
+    id: 'ev-charging',
+    title: 'EV Charging / Clean Energy',
+    description: 'Commercial and fleet electric vehicle charging station installation, programming, and commissioning.',
+    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-2.jpg'
+  },
+  {
+    id: 'network-infrastructure',
+    title: 'Network Infrastructure',
+    description: 'Data centers, fiber optic splicing, DAS wireless, cabling infrastructure, and public safety 5G systems.',
+    image: '/images/projects/Oregon-AV-Station/trench/trench-card.jpg'
+  },
+  {
+    id: 'civil-construction',
     title: 'Civil Construction',
-    description: 'Site preparation, concrete work, and heavy equipment operations for infrastructure projects.',
+    description: 'Site preparation, trenching, conduit installation, and heavy equipment operations for telecom and utility infrastructure.',
     image: '/images/projects/Bodega-Bay-CA/construction-dozer.jpg'
   }
 ];

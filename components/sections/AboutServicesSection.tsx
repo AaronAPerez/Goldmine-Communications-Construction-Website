@@ -215,7 +215,7 @@ export default function AboutServicesSection() {
           <span className="inline-flex items-center px-4 py-2 bg-[#B3995D] text-white shadow-2xl
                          rounded-full text-sm font-semibold border border-gold-200">
             <TrophyIcon className="w-4 h-4 mr-2" aria-hidden="true" />
-            Excellence Since 2022
+            60+ Years Combined Experience
           </span>
         </motion.div>
 
@@ -257,18 +257,19 @@ export default function AboutServicesSection() {
         >
           <div>
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-              Excellence Through Expert Management & 
-              <span className="text-gold-600"> Seamless Services</span>
+              Integrity First, Family Principles,
+              <span className="text-gold-600"> Customer Always</span>
             </h3>
             <p className="text-lg text-gray-600 leading-relaxed mb-6">
-              With expert management and seamless services, we uphold the highest standards 
-              of integrity and dedication to our diverse customer base. We pride ourselves 
-              on our extensive expertise and versatility in production, making us the best in class.
+              Goldmine Communications Inc was founded by three individuals with over 60 years&apos;
+              combined experience in Telecom and commercial electrical contracting services.
+              We bring diverse expertise, versatility, commitment, quality, and above all — Safety into the network.
             </p>
             <p className="text-gray-600 leading-relaxed">
-              Our steadfast commitment and highly productive team are driven by passion and 
-              relentless dedication to problem-solving, maintaining uncompromising quality 
-              standards tailored to each customer.
+              Goldmine is an integrity-first business serving various industries in telecommunications
+              and communications. We have taken a comprehensive approach to providing our clients with
+              a wide range of services to cover their changing needs while providing the most
+              cost-efficient solutions with innovative ideas and commitment.
             </p>
           </div>
 
@@ -479,24 +480,27 @@ export default function AboutServicesSection() {
           </div>
 
           <div className="relative z-10">
-            <h3 className="text-3xl md:text-4xl font-bold mb-8">
-              Setting the Pace for Tomorrow
+            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+              Our Mission
             </h3>
             <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-6 leading-relaxed">
-              At Goldmine Communications, we don&apos;t just keep pace with the latest industry 
-              demands; we set the pace. Founded on principles of optimism, teamwork, creativity, 
-              resourcefulness, exacting standards, unwavering productivity, safety, integrity, 
-              dedication, and customer satisfaction.
+              It is the mission of Goldmine to be the preeminent full-services provider of
+              telecommunications network infrastructure by offering family principles. Pride and
+              customer-first approach with maintaining quality services, honest business, and
+              holding the highest of customer response and relations in our field.
             </p>
-            
-            <div className="bg-gold-400/10 backdrop-blur-sm rounded-2xl p-4 border border-gold-400/20 max-w-4xl mx-auto">
-              <blockquote className="text-xl md:text-2xl font-semibold text-gold-400 mb-4 italic">
-                &quot;Join us on this journey towards a future where business is not just efficient but transformative.&quot;
+
+            <div className="bg-gold-400/10 backdrop-blur-sm rounded-2xl p-6 border border-gold-400/20 max-w-4xl mx-auto mb-6">
+              <p className="text-sm font-semibold text-gold-400 uppercase tracking-wider mb-3">Our Vision</p>
+              <blockquote className="text-xl md:text-2xl font-semibold text-white italic">
+                &quot;To be recognized as a leading provider of elevating network standards and supply innovative
+                Installation, Network, and construction services.&quot;
               </blockquote>
-              <p className="text-gray-300 text-lg">
-                Thank you for choosing Goldmine Communications, where elevating and delivering is our commitment.
-              </p>
             </div>
+
+            <p className="text-gold-400 font-semibold text-lg tracking-wide">
+              Elevate and Inspire to the Next Level
+            </p>
           </div>
 
           {/* Decorative elements */}
