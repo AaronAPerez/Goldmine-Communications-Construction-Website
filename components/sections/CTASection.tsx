@@ -58,8 +58,8 @@ const trustIndicators = [
   },
   {
     icon: <Award className="w-5 h-5" aria-hidden="true" />,
-    text: '15+ Years Experience',
-    detail: 'Proven Track Record'
+    text: '60+ Years Combined Experience',
+    detail: 'Telecom & Electrical Contracting'
   }
 ];
 
