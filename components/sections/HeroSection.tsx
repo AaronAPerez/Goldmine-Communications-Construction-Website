@@ -381,7 +381,7 @@ const HeroSection = () => {
               >
                 {[
                   { text: 'Licensed & Insured', short: 'Licensed', icon: <Shield className="w-4 h-4 text-gold-400" aria-hidden="true" /> },
-                  { text: '15+ Years Experience', short: '15+ Years', icon: <Clock className="w-4 h-4 text-gold-400" aria-hidden="true" /> },
+                  { text: '60+ Years Combined Experience', short: '60+ Years', icon: <Clock className="w-4 h-4 text-gold-400" aria-hidden="true" /> },
                   { text: 'Quality Guarantee', short: 'Quality', icon: <Award className="w-4 h-4 text-gold-400" aria-hidden="true" /> },
                   { text: 'We Beat Estimates', short: 'Best Price', icon: <Target className="w-4 h-4 text-gold-400" aria-hidden="true" /> }
                 ].map(({ text, short, icon }, index) => (
