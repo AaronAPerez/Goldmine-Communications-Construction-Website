@@ -182,13 +182,13 @@ export default function RootLayout({
 
         {/* Layout structure with overflow fixes */}
         <div className="min-h-screen flex flex-col overflow-x-hidden w-full max-w-full">
-          {/* Top contact bar - fixed width */}
-          <div className="w-full overflow-x-hidden">
+          {/* Top contact bar - hidden when printing */}
+          <div className="w-full overflow-x-hidden print:hidden">
             <TopContactBar />
           </div>
 
-          {/* Float ing navigation - fixed width */}
-          <div className="w-full overflow-x-hidden">
+          {/* Floating navigation - hidden when printing */}
+          <div className="w-full overflow-x-hidden print:hidden">
             <FloatingNavigation />
           </div>
 
@@ -204,13 +204,15 @@ export default function RootLayout({
             <SpeedInsights />
           </main>
 
-          {/* Footer with width constraints */}
-          <div className="w-full overflow-x-hidden">
+          {/* Footer - hidden when printing */}
+          <div className="w-full overflow-x-hidden print:hidden">
             <Footer />
           </div>
 
-          {/* Scroll to top button */}
-          <ScrollToTop />
+          {/* Scroll to top button - hidden when printing */}
+          <div className="print:hidden">
+            <ScrollToTop />
+          </div>
         </div>
       </body>
     </html>

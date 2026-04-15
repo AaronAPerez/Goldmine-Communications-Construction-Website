@@ -80,7 +80,7 @@ const businessHighlights = [
   },
   {
     icon: <Award className="w-5 h-5" />,
-    title: '15+ Years Experience',
+    title: '60+ Years Combined Experience',
     subtitle: 'Industry Leaders',
     description: 'Specialized expertise in healthcare and infrastructure'
   },
