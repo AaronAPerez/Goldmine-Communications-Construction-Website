@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import React from 'react';
 import Image from 'next/image';
 import BrochurePrintButton from '@/components/brochure/BrochurePrintButton';
 import {
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
 /* ─── Data ──────────────────────────────────────────────────────────────────── */
 
 /** Page 1 — six core service cards */
-const services = [
+const services: { icon: React.ElementType; title: string; color: string; image: string | null; highlights: string[] }[] = [
   {
     icon: Radio,
     title: 'Wireless',
@@ -51,7 +52,7 @@ const services = [
     icon: Server,
     title: 'Network Infrastructure',
     color: '#6366F1',
-    image: '/images/projects/Oregon-AV-Station/trench/trench-card.jpg',
+    image: '/images/optimized/webp/communications.webp',
     highlights: [
       'Data centers — rack & stack',
       'Fiber optic splicing & termination',
@@ -64,6 +65,7 @@ const services = [
     title: 'Charging / IoT / 5G',
     color: '#F59E0B',
     image: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-1.jpg',
+    // image: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-1.jpg',
     highlights: [
       'EV charging station installation',
       'Level 2 & DC fast charging',
@@ -75,7 +77,7 @@ const services = [
     icon: Speaker,
     title: 'Audio / Visual',
     color: '#8B5CF6',
-    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation2.jpg',
+    image: null,
     highlights: [
       'Corporate boardrooms & command centers',
       'Control system & DSP programming',
@@ -87,7 +89,7 @@ const services = [
     icon: GraduationCap,
     title: 'Training & Certification',
     color: '#10B981',
-    image: '/images/projects/Sparks-NV/tower-tree-install.jpg',
+    image: null,
     highlights: [
       'Integration & installation training',
       '5G technologies certification',
@@ -99,7 +101,7 @@ const services = [
     icon: Ruler,
     title: 'Design & Drafting (A&E)',
     color: '#EF4444',
-    image: '/images/projects/Bodega-Bay-CA/bulldozer-1.jpg',
+    image: null,
     highlights: [
       'Conceptual, permitting & as-built drawings',
       'Survey & modification plan drawings',
@@ -217,6 +219,16 @@ export default function BrochurePage() {
             position: absolute;
             inset: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.28) 100%);
+          }
+
+          /* ── Service card icon banner (used when no photo is available) ─── */
+          .brochure-icon-banner {
+            margin: -1rem -1rem 0.75rem -1rem;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem 0.75rem 0 0;
           }
 
           /* ── About section cards ────────────────────────── */
@@ -371,16 +383,19 @@ export default function BrochurePage() {
                       className="rounded-xl border border-gray-100 p-4 bg-gray-50"
                       style={{ borderTop: `3px solid ${color}` }}
                     >
-                      <div className="brochure-service-img-wrap">
-                        <Image
-                          src={image}
-                          alt={`${title} — Goldmine project`}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        />
-                        <div className="brochure-service-img-overlay" aria-hidden="true" />
-                      </div>
+                      {image && (
+                        /* Photo strip — services with a project image */
+                        <div className="brochure-service-img-wrap">
+                          <Image
+                            src={image}
+                            alt={`${title} — Goldmine project`}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          />
+                          <div className="brochure-service-img-overlay" aria-hidden="true" />
+                        </div>
+                      )}
                       <div className="flex items-center gap-2 mb-3">
                         <div className="p-1.5 rounded-lg" style={{ backgroundColor: `${color}18` }}>
                           <Icon className="w-4 h-4" style={{ color }} aria-hidden="true" />
