@@ -30,7 +30,7 @@ const services = [
   {
     title: 'Network Infrastructure',
     color: '#6366F1',
-    image: '/images/projects/Oregon-AV-Station/trench/trench-card.jpg',
+    image: '/images/optimized/webp/communications.webp',
     highlights: [
       'Data centers — rack & stack',
       'Fiber optic splicing & termination',
@@ -52,7 +52,8 @@ const services = [
   {
     title: 'Audio / Visual',
     color: '#8B5CF6',
-    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation2.jpg',
+    image: '',
+    // image: '/images/projects/Oregon-AV-Station/AV-station/AvStation2.jpg',
     highlights: [
       'Corporate boardrooms & command centers',
       'Control system & DSP programming',
@@ -63,7 +64,8 @@ const services = [
   {
     title: 'Training & Certification',
     color: '#10B981',
-    image: '/images/projects/Sparks-NV/tower-tree-install.jpg',
+    image: '',
+    // image: '/images/projects/Sparks-NV/tower-tree-install.jpg',
     highlights: [
       'Integration & installation training',
       '5G technologies certification',
@@ -74,7 +76,8 @@ const services = [
   {
     title: 'Design & Drafting (A&E)',
     color: '#EF4444',
-    image: '/images/projects/Bodega-Bay-CA/bulldozer-1.jpg',
+    image: '',
+    // image: '/images/projects/Bodega-Bay-CA/bulldozer-1.jpg',
     highlights: [
       'Conceptual, permitting & as-built drawings',
       'Survey & modification plan drawings',
@@ -422,8 +425,8 @@ function buildPrintHTML(origin: string): string {
     .cta-sub   { font-size: 7pt; color: rgba(255,255,255,0.85); }
 
     /* ── Service card image strip ─────────────────────── */
-    .service-img-wrap { position: relative; margin: -10px -10px 8px -10px; height: 90px; overflow: hidden; border-radius: 8px 8px 0 0; flex-shrink: 0; }
-    .service-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .service-img-wrap { position: relative; margin: -10px -10px 8px -10px; height: 120px; overflow: hidden; border-radius: 8px 8px 0 0; flex-shrink: 0; }
+    .service-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
     .service-img-overlay  { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.25)); }
 
     /* ── Page 3 — Licensing ───────────────────────────── */

@@ -209,15 +209,9 @@ export default function BrochurePage() {
           .brochure-service-img-wrap {
             position: relative;
             margin: -1rem -1rem 0.75rem -1rem;
-            height: 72px;
+            height: 140px;
             overflow: hidden;
             border-radius: 0.75rem 0.75rem 0 0;
-          }
-          .brochure-service-img-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
           }
           .brochure-service-img-overlay {
             position: absolute;
@@ -381,9 +375,9 @@ export default function BrochurePage() {
                         <Image
                           src={image}
                           alt={`${title} — Goldmine project`}
-                          width={300}
-                          height={82}
-                          className="w-full h-full object-cover rounded-tl-xl rounded-tr-xl"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
                         <div className="brochure-service-img-overlay" aria-hidden="true" />
                       </div>
