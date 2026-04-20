@@ -30,7 +30,7 @@ const services = [
   {
     title: 'Network Infrastructure',
     color: '#6366F1',
-    image: '/images/projects/Oregon-AV-Station/trench/trench-card.jpg',
+    image: '/images/optimized/webp/communications.webp',
     highlights: [
       'Data centers — rack & stack',
       'Fiber optic splicing & termination',
@@ -52,7 +52,8 @@ const services = [
   {
     title: 'Audio / Visual',
     color: '#8B5CF6',
-    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation2.jpg',
+    image: '',
+    // image: '/images/projects/Oregon-AV-Station/AV-station/AvStation2.jpg',
     highlights: [
       'Corporate boardrooms & command centers',
       'Control system & DSP programming',
@@ -63,7 +64,8 @@ const services = [
   {
     title: 'Training & Certification',
     color: '#10B981',
-    image: '/images/projects/Sparks-NV/tower-tree-install.jpg',
+    image: '',
+    // image: '/images/projects/Sparks-NV/tower-tree-install.jpg',
     highlights: [
       'Integration & installation training',
       '5G technologies certification',
@@ -74,7 +76,8 @@ const services = [
   {
     title: 'Design & Drafting (A&E)',
     color: '#EF4444',
-    image: '/images/projects/Bodega-Bay-CA/bulldozer-1.jpg',
+    image: '',
+    // image: '/images/projects/Bodega-Bay-CA/bulldozer-1.jpg',
     highlights: [
       'Conceptual, permitting & as-built drawings',
       'Survey & modification plan drawings',
@@ -153,7 +156,17 @@ function buildHeader(logoSrc: string, subtitle: string, rightContent: string): s
   `;
 }
 
-/** Service card with photo strip — used in the 3×2 grid on page 1 */
+/**
+ * Unicode fallback icons for services that have no project photo.
+ * Keyed by service title so the map is self-documenting.
+ */
+const serviceIconGlyph: Record<string, string> = {
+  'Audio / Visual':          '&#127897;', // 🎙 microphone
+  'Training & Certification': '&#127891;', // 🎓 graduation cap
+  'Design & Drafting (A&E)':  '&#9998;',  // ✎ pencil / drafting
+};
+
+/** Service card — shows a photo strip when available, or a centred icon banner */
 function buildServiceCard(
   title: string,
   color: string,
@@ -164,12 +177,19 @@ function buildServiceCard(
   const bullets = highlights
     .map(h => `<li><span class="bullet" style="background:${color}"></span>${h}</li>`)
     .join('');
+
+  const topBanner = image
+    ? `<div class="service-img-wrap">
+         <img src="${origin}${image}" alt="${title} — Goldmine project" />
+         <div class="service-img-overlay"></div>
+       </div>`
+    : `<div class="service-icon-banner" style="background:${color}14">
+         <span class="service-icon-glyph" style="color:${color}">${serviceIconGlyph[title] ?? '&#11044;'}</span>
+       </div>`;
+
   return `
     <div class="service-card" style="border-top:3px solid ${color}">
-      <div class="service-img-wrap">
-        <img src="${origin}${image}" alt="${title} — Goldmine project" />
-        <div class="service-img-overlay"></div>
-      </div>
+      ${topBanner}
       <div class="service-title">
         <span class="service-dot" style="background:${color}20; border:1px solid ${color}40">
           <span style="background:${color};width:8px;height:8px;border-radius:50%;display:inline-block;"></span>
@@ -422,9 +442,13 @@ function buildPrintHTML(origin: string): string {
     .cta-sub   { font-size: 7pt; color: rgba(255,255,255,0.85); }
 
     /* ── Service card image strip ─────────────────────── */
-    .service-img-wrap { position: relative; margin: -10px -10px 8px -10px; height: 90px; overflow: hidden; border-radius: 8px 8px 0 0; flex-shrink: 0; }
-    .service-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .service-img-wrap { position: relative; margin: -10px -10px 8px -10px; height: 120px; overflow: hidden; border-radius: 8px 8px 0 0; flex-shrink: 0; }
+    .service-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
     .service-img-overlay  { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.25)); }
+
+    /* ── Service card icon banner (no photo) ──────────── */
+    .service-icon-banner { margin: -10px -10px 8px -10px; height: 120px; border-radius: 8px 8px 0 0; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .service-icon-glyph  { font-size: 52pt; line-height: 1; }
 
     /* ── Page 3 — Licensing ───────────────────────────── */
     .license-intro { font-size: 8.5pt; color: #4b5563; line-height: 1.6; margin-bottom: 12px; }
