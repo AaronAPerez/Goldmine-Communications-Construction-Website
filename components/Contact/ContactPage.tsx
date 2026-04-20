@@ -254,7 +254,7 @@ const ContactPage = () => {
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <div
-                className="w-full h-full"/></div>
+                className="w-full h-full" />
             </div>
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-14 rounded-2xl">
