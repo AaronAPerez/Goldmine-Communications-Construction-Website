@@ -6,8 +6,9 @@ import TopContactBar from '../components/Contact/TopContactBar';
 import FloatingNavigation from '../components/Navigation/FloatingNavigation';
 import Footer from '../components/Footer/Footer';
 import { Analytics } from "@vercel/analytics/react";
-import { ScrollToTop } from '../components/Navigation/ScrollToTop';
+// import { ScrollToTop } from '../components/Navigation/ScrollToTop';
 import JsonLd, { localBusinessSchema, organizationSchema } from '../components/seo/JsonLd';
+import { FloatingContactButton } from '../components/Contact/FloatingContactButton';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -204,15 +205,18 @@ export default function RootLayout({
             <SpeedInsights />
           </main>
 
+                {/* Sticky Contact Button */}
+      <FloatingContactButton />
+
           {/* Footer - hidden when printing */}
           <div className="w-full overflow-x-hidden print:hidden">
             <Footer />
           </div>
 
           {/* Scroll to top button - hidden when printing */}
-          <div className="print:hidden">
+          {/* <div className="print:hidden">
             <ScrollToTop />
-          </div>
+          </div> */}
         </div>
       </body>
     </html>
