@@ -80,7 +80,7 @@ const communicationServices: ServiceDetail[] = [
     images: [
       { src: '/images/projects/Sparks-NV/tower-tree-4.jpg', alt: 'Wireless tower installation' },
       { src: '/images/projects/Sparks-NV/tower-tree-6.jpg', alt: '5G equipment installation' },
-      { src: '/images/projects/Sparks-NV/tower-tree-7.jpg', alt: 'Antenna mounting' },
+      { src: '/images/projects/Sparks-NV/tower-tree-7.jpg', alt: 'Tower equipment mounting' },
       { src: '/images/projects/communications-tower.png', alt: 'Communications tower' },
       { src: '/images/projects/TowerSky.png', alt: 'Tower against sky' }
     ],
@@ -90,9 +90,9 @@ const communicationServices: ServiceDetail[] = [
       'Internet Backhaul, Wireless Backhaul & Broadband Solutions',
       'C-Band Solutions & RAN Implementation',
       'Low Voltage Systems & Generator Installation',
-      'Macro Lines & Antennas Installation/Repair',
+      'Macro Lines & Tower Equipment Installation/Repair',
       'Small Cell Tower Installation',
-      'Antenna, Coax & Hybrid Cabling Installation',
+      'Coax, Hybrid Cabling & RF Equipment Installation',
       'PIM, Sweep & OTDR Testing',
       'Decommission & Demolition Services'
     ]

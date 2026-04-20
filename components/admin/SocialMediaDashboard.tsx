@@ -65,7 +65,7 @@ const mockPosts: SocialPost[] = [
   {
     id: '2',
     platform: 'instagram',
-    content: '💡 DID YOU KNOW?\n\nFiber Optic Installation is one of our core specialties at Goldmine Communications & Construction.\n\n🔧 What we offer:\n• Network Infrastructure\n• 5G Solutions\n• Data Center Construction',
+    content: '💡 DID YOU KNOW?\n\nFiber Optic Installation is one of our core specialties at Goldmine Construction Services.\n\n🔧 What we offer:\n• Network Infrastructure\n• 5G Solutions\n• Data Center Construction',
     hashtags: ['#FiberOptics', '#Communications', '#BayArea', '#Technology'],
     scheduledFor: new Date(Date.now() + 172800000), // Day after tomorrow
     status: 'draft'
@@ -90,7 +90,7 @@ const contentTemplates: ContentTemplate[] = [
   {
     id: 'safety-first',
     name: 'Safety Focus',
-    template: '🦺 SAFETY FIRST, ALWAYS 🦺\n\nAt Goldmine Communications & Construction, safety isn\'t just a priority - it\'s our foundation.\n\nOur commitment:\n✅ Zero tolerance safety policy\n✅ Regular training & certification',
+    template: '🦺 SAFETY FIRST, ALWAYS 🦺\n\nAt Goldmine Construction Services, safety isn\'t just a priority - it\'s our foundation.\n\nOur commitment:\n✅ Zero tolerance safety policy\n✅ Regular training & certification',
     hashtags: ['#SafetyFirst', '#WorkplaceSafety', '#Construction', '#Team'],
     category: 'safety'
   }
@@ -406,7 +406,7 @@ const SocialMediaDashboard = () => {
               </div>
               <div>
                 <p className="font-medium text-gray-900">Facebook Page</p>
-                <p className="text-sm text-gray-500">Goldmine Communications & Construction</p>
+                <p className="text-sm text-gray-500">Goldmine Construction Services</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
