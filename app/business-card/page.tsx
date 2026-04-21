@@ -3,6 +3,8 @@
 import { useRef } from "react";
 import html2canvas from "html2canvas";
 import { GlobeIcon, MapPin, PhoneIcon } from "lucide-react";
+import Image from "next/image";;
+import JSZip from "jszip";
 
 /**
  * BusinessCardPage
@@ -28,6 +30,41 @@ export default function BusinessCardPage() {
     link.download = `goldmine-business-card-${side}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
+  };
+
+    const exportCard = async (element: HTMLDivElement, filename: string) => {
+    const canvas = await html2canvas(element, {
+      scale: 3,
+      backgroundColor: null,
+    });
+    return new Promise<Blob>((resolve) => {
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+      }, "image/png");
+    });
+  };
+
+  const downloadSingle = async (side: "front" | "back") => {
+    const target = side === "front" ? frontRef.current : backRef.current;
+    if (!target) return;
+
+    const blob = await exportCard(target, side);
+    saveAs(blob, `goldmine-business-card-${side}.png`);
+  };
+
+  const downloadBoth = async () => {
+    if (!frontRef.current || !backRef.current) return;
+
+    const zip = new JSZip();
+
+    const frontBlob = await exportCard(frontRef.current, "front");
+    const backBlob = await exportCard(backRef.current, "back");
+
+    zip.file("goldmine-business-card-front.png", frontBlob);
+    zip.file("goldmine-business-card-back.png", backBlob);
+
+    const zipFile = await zip.generateAsync({ type: "blob" });
+    saveAs(zipFile, "goldmine-business-cards.zip");
   };
 
   return (
@@ -88,6 +125,10 @@ export default function BusinessCardPage() {
             width: 140px !important;
             height: 50px !important;
           }
+          .bc-qr-code {
+            width: 48px !important;
+            height: 48px !important;
+          }
         }
       `}</style>
 
@@ -110,9 +151,10 @@ export default function BusinessCardPage() {
             <img
               src="/images/logo/logo-circular.jpg"
               alt="Goldmine logo"
-              className="bc-front-logo rounded-full object-cover mt-6"
-              style={{ width: '80px', height: '80px', flexShrink: 0 }}
+              className="bc-front-logo object-cover mt-6"
+              style={{ width: '92px', height: '92px', flexShrink: 0 }}
             />
+            
           </div>
 
           {/* Right column — name, title, contact */}
@@ -128,7 +170,7 @@ export default function BusinessCardPage() {
                 Adrian Lopez
               </h2>
               <p className="text-[10px] mt-0.5 text-gray-400">
-                President &amp; Field Operations
+                President
               </p>
             </div>
 
@@ -173,8 +215,9 @@ export default function BusinessCardPage() {
             src="/images/logo/logo-banner.jpg"
             alt="Goldmine Construction Services"
             className="bc-back-banner object-contain"
-            style={{ width: '140px', height: '50px' }}
+            style={{ width: '130px', height: '46px' }}
           />
+          
 
           <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-gold-400">
             Licensed · Bonded · Insured
@@ -184,31 +227,48 @@ export default function BusinessCardPage() {
             CA License #1099543 A, B, C-10
           </p>
 
-          <p className="my-2 text-[9px] text-gray-200 tracking-wide">
+          <p className="my-2 text-[10px] text-gold-400 font-semibold uppercase tracking-wide">
             EV Charging Infrastructure Installation
           </p>
 
           <div className="bc-pill px-3 py-1 rounded-full text-[9px] font-bold tracking-normal">
             www.goldminecomm.net
           </div>
+                    {/* QR code — bottom-right corner, encodes https://www.goldminecomm.net */}
+          <img
+            src="/images/logo/goldmine-qr-code1.png"
+            alt="Scan to visit goldminecomm.net"
+            className="bc-qr-code absolute"
+            style={{ width: '48px', height: '48px', bottom: '10px', right: '10px', background: 'white', borderRadius: '4px', padding: '2px' }}
+          />
 
-          <div className="bc-gold-bar absolute bottom-0 left-0 right-0 h-[3px]" />
+
+
+                    <div className="bc-gold-bar absolute bottom-0 left-0 right-0 h-[3px]" />
         </div>
       </div>
 
-      {/* ── DOWNLOAD BUTTONS ──────────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-[3.5in] sm:max-w-none sm:w-auto">
+     {/* DOWNLOAD BUTTONS */}
+      <div className="flex space-x-4">
         <button
-          onClick={() => handleDownload("front")}
-          className="w-full sm:w-auto px-5 py-3 sm:py-2.5 rounded-xl font-semibold text-sm text-black bg-gold-400 hover:bg-gold-500 active:scale-95 transition-all duration-200 shadow-lg hover:shadow-xl"
+          onClick={() => downloadSingle("front")}
+          className="px-4 py-2 bg-yellow-600 hover:bg-yellow-500 text-black font-semibold rounded-md"
         >
-          ↓ Download Front
+          Download Front (PNG)
         </button>
+
         <button
-          onClick={() => handleDownload("back")}
-          className="w-full sm:w-auto px-5 py-3 sm:py-2.5 rounded-xl font-semibold text-sm text-black bg-gold-400 hover:bg-gold-500 active:scale-95 transition-all duration-200 shadow-lg hover:shadow-xl"
+          onClick={() => downloadSingle("back")}
+          className="px-4 py-2 bg-yellow-600 hover:bg-yellow-500 text-black font-semibold rounded-md"
         >
-          ↓ Download Back
+          Download Back (PNG)
+        </button>
+
+        <button
+          onClick={downloadBoth}
+          className="px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-black font-semibold rounded-md"
+        >
+          Download Both (ZIP)
         </button>
       </div>
 
