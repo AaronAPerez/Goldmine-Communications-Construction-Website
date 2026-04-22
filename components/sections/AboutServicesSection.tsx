@@ -32,56 +32,56 @@ interface CoreValue {
 /**
  * Enhanced core values with more detail
  */
-const coreValues: CoreValue[] = [
-  {
-    id: 'excellence',
-    title: 'Excellence',
-    description: 'Uncompromising quality standards in every project we undertake.',
-    icon: <Award className="w-6 h-6" aria-hidden="true" />,
-    color: 'from-gold-400 to-gold-600',
-    highlights: ['Industry-leading standards', 'Quality assurance protocols', 'Continuous improvement']
-  },
-  {
-    id: 'innovation',
-    title: 'Innovation',
-    description: 'Pioneering solutions that set the pace for the industry.',
-    icon: <Lightbulb className="w-6 h-6" aria-hidden="true" />,
-    color: 'from-blue-500 to-blue-600',
-    highlights: ['Cutting-edge technology', 'Forward-thinking approach', 'R&D investment']
-  },
-  {
-    id: 'integrity',
-    title: 'Integrity',
-    description: 'Honest, transparent practices that build lasting trust.',
-    icon: <Shield className="w-6 h-6" aria-hidden="true" />,
-    color: 'from-green-500 to-green-600',
-    highlights: ['Ethical business practices', 'Transparent communication', 'Reliable partnerships']
-  },
-  {
-    id: 'teamwork',
-    title: 'Teamwork',
-    description: 'Collaborative efforts that amplify our collective strength.',
-    icon: <Users className="w-6 h-6" aria-hidden="true" />,
-    color: 'from-purple-500 to-purple-600',
-    highlights: ['Cross-functional collaboration', 'Shared expertise', 'Unified goals']
-  },
-  {
-    id: 'dedication',
-    title: 'Dedication',
-    description: 'Relentless commitment to customer satisfaction and success.',
-    icon: <Heart className="w-6 h-6" aria-hidden="true" />,
-    color: 'from-red-500 to-red-600',
-    highlights: ['Customer-first approach', '24/7 support', 'Long-term relationships']
-  },
-  {
-    id: 'productivity',
-    title: 'Productivity',
-    description: 'Efficient solutions that maximize value and minimize waste.',
-    icon: <TrendingUp className="w-6 h-6" aria-hidden="true" />,
-    color: 'from-orange-500 to-orange-600',
-    highlights: ['Streamlined processes', 'Cost optimization', 'Time efficiency']
-  }
-];
+// const coreValues: CoreValue[] = [
+//   {
+//     id: 'excellence',
+//     title: 'Excellence',
+//     description: 'Uncompromising quality standards in every project we undertake.',
+//     icon: <Award className="w-6 h-6" aria-hidden="true" />,
+//     color: 'from-gold-400 to-gold-600',
+//     highlights: ['Industry-leading standards', 'Quality assurance protocols', 'Continuous improvement']
+//   },
+//   {
+//     id: 'innovation',
+//     title: 'Innovation',
+//     description: 'Pioneering solutions that set the pace for the industry.',
+//     icon: <Lightbulb className="w-6 h-6" aria-hidden="true" />,
+//     color: 'from-blue-500 to-blue-600',
+//     highlights: ['Cutting-edge technology', 'Forward-thinking approach', 'R&D investment']
+//   },
+//   {
+//     id: 'integrity',
+//     title: 'Integrity',
+//     description: 'Honest, transparent practices that build lasting trust.',
+//     icon: <Shield className="w-6 h-6" aria-hidden="true" />,
+//     color: 'from-green-500 to-green-600',
+//     highlights: ['Ethical business practices', 'Transparent communication', 'Reliable partnerships']
+//   },
+//   {
+//     id: 'teamwork',
+//     title: 'Teamwork',
+//     description: 'Collaborative efforts that amplify our collective strength.',
+//     icon: <Users className="w-6 h-6" aria-hidden="true" />,
+//     color: 'from-purple-500 to-purple-600',
+//     highlights: ['Cross-functional collaboration', 'Shared expertise', 'Unified goals']
+//   },
+//   {
+//     id: 'dedication',
+//     title: 'Dedication',
+//     description: 'Relentless commitment to customer satisfaction and success.',
+//     icon: <Heart className="w-6 h-6" aria-hidden="true" />,
+//     color: 'from-red-500 to-red-600',
+//     highlights: ['Customer-first approach', '24/7 support', 'Long-term relationships']
+//   },
+//   {
+//     id: 'productivity',
+//     title: 'Productivity',
+//     description: 'Efficient solutions that maximize value and minimize waste.',
+//     icon: <TrendingUp className="w-6 h-6" aria-hidden="true" />,
+//     color: 'from-orange-500 to-orange-600',
+//     highlights: ['Streamlined processes', 'Cost optimization', 'Time efficiency']
+//   }
+// ];
 
 
 /**
@@ -431,7 +431,7 @@ export default function AboutServicesSection() {
       </motion.div> */}
 
       {/* Core Values Section */}
-      <motion.div
+      {/* <motion.div
         variants={fadeInUpVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
@@ -457,7 +457,7 @@ export default function AboutServicesSection() {
             />
           ))}
         </div>
-      </motion.div>
+      </motion.div> */}
 
       {/* Mission Statement */}
       <motion.div

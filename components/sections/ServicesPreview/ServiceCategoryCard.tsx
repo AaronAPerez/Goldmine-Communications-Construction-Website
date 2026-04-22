@@ -31,20 +31,25 @@ const ServiceCategoryCard = memo(function ServiceCategoryCard({
       className="group relative bg-white rounded-2xl shadow-xl overflow-hidden
                  hover:shadow-2xl transition-all duration-500 border border-gray-100"
     >
-      {/* Category Image Header */}
-      <div className="relative h-56 overflow-hidden">
-        <Image
-          src={category.image}
-          alt={category.title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      {/* Category Header — image when available, gradient-only when image is null */}
+      <div className="relative h-48 overflow-hidden">
+        {category.image && (
+          <Image
+            src={category.image}
+            alt={category.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        )}
+
+        {/* Gradient overlay — covers the image or acts as the sole background */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-t ${category.color} ${category.image ? 'opacity-70' : 'opacity-100'}`}
         />
-        {/* Gradient overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-t ${category.color} opacity-70`} />
 
         {/* Category title overlay */}
-        <div className="absolute inset-0 flex flex-col justify-end p-6">
+        <div className="absolute inset-0 flex flex-col p-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-white/20 backdrop-blur-sm rounded-lg">
               <IconComponent className="w-6 h-6 text-white" aria-hidden="true" />

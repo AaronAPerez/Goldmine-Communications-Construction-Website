@@ -28,13 +28,7 @@ interface GalleryImage {
 
 const featuredImages: GalleryImage[] = [
   {
-    src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-20.webp',
-    alt: 'EV Charging Station Installation - Antioch',
-    location: 'Antioch, CA',
-    category: 'EV Charging Infrastructure'
-  },
-  {
-    src: '/images/projects/Oregon-AV-Station/AV-station/Oregon-AvStations-hero.jpg',
+    src: '/images/projects/Oregon-AV-Station/Av-Station/AvStation-card.jpg',
     alt: 'AV Charging Station - Oregon',
     location: 'Chemult, OR',
     category: 'EV Charging Infrastructure'
@@ -44,6 +38,12 @@ const featuredImages: GalleryImage[] = [
     alt: 'Telecommunications Tower Installation',
     location: 'Sparks, NV',
     category: 'Telecommunications & Towers'
+  },
+    {
+    src: '/images/projects/antioch-ca-ev-charging/antioch-ca-ev-charging-station-20.webp',
+    alt: 'EV Charging Station Installation - Antioch',
+    location: 'Antioch, CA',
+    category: 'EV Charging Infrastructure'
   },
   {
     src: '/images/projects/Bodega-Bay-CA/bulldozer-trench.jpg',
@@ -269,7 +269,7 @@ const GalleryPreviewSection = () => {
                   onMouseEnter={() => setHoveredIndex(idx)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   role="tab"
-                  aria-selected={idx === currentIndex}
+                  aria-selected={idx === currentIndex ? "true" : "false"}
                   aria-label={`View ${image.alt} - ${image.location}`}
                   className={`relative flex-1 aspect-video rounded-lg overflow-hidden transition-all duration-300
                              focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-gray-900 ${

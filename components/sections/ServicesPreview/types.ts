@@ -12,7 +12,7 @@ export interface ServiceCategory {
   title: string;
   description: string;
   icon: LucideIcon;
-  image: string;
+  image: string | null;
   color: string;
   services: string[];
 }

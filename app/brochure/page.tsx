@@ -221,16 +221,6 @@ export default function BrochurePage() {
             background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.28) 100%);
           }
 
-          /* ── Service card icon banner (used when no photo is available) ─── */
-          .brochure-icon-banner {
-            margin: -1rem -1rem 0.75rem -1rem;
-            height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.75rem 0.75rem 0 0;
-          }
-
           /* ── About section cards ────────────────────────── */
           .brochure-mission-card {
             background-color: rgba(212, 175, 55, 0.08);
@@ -381,7 +371,6 @@ export default function BrochurePage() {
                     <div
                       key={title}
                       className="rounded-xl border border-gray-100 p-4 bg-gray-50"
-                      style={{ borderTop: `3px solid ${color}` }}
                     >
                       {image && (
                         /* Photo strip — services with a project image */
@@ -397,7 +386,7 @@ export default function BrochurePage() {
                         </div>
                       )}
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="p-1.5 rounded-lg" style={{ backgroundColor: `${color}18` }}>
+                        <div className="p-1.5 rounded-lg" >
                           <Icon className="w-4 h-4" style={{ color }} aria-hidden="true" />
                         </div>
                         <h4 className="font-bold text-[#111827] text-sm">{title}</h4>
@@ -407,10 +396,10 @@ export default function BrochurePage() {
                           <li key={item} className="flex items-start gap-1.5 text-sm text-gray-600">
                             <span
                               className="mt-0.5 flex-shrink-0 w-3 h-3 rounded-full flex items-center justify-center"
-                              style={{ backgroundColor: `${color}22` }}
                               aria-hidden="true"
                             >
-                              <span className="block w-1.5 h-1.5 rounded-full" style={{ backgroundColor: color }} />
+                              <span className="block w-1.5 h-1.5 rounded-full" 
+                               />
                             </span>
                             {item}
                           </li>
@@ -610,7 +599,7 @@ export default function BrochurePage() {
                   </h3>
                   <div className="brochure-2col-grid grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                     <div className="space-y-1">
-                      <p className="text-[#D4AF37] text-xs font-bold uppercase tracking-wider">Field Operations</p>
+                      <p className="text-[#D4AF37] text-xs font-bold uppercase tracking-wider">President</p>
                       <p className="text-white font-bold text-sm">Adrian Lopez</p>
                       <a href="tel:+19253055980" className="flex items-center gap-2 text-gray-300 hover:text-[#D4AF37] transition-colors text-xs">
                         <Phone className="w-3 h-3 text-[#D4AF37] flex-shrink-0" aria-hidden="true" />

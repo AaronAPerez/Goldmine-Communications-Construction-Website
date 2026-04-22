@@ -15,7 +15,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: 'Wireless',
     description: 'Installation and maintenance for Verizon, T-Mobile, AT&T, and Dish Networks — RF, 5G, small cells, backhaul, RAN, and civil construction.',
     icon: Building2,
-    image: '/images/projects/Sparks-NV/tower-tree-install.jpg',
+    image: null,
     color: 'from-blue-600 to-blue-800',
     services: [
       'Carrier Installation & Maintenance (Verizon, T-Mobile, AT&T, Dish)',
@@ -37,7 +37,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: 'Network Infrastructure',
     description: 'Data centers, fiber optic splicing, DAS wireless, cabling infrastructure, and outside plant public safety 5G.',
     icon: Home,
-    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation-card.jpg',
+    image: null,
     color: 'from-indigo-600 to-indigo-800',
     services: [
       'Data Centers / CO Rack & Stack',
@@ -54,7 +54,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: 'Charging / IoT / 5G / Audio-Visual',
     description: 'EV charging stations, IoT devices, intrusion detection, video surveillance, CBRS LTE, and full audio/visual system integration.',
     icon: Landmark,
-    image: '/images/projects/Oregon-AV-Station/AV-station/AvStation-parking-2.jpg',
+    image: null,
     color: 'from-amber-600 to-amber-800',
     services: [
       'EV Charging Stations / Clean Energy',
@@ -93,7 +93,7 @@ export const featuredServices: FeaturedService[] = [
     id: 'network-infrastructure',
     title: 'Network Infrastructure',
     description: 'Data centers, fiber optic splicing, DAS wireless, cabling infrastructure, and public safety 5G systems.',
-    image: '/images/projects/Oregon-AV-Station/trench/trench-card.jpg'
+    image: '/images/optimized/webp/communications.webp'
   },
   {
     id: 'civil-construction',

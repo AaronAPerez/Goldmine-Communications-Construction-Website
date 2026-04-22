@@ -55,9 +55,9 @@ const contactMethods = [
   {
     id: 'email',
     icon: <Mail className="w-6 h-6" />,
-    title: 'Email Address',
+    title: 'Email Addresses',
     primary: 'a.lopez@goldminecomm.net',
-    secondary: 'Fast Response Guaranteed',
+    secondary: 'm.nanney@goldminecomm.net',
     description: 'General Inquiries & Support',
     action: {
       label: 'Send Email',
@@ -91,7 +91,7 @@ const keyFeatures = [
   },
   {
     icon: <Award className="w-8 h-8" />,
-    title: '15+ Years Experience',
+    title: '60+ Years Combined Experience',
     description: 'Healthcare & Communications Specialist',
     color: 'text-green-500'
   },
@@ -153,6 +153,13 @@ const ContactCard = ({ method, index }: ContactCardProps) => {
           {method.id === 'phone' ? (
             <a
               href="tel:+15106953177"
+              className="text-gray-600 text-sm hover:text-gold-500 transition-colors block"
+            >
+              {method.secondary}
+            </a>
+          ) : method.id === 'email' ? (
+            <a
+              href="mailto:m.nanney@goldminecomm.net"
               className="text-gray-600 text-sm hover:text-gold-500 transition-colors block"
             >
               {method.secondary}
