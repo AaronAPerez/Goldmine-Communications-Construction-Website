@@ -1,0 +1,113 @@
+/**
+ * Business card page styles.
+ * Extracted from inline styles to satisfy no-inline-styles lint rule.
+ * These styles must live here (not in globals.css) to co-locate them with the
+ * component and keep the bundle clean.
+ */
+
+/* ── Gold gradient accent bar (top / bottom strip on each card side) ────── */
+.goldBar {
+  background: linear-gradient(to right, #d4af37, #f5d78a, #d4af37);
+}
+
+/* ── Website URL pill on the back card ──────────────────────────────────── */
+.pill {
+  background-color: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #d4af37;
+}
+
+/*
+ * Front card logo — explicit dimensions so html2canvas captures it at the
+ * correct size rather than the image's natural/source resolution.
+ */
+.frontLogo {
+  display: block;
+  width: 104px;
+  height: 104px;
+  object-fit: cover;
+}
+
+/*
+ * Back card banner — same reason: fixes html2canvas rendering the Next.js
+ * Image at its full source dimensions instead of the intended CSS size.
+ */
+.backBanner {
+  display: block;
+  width: 120px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/*
+ * URL row — pill + QR code as a horizontally centered pair.
+ * Using margin: auto instead of relying on the parent flex column's
+ * items-center, which html2canvas doesn't always resolve correctly.
+ */
+.urlRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── QR code — inline next to website URL pill ──────────────────────────── */
+.qrCode {
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 4px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+/*
+ * Screens narrower than 368 px: scale the wrapper to 0.9 so the
+ * 336 px (3.5 in) card doesn't overflow a 328 px content area.
+ * Negative margin removes the phantom space that CSS transform leaves.
+ *   2in = 192px → at scale(0.9) visual height = 172.8px
+ *   excess per side = (192 − 172.8) / 2 ≈ 10px
+ */
+@media (max-width: 367px) {
+  .cardWrap {
+    transform: scale(0.9);
+    transform-origin: center;
+    margin-top: -10px;
+    margin-bottom: -10px;
+  }
+}
+
+/*
+ * Print: force backgrounds and lock all image dimensions.
+ * Browsers strip backgrounds by default and may reflow Next.js Image
+ * because it relies on intrinsic sizing that print media can ignore.
+ */
+@media print {
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  :global(*) {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cardWrap {
+    transform: none !important;
+    margin: 0 !important;
+  }
+
+  .frontLogo {
+    width: 104px !important;
+    height: 104px !important;
+  }
+
+  .backBanner {
+    width: 130px !important;
+    height: 46px !important;
+  }
+
+  .qrCode {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

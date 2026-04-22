@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import GalleryPage from '@/components/pages/GalleryPage';
+import GalleryPage from '@/components/pages/gallary/GalleryPage';
 import JsonLd, { companyInfo } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
