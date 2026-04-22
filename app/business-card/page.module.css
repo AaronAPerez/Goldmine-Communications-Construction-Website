@@ -34,9 +34,9 @@
  */
 .backBanner {
   display: block;
-  width: 120px;
-  height: 50px;
-  object-fit: contain;
+  width: 130px;
+  height: 60px;
+  object-fit: cover;
 }
 
 /*

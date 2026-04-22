@@ -111,7 +111,7 @@ export default function BusinessCardPage() {
           <div className={`${styles.goldBar} absolute top-0 left-0 right-0 h-[3px]`} />
 
           {/* Left column — logo with gold-tinted panel */}
-          <div className="flex-shrink-0 w-[1.10in] h-full flex flex-col items-center justify-center overflow-hidden border-r border-gold-400/25 bg-gold-400/[0.04]">
+          <div className="flex-shrink-0 w-[1.10in] h-full flex flex-col items-center py-4 overflow-hidden border-r border-gold-400/25 bg-gold-400/[0.04]">
             {/* plain <img> so html2canvas captures at CSS-constrained size */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -133,7 +133,7 @@ export default function BusinessCardPage() {
               <h2 className="text-white font-bold text-[16px] leading-tight">
                 Adrian Lopez
               </h2>
-              <p className="text-[10px] mt-0.5 text-gray-400">
+              <p className="text-[11px] mt-0.5 text-gray-400">
                 President
               </p>
             </div>
@@ -172,7 +172,7 @@ export default function BusinessCardPage() {
       <div className={styles.cardWrap}>
         <div
           ref={backRef}
-          className="relative w-[3.5in] h-[2in] overflow-hidden shadow-2xl flex flex-col items-center justify-center bg-[#121212]"
+          className="relative w-[3.5in] h-[2in] overflow-hidden shadow-2xl flex flex-col items-center py-4 pb-4 bg-[#121212]"
         >
           <div className={`${styles.goldBar} absolute top-0 left-0 right-0 h-[3px]`} />
 
@@ -193,30 +193,37 @@ export default function BusinessCardPage() {
             CA License #1099543 A, B, C-10
           </p>
 
-          <p className="my-2 text-[10px] text-gold-400 font-semibold uppercase tracking-wide">
+          <p className="my-2 text-[11px] text-gold-100 font-semibold uppercase tracking-wide">
             EV Charging Infrastructure Installation
           </p>
 
           {/* Website URL pill + QR code side by side — centered via margin:auto */}
-          <div className={styles.urlRow}>
-         <div className="flex items-center gap-1.5">
-                <span className="text-[12px] text-white leading-none">⊕</span>
+          {/* <div className={styles.urlRow}> */}
+         <div className="flex justify-center items-center gap-1.5">
+
+
+
+                  <span className="text-[12px] text-white leading-none">⊕</span>
+                  
                 <span className="text-[12px] font-semibold text-gold-400">www.goldminecomm.net</span>
-              </div>
-            {/* QR code to the right of the URL pill */}
+                            {/* QR code to the right of the URL pill */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/logo/goldmine-qr-code1.png"
               alt="Scan to visit goldminecomm.net"
               className={styles.qrCode}
             />
+           
+
           </div>
+                     <div className={`${styles.goldBar} absolute bottom-0 left-0 right-0 h-[3px]`} />
+             </div>
 
 
 
-                    <div className={`${styles.goldBar} absolute bottom-0 left-0 right-0 h-[3px]`} />
+         
         </div>
-      </div>
+      {/* </div> */}
 
      {/* DOWNLOAD BUTTONS */}
       <div className="flex space-x-4">
