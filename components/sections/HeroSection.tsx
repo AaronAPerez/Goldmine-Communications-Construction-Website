@@ -271,10 +271,10 @@ const HeroSection = () => {
               {/* Mobile Company Name */}
               <div className="text-center max-w-full">
                 <h2 className="text-4xl sm:text-5xl font-bold text-gold-400 mb-1 text-shadow-lg break-words">
-                  Goldmine Construction
+                  Goldmine Communications
                 </h2>
                 <div className="text-3xl sm:text-4xl text-gray-100 text-shadow-md">
-                  Services
+                 and Construction
                 </div>
               </div>
             </div>
