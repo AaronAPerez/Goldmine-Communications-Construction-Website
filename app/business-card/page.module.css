@@ -12,8 +12,8 @@
 
 /* ── Website URL pill on the back card ──────────────────────────────────── */
 .pill {
-  background-color: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+
+  /* border: 1px solid rgba(212, 175, 55, 0.35); */
   color: #d4af37;
 }
 
@@ -23,8 +23,8 @@
  */
 .frontLogo {
   display: block;
-  width: 104px;
-  height: 104px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
 }
 
@@ -34,8 +34,8 @@
  */
 .backBanner {
   display: block;
-  width: 130px;
-  height: 60px;
+  width: 120px;
+  height: 50px;
   object-fit: cover;
 }
 
@@ -46,10 +46,28 @@
  */
 .urlRow {
   display: flex;
-  align-items: center;
   gap: 8px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/*
+ * Contact row icon spans — force text-presentation rendering.
+ * \uFE0E variation selector in JSX content prevents ☎ / ✉ from being
+ * treated as colored emoji glyphs in html2canvas, which would render them
+ * at a much larger size and in the wrong color.
+ * font-variant-emoji: text is a belt-and-suspenders guarantee for browsers.
+ */
+.contactIcon {
+  display: inline-block;
+  width: 12px;
+  font-size: 10px;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  font-variant-emoji: text;
+  color: #d4af37;
+  flex-shrink: 0;
 }
 
 /* ── QR code — inline next to website URL pill ──────────────────────────── */
