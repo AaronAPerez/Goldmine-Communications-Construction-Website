@@ -23,8 +23,8 @@
  */
 .frontLogo {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 104px;
+  height: 104px;
   object-fit: cover;
 }
 
@@ -34,8 +34,8 @@
  */
 .backBanner {
   display: block;
-  width: 120px;
-  height: 50px;
+  width: 116px;
+  height: 46px;
   object-fit: cover;
 }
 
