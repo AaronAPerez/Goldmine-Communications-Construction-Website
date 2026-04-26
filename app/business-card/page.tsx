@@ -93,7 +93,7 @@ export default function BusinessCardPage() {
           <div className={`${styles.goldBar} absolute top-0 left-0 right-0 h-[3px]`} />
 
           {/* Left column — circular logo */}
-          <div className="flex-shrink-0 w-[1.10in] h-full flex flex-col items-center py-4 overflow-hidden border-r border-gold-400/25 bg-gold-400/[0.04]">
+          <div className="flex-shrink-0 w-[1.10in] h-full flex flex-col items-center py-6 overflow-hidden border-r border-gold-400/25 bg-gold-400/[0.04]">
             {/* plain <img> — html2canvas renders at CSS size, not source resolution */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -111,7 +111,7 @@ export default function BusinessCardPage() {
               <p className="text-[8px] font-bold uppercase tracking-wider text-gold-400">
                 Goldmine Communications &amp; Construction
               </p>
-              <div className="mt-1.5 mb-1 h-px w-16 bg-gold-400/40" />
+              <div className="my-1 h-px w-16 bg-gold-400/40" />
               <h2 className="text-white font-bold text-[18px] leading-tight">
                 Adrian Lopez
               </h2>
@@ -124,7 +124,7 @@ export default function BusinessCardPage() {
                 styles.contactIcon — fixed 12px width, font-variant-emoji:text, gold color
                 \uFE0E — text-presentation selector, prevents colored emoji glyph in
                          both the browser and html2canvas PNG export */}
-            <div className="space-y-[3px]">
+            <div className="space-y-[3px] py-1">
               <div className="flex items-center gap-1.5">
                 <span className={styles.contactIcon}>{"☎\uFE0E"}</span>
                 <span className="text-[10px] text-gray-300">(925) 305-5980</span>
@@ -139,7 +139,7 @@ export default function BusinessCardPage() {
               </div>
               <div className="flex items-center gap-1.5">
                 <span className={styles.contactIcon}>{"◎\uFE0E"}</span>
-                <span className="text-[9px] text-gray-300">
+                <span className="text-[10px] text-gray-300">
                   1161 Brick &amp; Tile Cir, Stockton, CA 95206
                 </span>
               </div>
@@ -166,11 +166,11 @@ export default function BusinessCardPage() {
             className={styles.backBanner}
           />
 
-          <p className="mt-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-gold-400">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-gold-400">
             Licensed · Bonded · Insured
           </p>
 
-          <p className="text-[8px] text-gray-400 tracking-wide">
+          <p className="text-[8px] text-gray-400 tracking-wide mb-1">
             CA License #1099543 A, B, C-10
           </p>
 
@@ -187,7 +187,7 @@ export default function BusinessCardPage() {
           <p className="text-[6.5px] text-gray-400 uppercase tracking-wider leading-snug text-center">
             Electrical · Tech Services · PM &amp; CM Management
           </p>
-          <p className="text-[6.5px] text-gray-400 uppercase tracking-wider leading-snug text-center">
+          <p className="text-[6.5px] text-gray-400 uppercase tracking-wider leading-snug text-center mb-1">
             EV Charging Infrastructure Installation
           </p>
 
@@ -197,7 +197,7 @@ export default function BusinessCardPage() {
           {/* Website URL pill + QR code — centered as a unit via margin:auto
               ⊕\uFE0E renders as a small gold text glyph in both browser & html2canvas */}
           <div className={styles.urlRow}>
-            <div className={`${styles.pill} flex items-center gap-1 px-3 py-1 rounded-full`}>
+            <div className={`${styles.pill} flex items-center gap-1 px-3 rounded-full`}>
               <span className={styles.contactIcon}>{"⊕\uFE0E"}</span>
               <span className="text-[11px] font-bold tracking-normal">www.goldminecomm.net</span>
             </div>
