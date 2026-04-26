@@ -28,7 +28,7 @@ interface GalleryImage {
 
 const featuredImages: GalleryImage[] = [
   {
-    src: '/images/projects/Oregon-AV-Station/Av-Station/AvStation-card.jpg',
+    src: '/images/projects/Oregon-AV-Station/AV-Station.jpg',
     alt: 'AV Charging Station - Oregon',
     location: 'Chemult, OR',
     category: 'EV Charging Infrastructure'
