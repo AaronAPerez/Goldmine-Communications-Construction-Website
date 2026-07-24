@@ -113,10 +113,10 @@ export default function BusinessCardPage() {
               </p>
               <div className="my-1 h-px w-16 bg-gold-400/40" />
               <h2 className="text-white font-bold text-[18px] leading-tight">
-                Adrian Lopez
+                Alberto Lopez
               </h2>
               <p className="text-[11px] mt-0.5 text-gray-400">
-                President
+                Telecom Operations Manager
               </p>
             </div>
 
@@ -127,11 +127,11 @@ export default function BusinessCardPage() {
             <div className="space-y-[3px] py-1">
               <div className="flex items-center gap-1.5">
                 <span className={styles.contactIcon}>{"☎\uFE0E"}</span>
-                <span className="text-[10px] text-gray-300">(925) 305-5980</span>
+                <span className="text-[10px] text-gray-300">(925) 413-0069</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className={styles.contactIcon}>{"✉\uFE0E"}</span>
-                <span className="text-[10px] text-gray-300">a.lopez@goldminecomm.net</span>
+                <span className="text-[10px] text-gray-300">alberto@goldminecomm.net</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className={styles.contactIcon}>{"⊕\uFE0E"}</span>
@@ -140,7 +140,7 @@ export default function BusinessCardPage() {
               <div className="flex items-center gap-1.5">
                 <span className={styles.contactIcon}>{"◎\uFE0E"}</span>
                 <span className="text-[10px] text-gray-300">
-                  1161 Brick &amp; Tile Cir, Stockton, CA 95206
+                  {/* 1161 Brick &amp; Tile Cir, Stockton, CA 95206 */}
                 </span>
               </div>
             </div>
