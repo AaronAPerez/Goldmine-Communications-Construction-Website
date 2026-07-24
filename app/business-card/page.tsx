@@ -138,7 +138,7 @@ export default function BusinessCardPage() {
                 <span className="text-[10px] font-semibold text-gold-400">www.goldminecomm.net</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className={styles.contactIcon}>{"◎\uFE0E"}</span>
+                <span className={styles.contactIcon}>{"⚲\uFE0E"}</span>
                 <span className="text-[10px] text-gray-300">
                    1161 Brick &amp; Tile Cir, Stockton, CA 95206 
                 </span>
@@ -197,7 +197,7 @@ export default function BusinessCardPage() {
           {/* Website URL pill + QR code — centered as a unit via margin:auto
               ⊕\uFE0E renders as a small gold text glyph in both browser & html2canvas */}
           <div className={styles.urlRow}>
-            <div className={`${styles.pill} flex items-center gap-1 px-3 rounded-full`}>
+            <div className={`${styles.pill} flex items-center gap-1 px-3 pb-2 rounded-full`}>
               <span className={styles.contactIcon}>{"⊕\uFE0E"}</span>
               <span className="text-[11px] font-bold tracking-normal">www.goldminecomm.net</span>
             </div>
