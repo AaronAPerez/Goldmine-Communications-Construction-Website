@@ -140,7 +140,7 @@ export default function BusinessCardPage() {
               <div className="flex items-center gap-1.5">
                 <span className={styles.contactIcon}>{"◎\uFE0E"}</span>
                 <span className="text-[10px] text-gray-300">
-                  {/* 1161 Brick &amp; Tile Cir, Stockton, CA 95206 */}
+                   1161 Brick &amp; Tile Cir, Stockton, CA 95206 
                 </span>
               </div>
             </div>
