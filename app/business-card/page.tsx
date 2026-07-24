@@ -137,12 +137,12 @@ export default function BusinessCardPage() {
                 <span className={styles.contactIcon}>{"⊕\uFE0E"}</span>
                 <span className="text-[10px] font-semibold text-gold-400">www.goldminecomm.net</span>
               </div>
-              <div className="flex items-center gap-1.5">
+              {/* <div className="flex items-center gap-1.5">
                 <span className={styles.contactIcon}>{"⚲\uFE0E"}</span>
                 <span className="text-[10px] text-gray-300">
                    1161 Brick &amp; Tile Cir, Stockton, CA 95206 
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
 
